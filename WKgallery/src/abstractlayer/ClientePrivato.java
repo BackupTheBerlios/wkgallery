@@ -15,9 +15,9 @@ package abstractlayer;
  */
 public class ClientePrivato extends Cliente{
     
-    String cognome;
-    String nome;
-    String cf;
+    private String cognome;
+    private String nome;
+    private String cf;
 
     /**
      * Crea una nuova istanza di ClientePrivato inizializzandola con i parametri passati.
@@ -43,5 +43,128 @@ public class ClientePrivato extends Cliente{
         this.nome = nome;
         this.cf = cf;
     }
+
+    public String getCf() {
+        return cf;
+    }
+
+    public void setCf(String cf) {
+        this.cf = cf;
+    }
+
+    public String getCognome() {
+        return cognome;
+    }
+
+    public void setCognome(String cognome) {
+        this.cognome = cognome;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getCell1() {
+        return cell1;
+    }
+
+    public void setCell1(String cell1) {
+        this.cell1 = cell1;
+    }
+
+    public String getCell2() {
+        return cell2;
+    }
+
+    public void setCell2(String cell2) {
+        this.cell2 = cell2;
+    }
+
+    public int getCodiceCliente() {
+        return codiceCliente;
+    }
+
+    public void setCodiceCliente(int codiceCliente) {
+        this.codiceCliente = codiceCliente;
+    }
+
+    public String getIndirizzo() {
+        return indirizzo;
+    }
+
+    public void setIndirizzo(String indirizzo) {
+        this.indirizzo = indirizzo;
+    }
+
+    public String getMail1() {
+        return mail1;
+    }
+
+    public void setMail1(String mail1) {
+        this.mail1 = mail1;
+    }
+
+    public String getMail2() {
+        return mail2;
+    }
+
+    public void setMail2(String mail2) {
+        this.mail2 = mail2;
+    }
+
+    public int getNCiv() {
+        return nCiv;
+    }
+
+    public void setNCiv(int nCiv) {
+        this.nCiv = nCiv;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public String getRegione() {
+        return regione;
+    }
+
+    public void setRegione(String regione) {
+        this.regione = regione;
+    }
+
+    public String getStato() {
+        return stato;
+    }
+
+    public void setStato(String stato) {
+        this.stato = stato;
+    }
+
+    public String getTel1() {
+        return tel1;
+    }
+
+    public void setTel1(String tel1) {
+        this.tel1 = tel1;
+    }
+
+    public String getTel2() {
+        return tel2;
+    }
+
+    public void setTel2(String tel2) {
+        this.tel2 = tel2;
+    }
+    
+    
+    
     
 }

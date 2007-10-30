@@ -13,20 +13,20 @@ package abstractlayer;
  * Rapprensenta il cliente della galleria.
  * @author Marco Celesti
  */
-public class Cliente {
+public abstract class Cliente {
     // member variables
-    int codiceCliente;
-    String indirizzo;
-    int nCiv;
-    String regione;
-    String stato;
-    String tel1;
-    String tel2;
-    String cell1;
-    String cell2;
-    String mail1;
-    String mail2;
-    String note;
+    protected int codiceCliente;
+    protected String indirizzo;
+    protected int nCiv;
+    protected String regione;
+    protected String stato;
+    protected String tel1;
+    protected String tel2;
+    protected String cell1;
+    protected String cell2;
+    protected String mail1;
+    protected String mail2;
+    protected String note;
 
     /** 
      * Crea una nuova istanza di Cliente inizializzandola con i parametri passati.

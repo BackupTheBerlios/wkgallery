@@ -17,11 +17,11 @@ import java.util.List;
  */
 public class Fattura{
     
-    int numeroFattura;
-    int annoFattura;
-    int numero_anno;
-    Cliente cliente;
-    List<Opera> listaOpere;
+    private int numeroFattura;
+    private int annoFattura;
+    private int numero_anno;
+    private Cliente cliente;
+    private List<Opera> listaOpere;
 
     /**
      * 
@@ -38,6 +38,48 @@ public class Fattura{
         String numeroanno = "" + numeroFattura + annoFattura;
         numero_anno = Integer.parseInt(numeroanno);
     }
+
+    public int getAnnoFattura() {
+        return annoFattura;
+    }
+
+    public void setAnnoFattura(int annoFattura) {
+        this.annoFattura = annoFattura;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public List<Opera> getListaOpere() {
+        return listaOpere;
+    }
+
+    public void setListaOpere(List<Opera> listaOpere) {
+        this.listaOpere = listaOpere;
+    }
+
+    public int getNumeroFattura() {
+        return numeroFattura;
+    }
+
+    public void setNumeroFattura(int numeroFattura) {
+        this.numeroFattura = numeroFattura;
+    }
+
+    public int getNumero_anno() {
+        return numero_anno;
+    }
+
+    public void setNumero_anno(int numero_anno) {
+        this.numero_anno = numero_anno;
+    }
+    
+    
     
     
 

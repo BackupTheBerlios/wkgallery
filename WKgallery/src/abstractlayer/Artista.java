@@ -34,7 +34,10 @@ public class Artista {
         this.nome = nome;
         this.noteBiografiche = noteBio;
     }
-
+    
+    /**
+     * Crea una nuova istanza di Artista non inizializzata.
+     */
     public Artista() {
         this.codiceArtista = -1;
         this.cognome = "";

@@ -14,8 +14,8 @@ package abstractlayer;
  */
 public class ClienteProfessionista extends Cliente {
 
-    String ragioneSociale;
-    String pIva;
+    private String ragioneSociale;
+    private String pIva;
 
     /** 
      * Crea una nuova istanza di ClienteProfessionista inizializzandola con i parametri passati.
@@ -39,4 +39,118 @@ public class ClienteProfessionista extends Cliente {
         this.ragioneSociale = ragioneSociale;
         this.pIva = pIva;
     }
+
+    public String getPIva() {
+        return pIva;
+    }
+
+    public void setPIva(String pIva) {
+        this.pIva = pIva;
+    }
+
+    public String getRagioneSociale() {
+        return ragioneSociale;
+    }
+
+    public void setRagioneSociale(String ragioneSociale) {
+        this.ragioneSociale = ragioneSociale;
+    }
+
+    public String getCell1() {
+        return cell1;
+    }
+
+    public void setCell1(String cell1) {
+        this.cell1 = cell1;
+    }
+
+    public String getCell2() {
+        return cell2;
+    }
+
+    public void setCell2(String cell2) {
+        this.cell2 = cell2;
+    }
+
+    public int getCodiceCliente() {
+        return codiceCliente;
+    }
+
+    public void setCodiceCliente(int codiceCliente) {
+        this.codiceCliente = codiceCliente;
+    }
+
+    public String getIndirizzo() {
+        return indirizzo;
+    }
+
+    public void setIndirizzo(String indirizzo) {
+        this.indirizzo = indirizzo;
+    }
+
+    public String getMail1() {
+        return mail1;
+    }
+
+    public void setMail1(String mail1) {
+        this.mail1 = mail1;
+    }
+
+    public String getMail2() {
+        return mail2;
+    }
+
+    public void setMail2(String mail2) {
+        this.mail2 = mail2;
+    }
+
+    public int getNCiv() {
+        return nCiv;
+    }
+
+    public void setNCiv(int nCiv) {
+        this.nCiv = nCiv;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public String getRegione() {
+        return regione;
+    }
+
+    public void setRegione(String regione) {
+        this.regione = regione;
+    }
+
+    public String getStato() {
+        return stato;
+    }
+
+    public void setStato(String stato) {
+        this.stato = stato;
+    }
+
+    public String getTel1() {
+        return tel1;
+    }
+
+    public void setTel1(String tel1) {
+        this.tel1 = tel1;
+    }
+
+    public String getTel2() {
+        return tel2;
+    }
+
+    public void setTel2(String tel2) {
+        this.tel2 = tel2;
+    }
+    
+    
 }
