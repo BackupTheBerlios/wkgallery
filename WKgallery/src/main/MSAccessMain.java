@@ -22,8 +22,9 @@ import msaccessimpl.MSAccessOperaDAO;
  * @author Marco Celesti
  */
 public class MSAccessMain {
+
     Connection connection;
-    
+
     /** Creates a new instance of TempMain */
     public MSAccessMain() {
         // create the required DAO Factory
@@ -38,17 +39,18 @@ public class MSAccessMain {
 
         //SartistaDAO.class;
 // create a new Artista
+
         Artista a = new Artista();
-        a.setCodiceArtista(1);
-        a.setCognome("Brignoli");
-        a.setNome("Elisabetta");
-        a.setNoteBiografiche("Vive a Gorle.");
+        a.setCodiceArtista(3);
+        a.setCognome("pINCO");
+        a.setNome("Pallo");
+        a.setNoteBiografiche("Non Figo.");
 
         artistaDAO.insertArtista(a);
 
         // Find a Artista object. Get the Transfer Object.
         Artista b = artistaDAO.findArtista(1);
-
+        System.out.println("cognome: " + b.getCognome());
     // delete a Artista object
         //artistaDAO.deleteArtista();
 
@@ -63,6 +65,6 @@ public class MSAccessMain {
 
     public static void main(String[] args) {
         MSAccessMain main = new MSAccessMain();
-        
+
     }
 }

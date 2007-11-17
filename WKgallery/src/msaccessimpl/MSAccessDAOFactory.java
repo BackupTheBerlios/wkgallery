@@ -39,7 +39,7 @@ public class MSAccessDAOFactory extends DAOFactory {
             filename = filename.replace('\\', '/').trim();
 
             String database = "jdbc:odbc:Driver={Microsoft Access Driver (*.mdb)};DBQ=";
-            database += filename.trim() + ";DriverID=22;READONLY=true}"; // add on to the end
+            database += filename.trim();// + ";DriverID=22;READONLY=false}"; // add on to the end
             // now we can get the connection from the DriverManager
             connection = DriverManager.getConnection(database, "", "");
             System.out.println("conn: " + connection);
