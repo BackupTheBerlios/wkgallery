@@ -37,23 +37,12 @@ public class MSAccessMain {
         MSAccessFatturaDAO fatturaDAO = (MSAccessFatturaDAO) msaccessFactory.getFatturaDAO();
         MSAccessOperaDAO operaDAO = (MSAccessOperaDAO) msaccessFactory.getOperaDAO();
 
-        //SartistaDAO.class;
-// create a new Artista
 
-        Artista a = new Artista();
-        a.setCodiceArtista(3);
-        a.setCognome("pINCO");
-        a.setNome("Pallo");
-        a.setNoteBiografiche("Non Figo.");
-
-        artistaDAO.insertArtista(a);
-
-        // Find a Artista object. Get the Transfer Object.
         Artista b = artistaDAO.findArtista(1);
         System.out.println("cognome: " + b.getCognome());
-    // delete a Artista object
-        //artistaDAO.deleteArtista();
 
+        boolean ok = artistaDAO.deleteArtista(3);
+        System.out.println("ok? " + ok);
     // select all Artistas in the same city
         //Artista criteria = new Artista();
         //criteria.setCity("New York");

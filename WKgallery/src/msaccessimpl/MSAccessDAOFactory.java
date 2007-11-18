@@ -8,6 +8,8 @@ import daorules.DAOFactory;
  *
  * Utilizza il pattern Singleton
  */
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -50,7 +52,17 @@ public class MSAccessDAOFactory extends DAOFactory {
 
         return connection;
     }
-
+    
+    public boolean closeConnection() {
+        try {
+            connection.close();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(MSAccessDAOFactory.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
     public MSAccessArtistaDAO getArtistaDAO() {
         return new MSAccessArtistaDAO(connection);
     }
@@ -66,4 +78,6 @@ public class MSAccessDAOFactory extends DAOFactory {
     public MSAccessFatturaDAO getFatturaDAO() {
         return new MSAccessFatturaDAO(connection);
     }
+    
+    
 }

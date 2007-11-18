@@ -14,7 +14,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,9 +26,8 @@ import javax.sql.RowSet;
 public class MSAccessArtistaDAO implements ArtistaDAO {
 
     private Connection connection;
-    private final String insertinto = "INSERT INTO Artista (CodiceArtista, Cognome, Nome, Note_biografinche) ";
 
-    /** Creates a new instance of MSAccessArtistaDAO
+    /** Crea una nuova instanza di MSAccessArtistaDAO
      * @param connection Oggetto Connection per l'esecuzione di query
      */
     public MSAccessArtistaDAO(Connection connection) {
@@ -38,37 +36,53 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
 
     public int insertArtista(Artista artista) {
         try {
-            System.out.println("Inserting...");
-
             int codArt = artista.getCodiceArtista();
             String cognome = artista.getCognome();
             String nome = artista.getNome();
             String noteBio = artista.getNoteBiografiche();
+
             PreparedStatement pstmt = connection.prepareStatement("INSERT INTO Artista (CodiceArtista, Cognome, Nome, NoteBiografiche) values (?,?,?,?)");
             pstmt.setInt(1, codArt);
             pstmt.setString(2, cognome);
             pstmt.setString(3, nome);
             pstmt.setString(4, noteBio);
             pstmt.executeUpdate();
-            //System.out.println("Inserted... ok? " + ok);
+
+            makePersistent();
 
             return 0;
-        //throw new UnsupportedOperationException("Not supported yet.");
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return 1;
-    //throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public boolean deleteArtista(int codiceArtista) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        try {
+            PreparedStatement pstmt = connection.prepareStatement("DELETE FROM Artista WHERE CodiceArtista = ?");
+            pstmt.setInt(1, codiceArtista);
+            int count = pstmt.executeUpdate();
+            System.out.println("count: " + count);
+            if (count > 0) {
+                makePersistent();
+            }
+
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
+    /**
+     * 
+     * @param codiceArtista
+     * @return l'istanza di <code>Artista</code> trovata oppure una non inizializzata.
+     */
     public Artista findArtista(int codiceArtista) {
         Artista artista = new Artista();
         try {
-            PreparedStatement pstmt = connection.prepareStatement("SELECT * from Artista WHERE CodiceArtista = ?");
+            PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM Artista WHERE CodiceArtista = ?");
             pstmt.setInt(1, codiceArtista);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
@@ -93,5 +107,17 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
 
     public Collection selectArtistaTO(Artista criteria) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    /**
+     * Metodo "dummy" per rendere persistente l'update alla tabella. Bug di MS Access.
+     */
+    public void makePersistent() {
+        try {
+            PreparedStatement pstmt = connection.prepareStatement("SELECT CodiceArtsta FROM Artista");
+            pstmt.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(MSAccessDAOFactory.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
