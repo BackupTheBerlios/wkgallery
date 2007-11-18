@@ -6,7 +6,7 @@
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
  */
-package main;
+package temporarymain;
 
 import abstractlayer.Artista;
 import daorules.*;
@@ -41,8 +41,12 @@ public class MSAccessMain {
         Artista b = artistaDAO.findArtista(1);
         System.out.println("cognome: " + b.getCognome());
 
-        boolean ok = artistaDAO.deleteArtista(3);
+        boolean ok = artistaDAO.deleteArtista(4);
         System.out.println("ok? " + ok);
+        
+        Artista a = new Artista(2,"Celesti","Marco","Molto figo");
+        artistaDAO.updateArtista(a);
+        
     // select all Artistas in the same city
         //Artista criteria = new Artista();
         //criteria.setCity("New York");

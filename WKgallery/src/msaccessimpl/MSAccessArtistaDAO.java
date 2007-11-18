@@ -27,14 +27,20 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
 
     private Connection connection;
 
-    /** Crea una nuova instanza di MSAccessArtistaDAO
+    /** Crea una nuova istanza di MSAccessArtistaDAO
      * @param connection Oggetto Connection per l'esecuzione di query
      */
     public MSAccessArtistaDAO(Connection connection) {
         this.connection = connection;
     }
 
-    public int insertArtista(Artista artista) {
+    /**
+     * Metodo per inserire l'artista passato come parametro
+     * @param artista Il nuovo record
+     @return true se la cancellazione è avvenuta con successo
+     *         false altrimenti
+     */
+    public boolean insertArtista(Artista artista) {
         try {
             int codArt = artista.getCodiceArtista();
             String cognome = artista.getCognome();
@@ -47,25 +53,8 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
             pstmt.setString(3, nome);
             pstmt.setString(4, noteBio);
             pstmt.executeUpdate();
-
+            pstmt.close();
             makePersistent();
-
-            return 0;
-        } catch (SQLException ex) {
-            Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return 1;
-    }
-
-    public boolean deleteArtista(int codiceArtista) {
-        try {
-            PreparedStatement pstmt = connection.prepareStatement("DELETE FROM Artista WHERE CodiceArtista = ?");
-            pstmt.setInt(1, codiceArtista);
-            int count = pstmt.executeUpdate();
-            System.out.println("count: " + count);
-            if (count > 0) {
-                makePersistent();
-            }
 
             return true;
         } catch (SQLException ex) {
@@ -75,7 +64,30 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
     }
 
     /**
-     * 
+     * Metodo per cancellare un artista in base al CodiceArtista
+     * @param codiceArtista
+     * @return true se la cancellazione è avvenuta con successo
+     *         false altrimenti
+     */
+    public boolean deleteArtista(int codiceArtista) {
+        try {
+            PreparedStatement pstmt = connection.prepareStatement("DELETE FROM Artista WHERE CodiceArtista = ?");
+            pstmt.setInt(1, codiceArtista);
+            int count = pstmt.executeUpdate();
+            pstmt.close();
+            // count contiene 1 se la cancellazione è avvenuta con successo
+            if (count > 0) {
+                makePersistent();
+            }
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    /**
+     * Metodo per trovare un record in base al CodiceArtista
      * @param codiceArtista
      * @return l'istanza di <code>Artista</code> trovata oppure una non inizializzata.
      */
@@ -91,14 +103,28 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
                 artista.setNome(rs.getString("Nome"));
                 artista.setNoteBiografiche(rs.getString("NoteBiografiche"));
             }
+            pstmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return artista;
     }
 
+    /**
+     * Metodo per l'update di un record
+     * @param artista L'istanza aggiornata
+     * @return true se l'aggiornamento è avvenuto con successo
+     *         false altrimenti
+     */
     public boolean updateArtista(Artista artista) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        int codArt = artista.getCodiceArtista();
+        boolean found = deleteArtista(codArt);
+        if (found) {
+            insertArtista(artista);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public RowSet selectArtistaRS(Artista criteria) {
@@ -114,8 +140,9 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
      */
     public void makePersistent() {
         try {
-            PreparedStatement pstmt = connection.prepareStatement("SELECT CodiceArtsta FROM Artista");
+            PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM Artista");
             pstmt.executeQuery();
+            pstmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessDAOFactory.class.getName()).log(Level.SEVERE, null, ex);
         }

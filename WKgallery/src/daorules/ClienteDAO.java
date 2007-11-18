@@ -1,5 +1,3 @@
-// Interfaccia obsoleta
-
 /*
  * ClienteDAO.java
  *

@@ -1,5 +1,3 @@
-// Interfaccia obsoleta
-
 /*
  * ArtistaDAO.java
  *
@@ -20,7 +18,7 @@ import javax.sql.RowSet;
  * @author Marco Celesti
  */
 public interface ArtistaDAO {
-    public int insertArtista(Artista artista);
+    public boolean insertArtista(Artista artista);
     public boolean deleteArtista(int codiceArtista);
     public Artista findArtista(int codiceArtista);
     public boolean updateArtista(Artista artista);
