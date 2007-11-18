@@ -127,14 +127,6 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
         }
     }
 
-    public RowSet selectArtistaRS(Artista criteria) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public Collection selectArtistaTO(Artista criteria) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
     /**
      * Metodo "dummy" per rendere persistente l'update alla tabella. Bug di MS Access.
      */

@@ -10,8 +10,6 @@
 package daorules;
 
 import abstractlayer.Artista;
-import java.util.Collection;
-import javax.sql.RowSet;
 
 /**
  *
@@ -22,6 +20,4 @@ public interface ArtistaDAO {
     public boolean deleteArtista(int codiceArtista);
     public Artista findArtista(int codiceArtista);
     public boolean updateArtista(Artista artista);
-    public RowSet selectArtistaRS(Artista criteria);
-    public Collection selectArtistaTO(Artista criteria);
 }
