@@ -17,19 +17,26 @@ public class Opera {
     
     // member variables
     int codiceOpera;
-    boolean venduto;
     Artista artista;
     Fattura fattura;
+    boolean venduto;
+    String tecnica;
+    String dimensioni;
+    String tipo;
+    
 
     /** Creates a new instance of Opera
      * @param codiceOpera Codice dell'opera
      * @param venduto <code>false</code> di default, <code>true</code> quando l'opera viene venduta
      * @param artista Artista realizzatore dell'opera
      */
-    public Opera(int codiceOpera, boolean venduto, Artista artista) {
+    public Opera(int codiceOpera, Artista artista, String tecnica, String dimensioni, String tipo) {
         this.codiceOpera = codiceOpera;
-        this.venduto = venduto;
         this.artista = artista;
+        this.tecnica = tecnica;
+        this.dimensioni = dimensioni;
+        this.tipo = tipo;
+        venduto = false;
     }
 
     /**
