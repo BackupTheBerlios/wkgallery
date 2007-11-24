@@ -32,20 +32,21 @@ public class MSAccessMain {
         connection = msaccessFactory.getConnection();
         // Create DAOs
         //ArtistaDAO art = msaccessFactory.getArtistaDAO();
-        MSAccessArtistaDAO artistaDAO = (MSAccessArtistaDAO) msaccessFactory.getArtistaDAO();
-        MSAccessClienteDAO clienteDAO = (MSAccessClienteDAO) msaccessFactory.getClienteDAO();
-        MSAccessFatturaDAO fatturaDAO = (MSAccessFatturaDAO) msaccessFactory.getFatturaDAO();
-        MSAccessOperaDAO operaDAO = (MSAccessOperaDAO) msaccessFactory.getOperaDAO();
+        MSAccessArtistaDAO artistaDAO = msaccessFactory.getArtistaDAO();
+        MSAccessClienteDAO clienteDAO = msaccessFactory.getClienteDAO();
+        MSAccessFatturaDAO fatturaDAO = msaccessFactory.getFatturaDAO();
+        MSAccessOperaDAO operaDAO = msaccessFactory.getOperaDAO();
 
 
         Artista b = artistaDAO.findArtista(1);
         System.out.println("cognome: " + b.getCognome());
-
-        boolean ok = artistaDAO.deleteArtista(4);
+        /*
+        boolean ok = artistaDAO.deleteArtista(3);
         System.out.println("ok? " + ok);
-        
-        Artista a = new Artista(2,"Celesti","Marco","Molto figo");
+        */
+        Artista a = new Artista(1,"Cernuschi","Betty","zzz");
         artistaDAO.updateArtista(a);
+        
         
     // select all Artistas in the same city
         //Artista criteria = new Artista();

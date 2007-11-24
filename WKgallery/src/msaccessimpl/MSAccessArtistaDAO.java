@@ -15,6 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sql.RowSet;
@@ -118,13 +119,23 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
      */
     public boolean updateArtista(Artista artista) {
         int codArt = artista.getCodiceArtista();
-        boolean found = deleteArtista(codArt);
-        if (found) {
-            insertArtista(artista);
-            return true;
-        } else {
-            return false;
+        String cognome = artista.getCognome();
+        String nome = artista.getNome();
+        String noteBio = artista.getNoteBiografiche();
+        try {
+            PreparedStatement pstmt = connection.prepareStatement("UPDATE Artista SET Cognome = ?, Nome = ?, NoteBiografiche = ? WHERE CodiceArtista = ?");
+            pstmt.setInt(4, codArt);
+            pstmt.setString(1, cognome);
+            pstmt.setString(2, nome);
+            pstmt.setString(3, noteBio);
+            pstmt.executeUpdate();
+            pstmt.close();
+            makePersistent();
+             
+        } catch (SQLException ex) {
+            Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return true;
     }
 
     /**
