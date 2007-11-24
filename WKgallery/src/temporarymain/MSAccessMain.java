@@ -38,14 +38,13 @@ public class MSAccessMain {
         MSAccessOperaDAO operaDAO = msaccessFactory.getOperaDAO();
 
 
-        Artista b = artistaDAO.findArtista(1);
-        System.out.println("cognome: " + b.getCognome());
+        Artista b = artistaDAO.findArtista(4);
         /*
         boolean ok = artistaDAO.deleteArtista(3);
         System.out.println("ok? " + ok);
         */
-        Artista a = new Artista(1,"Cernuschi","Betty","zzz");
-        artistaDAO.updateArtista(a);
+        Artista a = new Artista(4,"Cernuschi","Betty","zzz");
+        System.out.println("update eseguito: " + artistaDAO.updateArtista(a));
         
         
     // select all Artistas in the same city

@@ -119,6 +119,8 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
      */
     public boolean updateArtista(Artista artista) {
         int codArt = artista.getCodiceArtista();
+        int trovato = findArtista(codArt).getCodiceArtista();
+        if (trovato == -1) return false; //Artista non presente
         String cognome = artista.getCognome();
         String nome = artista.getNome();
         String noteBio = artista.getNoteBiografiche();
@@ -134,6 +136,7 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
              
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
         return true;
     }
