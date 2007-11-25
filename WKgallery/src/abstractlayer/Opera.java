@@ -24,16 +24,28 @@ public class Opera {
     private String tipo;
     private String foto;
 
-    public Opera(String codiceOpera, Artista artista, String tecnica, String dimensioni, String tipo, String foto) {
+    public Opera(String codiceOpera, Artista artista, String tecnica, String dimensioni, String tipo, String foto, boolean venduto, Fattura fattura) {
         this.codiceOpera = codiceOpera;
         this.artista = artista;
         this.tecnica = tecnica;
         this.dimensioni = dimensioni;
         this.tipo = tipo;
         this.foto = foto;
-        venduto = false;
+        this.venduto = venduto;
+        this.fattura = fattura;
     }
 
+    public Opera() {
+        this.codiceOpera = "";
+        this.artista = null;
+        this.tecnica = "";
+        this.dimensioni = "";
+        this.tipo = "";
+        this.foto = "";
+        this.venduto = false;
+        this.fattura = null;
+    }
+    
     /**
      * Metodo <i>set</i> per <code>fattura</code> - la fattura o l'ordine in cui l'opera compare.
      * @param fattura La fattura o l'ordine in cui l'opera compare.

@@ -13,10 +13,9 @@ package daorules;
  *
  * @author Marco Celesti
  */
+import abstractlayer.Artista;
 import abstractlayer.Opera;
-import java.util.Collection;
-import javax.sql.RowSet;
-
+import java.util.Vector;
 /**
  *
  * @author Marco Celesti
@@ -24,9 +23,8 @@ import javax.sql.RowSet;
 public interface OperaDAO {
     
     public boolean insertOpera(Opera opera);
-    public boolean deleteOpera(int codiceOpera);
-    public Opera findOpera(int codiceOpera);
+    public boolean deleteOpera(String codiceOpera);
+    public Opera findOpera(String codiceOpera);
     public boolean updateOpera(Opera opera);
-    public RowSet selectOperaRS(Opera criteria);
-    public Collection selectOperaTO(Opera criteria);
+    public Vector<Opera> selectOperaPerArtista(Artista artista);
 }

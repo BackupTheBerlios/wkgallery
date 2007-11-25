@@ -38,7 +38,7 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
     /**
      * Metodo per inserire l'artista passato come parametro
      * @param artista Il nuovo record
-     @return true se la cancellazione è avvenuta con successo
+    @return true se la cancellazione è avvenuta con successo
      *         false altrimenti
      */
     public boolean insertArtista(Artista artista) {
@@ -119,7 +119,9 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
     public boolean updateArtista(Artista artista) {
         int codArt = artista.getCodiceArtista();
         int trovato = findArtista(codArt).getCodiceArtista();
-        if (trovato == -1) return false; //Artista non presente
+        if (trovato == -1) {
+            return false;
+        } //Artista non presente
         String cognome = artista.getCognome();
         String nome = artista.getNome();
         String noteBio = artista.getNoteBiografiche();
@@ -132,7 +134,7 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
             pstmt.executeUpdate();
             pstmt.close();
             makePersistent();
-             
+
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;

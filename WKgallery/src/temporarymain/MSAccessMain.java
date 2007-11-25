@@ -12,6 +12,8 @@ import abstractlayer.Artista;
 import abstractlayer.Opera;
 import daorules.*;
 import java.sql.Connection;
+import java.util.Enumeration;
+import java.util.Vector;
 import msaccessimpl.MSAccessArtistaDAO;
 import msaccessimpl.MSAccessClienteDAO;
 import msaccessimpl.MSAccessDAOFactory;
@@ -37,11 +39,27 @@ public class MSAccessMain {
         MSAccessClienteDAO clienteDAO = msaccessFactory.getClienteDAO();
         MSAccessFatturaDAO fatturaDAO = msaccessFactory.getFatturaDAO();
         MSAccessOperaDAO operaDAO = msaccessFactory.getOperaDAO();
-        
+
         Artista me = artistaDAO.findArtista(2);
+        /*
         Opera o1 = new Opera("MC1", me, "mista", "120x120", "opera unica", "NP");
         boolean inserito = operaDAO.insertOpera(o1);
         System.out.println("opera inserita: " + inserito);
+        Opera opera = operaDAO.findOpera("MC1");
+        System.out.println("MC1 eseguita da: " + opera.getArtista().getCognome() + " " + opera.getArtista().getNome());
+        Opera o1 = new Opera("MC1", me, "mista", "120x120", "opera unica", "NP", true);
+        boolean update = operaDAO.updateOpera(o1);
+        System.out.println("opera updated: " + update);
+         */
+        Opera o1 = new Opera("MC2", me, "olio", "100x80", "opera unica", "NP", false);
+        boolean inserito = operaDAO.insertOpera(o1);
+        System.out.println("opera inserita: " + inserito);
+
+        Vector v = operaDAO.selectOperaPerArtista(me);
+        for (Enumeration e = v.elements(); e.hasMoreElements();) {
+            System.out.println(e.nextElement());
+        }
+
     }
 
     public static void main(String[] args) {
