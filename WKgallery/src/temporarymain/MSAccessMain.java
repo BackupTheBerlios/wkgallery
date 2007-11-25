@@ -9,6 +9,7 @@
 package temporarymain;
 
 import abstractlayer.Artista;
+import abstractlayer.Opera;
 import daorules.*;
 import java.sql.Connection;
 import msaccessimpl.MSAccessArtistaDAO;
@@ -36,24 +37,11 @@ public class MSAccessMain {
         MSAccessClienteDAO clienteDAO = msaccessFactory.getClienteDAO();
         MSAccessFatturaDAO fatturaDAO = msaccessFactory.getFatturaDAO();
         MSAccessOperaDAO operaDAO = msaccessFactory.getOperaDAO();
-
-
-        Artista b = artistaDAO.findArtista(4);
-        /*
-        boolean ok = artistaDAO.deleteArtista(3);
-        System.out.println("ok? " + ok);
-        */
-        Artista a = new Artista(4,"Cernuschi","Betty","zzz");
-        System.out.println("update eseguito: " + artistaDAO.updateArtista(a));
         
-        
-    // select all Artistas in the same city
-        //Artista criteria = new Artista();
-        //criteria.setCity("New York");
-        //Collection artistaList = artistaDAO.selectArtistaTO(criteria);
-// returns ArtistasList - collection of Artista
-// Transfer Objects. iterate through this collection to
-// get values.
+        Artista me = artistaDAO.findArtista(2);
+        Opera o1 = new Opera("MC1", me, "mista", "120x120", "opera unica", "NP");
+        boolean inserito = operaDAO.insertOpera(o1);
+        System.out.println("opera inserita: " + inserito);
     }
 
     public static void main(String[] args) {

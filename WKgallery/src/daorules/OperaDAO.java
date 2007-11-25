@@ -23,7 +23,7 @@ import javax.sql.RowSet;
  */
 public interface OperaDAO {
     
-    public int insertOpera(Opera opera);
+    public boolean insertOpera(Opera opera);
     public boolean deleteOpera(int codiceOpera);
     public Opera findOpera(int codiceOpera);
     public boolean updateOpera(Opera opera);

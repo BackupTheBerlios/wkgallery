@@ -56,7 +56,6 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
             pstmt.executeUpdate();
             pstmt.close();
             makePersistent();
-
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE, null, ex);
