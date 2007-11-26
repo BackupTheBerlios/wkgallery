@@ -13,7 +13,6 @@ import abstractlayer.Fattura;
 import daorules.FatturaDAO;
 import java.sql.Connection;
 import java.util.Collection;
-import java.util.List;
 import javax.sql.RowSet;
 
 /**

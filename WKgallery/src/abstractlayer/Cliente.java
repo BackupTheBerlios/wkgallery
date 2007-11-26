@@ -27,9 +27,11 @@ public abstract class Cliente {
     protected String mail1;
     protected String mail2;
     protected String note;
-
+    
+    
+    
     /** 
-     * Crea una nuova istanza di Cliente inizializzandola con i parametri passati.
+     * Crea una nuova instanza di Cliente inizializzandola con i parametri passati.
      * @param codiceCliente Codice cliente
      * @param indirizzo Indirizzo del cliente
      * @param nCiv Numero civico
@@ -59,7 +61,7 @@ public abstract class Cliente {
     }
     
     /**
-     * Crea una nuova istanza di cliente non inizializzata.
+     * Crea una nuova instanza di cliente non inizializzata.
      */
     public Cliente() {
         this.codiceCliente = -1;

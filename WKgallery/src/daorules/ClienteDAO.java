@@ -23,7 +23,7 @@ public interface ClienteDAO {
      * @param cliente Il nuovo cliente
      * @return 0 se tutto bene<br>1 altrimenti
      */
-    public int insertCliente(Cliente cliente);
+    public boolean insertCliente(Cliente cliente);
     public boolean deleteCliente(int codiceCliente);
     public Cliente findCliente(int codiceCliente);
     public boolean updateCliente(Cliente cliente);

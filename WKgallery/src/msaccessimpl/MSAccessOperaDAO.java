@@ -85,8 +85,7 @@ public class MSAccessOperaDAO implements OperaDAO {
 
     public Opera findOpera(String codiceOpera) {
         Opera opera = new Opera();
-        Artista artista = new Artista();
-        Fattura fattura = new Fattura
+        //Fattura fattura = new Fattura
         int codArt = -1;
         int numFatt = -1;
         int annoFatt = -1;
@@ -106,6 +105,7 @@ public class MSAccessOperaDAO implements OperaDAO {
                 annoFatt = rs.getInt("AnnoFattura");                        
             }
             pstmt.close();
+            /*
             pstmt.clearParameters();
             pstmt = connection.prepareStatement("SELECT * FROM Artista WHERE CodiceArtista = ?");
             pstmt.setInt(1, codArt);
@@ -116,7 +116,9 @@ public class MSAccessOperaDAO implements OperaDAO {
                 artista.setNome(rs.getString("Nome"));
                 artista.setNoteBiografiche(rs.getString("NoteBiografiche"));
             }
-            opera.setArtista(artista);
+             * */
+            
+            opera.setArtista(MSAccessArtistaDAO.staticFindArtista(codArt, connection));
             pstmt.close();
             pstmt.clearParameters();
             pstmt = connection.prepareStatement("SELECT * FROM Fattura WHERE NumeroFattura = ? AND AnnoFattura = ?");
@@ -124,7 +126,7 @@ public class MSAccessOperaDAO implements OperaDAO {
             pstmt.setInt(2, annoFatt);
             rs = pstmt.executeQuery();
             if (rs.next()) {
-                fattura.
+                //fattura.
                 /*
                 artista.setCodiceArtista(rs.getInt("CodiceArtista"));
                 artista.setCognome(rs.getString("Cognome"));
@@ -132,7 +134,7 @@ public class MSAccessOperaDAO implements OperaDAO {
                 artista.setNoteBiografiche(rs.getString("NoteBiografiche"));
                  * */
             }
-            opera.setArtista(artista);
+            //opera.setArtista(artista);
             pstmt.close();
             makePersistent();
         } catch (SQLException ex) {

@@ -141,7 +141,26 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
         }
         return true;
     }
-
+    
+    public static Artista staticFindArtista(int codiceArtista, Connection conn) {
+        Artista artista = new Artista();
+        try {
+            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM Artista WHERE CodiceArtista = ?");
+            pstmt.setInt(1, codiceArtista);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                artista.setCodiceArtista(rs.getInt("CodiceArtista"));
+                artista.setCognome(rs.getString("Cognome"));
+                artista.setNome(rs.getString("Nome"));
+                artista.setNoteBiografiche(rs.getString("NoteBiografiche"));
+            }
+            pstmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return artista;
+    }
+    
     /**
      * Metodo "dummy" per rendere persistente l'update alla tabella. Bug di MS Access.
      */
