@@ -199,7 +199,7 @@ public class MSAccessOperaDAO implements OperaDAO {
     }
 
     public Vector<Opera> selectOperaPerArtista(Artista artista) {
-        Vector<Opera> v = new Vector();
+        Vector<Opera> v = new Vector<Opera>();
         try {
             int codArtista = artista.getCodiceArtista();
             PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM Opera WHERE Artista = ?");
@@ -216,7 +216,6 @@ public class MSAccessOperaDAO implements OperaDAO {
                 opera.setFoto(rs.getString("Foto"));
                 opera.setVenduto(rs.getBoolean("Venduto"));
                 v.add(opera);
-                opera = null;
             }
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessOperaDAO.class.getName()).log(Level.SEVERE, null, ex);

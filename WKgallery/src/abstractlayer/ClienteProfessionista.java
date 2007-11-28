@@ -34,10 +34,11 @@ public class ClienteProfessionista extends Cliente {
      * @param mail2 Indirizzo e-mail n.2
      * @param note Note relative al cliente
      */
-    public ClienteProfessionista(int codiceCliente, String indirizzo, int nCiv, String regione, String stato, String tel1, String tel2, String cell1, String cell2, String mail1, String mail2, String note, String ragioneSociale, String pIva) {
-        super(codiceCliente, indirizzo, nCiv, regione, stato, tel1, tel2, cell1, cell2, mail1, mail2, note);
+    public ClienteProfessionista(String codiceCliente, String indirizzo, int nCiv, String citta, String provincia, String regione, String stato, String tel1, String tel2, String cell1, String cell2, String mail1, String mail2, String note, String ragioneSociale, String pIva) {
+        super(codiceCliente, indirizzo, nCiv, citta, provincia, regione, stato, tel1, tel2, cell1, mail1, mail2, note);
         this.ragioneSociale = ragioneSociale;
         this.pIva = pIva;
+        this.cell2 = cell2;
     }
 
     public String getPIva() {
@@ -57,11 +58,11 @@ public class ClienteProfessionista extends Cliente {
     }
 
     public String getCell1() {
-        return cell1;
+        return cell;
     }
 
     public void setCell1(String cell1) {
-        this.cell1 = cell1;
+        this.cell = cell1;
     }
 
     public String getCell2() {
@@ -72,11 +73,11 @@ public class ClienteProfessionista extends Cliente {
         this.cell2 = cell2;
     }
 
-    public int getCodiceCliente() {
+    public String getCodiceCliente() {
         return codiceCliente;
     }
 
-    public void setCodiceCliente(int codiceCliente) {
+    public void setCodiceCliente(String codiceCliente) {
         this.codiceCliente = codiceCliente;
     }
 
@@ -87,7 +88,15 @@ public class ClienteProfessionista extends Cliente {
     public void setIndirizzo(String indirizzo) {
         this.indirizzo = indirizzo;
     }
+    
+    public String getCitta() {
+        return citta;
+    }
 
+    public void setCitta(String citta) {
+        this.citta = citta;
+    }
+    
     public String getMail1() {
         return mail1;
     }

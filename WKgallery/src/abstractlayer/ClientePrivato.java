@@ -32,13 +32,12 @@ public class ClientePrivato extends Cliente{
      * @param tel1 Telefono n.1
      * @param tel2 Telefono n.2
      * @param cell1 Cellulare n.1
-     * @param cell2 Cellulare n.2
      * @param mail1 Indirizzo e-mail n.1
      * @param mail2 Indirizzo e-mail n.2
      * @param note Note relative al cliente
      */
-    public ClientePrivato(String cognome, String nome, String cf, int codiceCliente, String indirizzo, int nCiv, String regione, String stato, String tel1, String tel2, String cell1, String cell2, String mail1, String mail2, String note) {
-        super(codiceCliente, indirizzo, nCiv, regione, stato, tel1, tel2, cell1, cell2, mail1, mail2, note);
+    public ClientePrivato(String cognome, String nome, String cf, String codiceCliente, String indirizzo, int nCiv, String citta, String provincia, String regione, String stato, String tel1, String tel2, String cell1, String cell2, String mail1, String mail2, String note) {
+        super(codiceCliente, indirizzo, nCiv, citta, provincia, regione, stato, tel1, tel2, cell1, mail1, mail2, note);
         this.cognome = cognome;
         this.nome = nome;
         this.cf = cf;
@@ -68,27 +67,19 @@ public class ClientePrivato extends Cliente{
         this.nome = nome;
     }
 
-    public String getCell1() {
-        return cell1;
+    public String getCell() {
+        return cell;
     }
 
-    public void setCell1(String cell1) {
-        this.cell1 = cell1;
+    public void setCell(String cell) {
+        this.cell = cell;
     }
 
-    public String getCell2() {
-        return cell2;
-    }
-
-    public void setCell2(String cell2) {
-        this.cell2 = cell2;
-    }
-
-    public int getCodiceCliente() {
+    public String getCodiceCliente() {
         return codiceCliente;
     }
 
-    public void setCodiceCliente(int codiceCliente) {
+    public void setCodiceCliente(String codiceCliente) {
         this.codiceCliente = codiceCliente;
     }
 
@@ -100,6 +91,14 @@ public class ClientePrivato extends Cliente{
         this.indirizzo = indirizzo;
     }
 
+    public String getCitta() {
+        return citta;
+    }
+
+    public void setCitta(String citta) {
+        this.citta = citta;
+    }
+    
     public String getMail1() {
         return mail1;
     }
@@ -162,9 +161,5 @@ public class ClientePrivato extends Cliente{
 
     public void setTel2(String tel2) {
         this.tel2 = tel2;
-    }
-    
-    
-    
-    
+    }  
 }

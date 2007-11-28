@@ -39,6 +39,13 @@ public class Fattura{
         numero_anno = Integer.parseInt(numeroanno);
     }
 
+    public Fattura() {
+        this.numeroFattura = -1;
+        this.annoFattura = -1;
+        this.cliente = null;
+        this.listaOpere = null;
+    }
+    
     public int getAnnoFattura() {
         return annoFattura;
     }
@@ -78,9 +85,4 @@ public class Fattura{
     public void setNumero_anno(int numero_anno) {
         this.numero_anno = numero_anno;
     }
-    
-    
-    
-    
-
 }

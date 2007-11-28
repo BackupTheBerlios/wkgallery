@@ -9,6 +9,8 @@
 package temporarymain;
 
 import abstractlayer.Artista;
+import abstractlayer.ClientePrivato;
+import abstractlayer.Fattura;
 import abstractlayer.Opera;
 import daorules.*;
 import java.sql.Connection;
@@ -51,7 +53,8 @@ public class MSAccessMain {
         boolean update = operaDAO.updateOpera(o1);
         System.out.println("opera updated: " + update);
          */
-        Opera o1 = new Opera("MC2", me, "olio", "100x80", "opera unica", "NP", false);
+        Fattura f = new Fattura();
+        Opera o1 = new Opera("MC2", me, "olio", "100x80", "opera unica", "NP", false, f);
         boolean inserito = operaDAO.insertOpera(o1);
         System.out.println("opera inserita: " + inserito);
 
@@ -59,6 +62,8 @@ public class MSAccessMain {
         for (Enumeration e = v.elements(); e.hasMoreElements();) {
             System.out.println(e.nextElement());
         }
+        
+       //ClientePrivato cli = new ClientePrivato("BS1","Bertoldi","Mirko","Via dei dopati",1,);
 
     }
 
