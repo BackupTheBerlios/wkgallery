@@ -6,7 +6,6 @@
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
  */
-
 package abstractlayer;
 
 import java.util.List;
@@ -15,8 +14,8 @@ import java.util.List;
  * La fattura (o l'ordine) emessa per un cliente.
  * @author Marco Celesti
  */
-public class Fattura{
-    
+public class Fattura {
+
     private int numeroFattura;
     private int annoFattura;
     private int numero_anno;
@@ -30,7 +29,8 @@ public class Fattura{
      * @param cliente Cliente intestatario della fattura (o dell'ordine)
      * @param listaOpere Lista di opere presenti nella fattura (o nell'ordine)
      */
-    public Fattura(int numeroFattura, int annoFattura, Cliente cliente, List<Opera> listaOpere) {
+    public Fattura(int numeroFattura, int annoFattura, Cliente cliente,
+            List<Opera> listaOpere) {
         this.numeroFattura = numeroFattura;
         this.annoFattura = annoFattura;
         this.cliente = cliente;
@@ -45,7 +45,7 @@ public class Fattura{
         this.cliente = null;
         this.listaOpere = null;
     }
-    
+
     public int getAnnoFattura() {
         return annoFattura;
     }

@@ -34,7 +34,7 @@ public class ClienteProfessionista extends Cliente {
      * @param mail2 Indirizzo e-mail n.2
      * @param note Note relative al cliente
      */
-    public ClienteProfessionista(String codiceCliente, String indirizzo, int nCiv, String citta, String provincia, String regione, String stato, String tel1, String tel2, String cell1, String cell2, String mail1, String mail2, String note, String ragioneSociale, String pIva) {
+    public ClienteProfessionista(String codiceCliente, String ragioneSociale, String indirizzo, int nCiv, String citta, String provincia, Regione regione, String stato, String tel1, String tel2, String cell1, String cell2, String mail1, String mail2, String pIva, String note) {
         super(codiceCliente, indirizzo, nCiv, citta, provincia, regione, stato, tel1, tel2, cell1, mail1, mail2, note);
         this.ragioneSociale = ragioneSociale;
         this.pIva = pIva;
@@ -97,6 +97,14 @@ public class ClienteProfessionista extends Cliente {
         this.citta = citta;
     }
     
+    public String getProvincia() {
+        return provincia;
+    }
+
+    public void setProvincia(String provincia) {
+        this.provincia = provincia;
+    }
+    
     public String getMail1() {
         return mail1;
     }
@@ -129,11 +137,11 @@ public class ClienteProfessionista extends Cliente {
         this.note = note;
     }
 
-    public String getRegione() {
+    public Regione getRegione() {
         return regione;
     }
 
-    public void setRegione(String regione) {
+    public void setRegione(Regione regione) {
         this.regione = regione;
     }
 
@@ -160,6 +168,4 @@ public class ClienteProfessionista extends Cliente {
     public void setTel2(String tel2) {
         this.tel2 = tel2;
     }
-    
-    
 }

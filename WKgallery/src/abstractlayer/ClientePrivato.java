@@ -21,23 +21,25 @@ public class ClientePrivato extends Cliente{
 
     /**
      * Crea una nuova istanza di ClientePrivato inizializzandola con i parametri passati.
+     * @param codiceCliente Codice cliente
      * @param cognome Cognome del cliente
      * @param nome Nome del cliente
-     * @param cf Codice fiscale del cliente
-     * @param codiceCliente Codice cliente
      * @param indirizzo Indirizzo del cliente
      * @param nCiv Numero civico
+     * @param citta Città
+     * @param provincia Provincia
      * @param regione Regione
      * @param stato Stato
      * @param tel1 Telefono n.1
      * @param tel2 Telefono n.2
-     * @param cell1 Cellulare n.1
+     * @param cell1 Cellulare
      * @param mail1 Indirizzo e-mail n.1
      * @param mail2 Indirizzo e-mail n.2
+     * @param cf Codice fiscale del cliente
      * @param note Note relative al cliente
      */
-    public ClientePrivato(String cognome, String nome, String cf, String codiceCliente, String indirizzo, int nCiv, String citta, String provincia, String regione, String stato, String tel1, String tel2, String cell1, String cell2, String mail1, String mail2, String note) {
-        super(codiceCliente, indirizzo, nCiv, citta, provincia, regione, stato, tel1, tel2, cell1, mail1, mail2, note);
+    public ClientePrivato(String codiceCliente, String cognome, String nome, String indirizzo, int nCiv, String citta, String provincia, Regione regione, String stato, String tel1, String tel2, String cell, String mail1, String mail2, String cf, String note) {
+        super(codiceCliente, indirizzo, nCiv, citta, provincia, regione, stato, tel1, tel2, cell, mail1, mail2, note);
         this.cognome = cognome;
         this.nome = nome;
         this.cf = cf;
@@ -99,6 +101,14 @@ public class ClientePrivato extends Cliente{
         this.citta = citta;
     }
     
+    public String getProvincia() {
+        return provincia;
+    }
+
+    public void setProvincia(String provincia) {
+        this.provincia = provincia;
+    }
+    
     public String getMail1() {
         return mail1;
     }
@@ -131,11 +141,11 @@ public class ClientePrivato extends Cliente{
         this.note = note;
     }
 
-    public String getRegione() {
+    public Regione getRegione() {
         return regione;
     }
 
-    public void setRegione(String regione) {
+    public void setRegione(Regione regione) {
         this.regione = regione;
     }
 

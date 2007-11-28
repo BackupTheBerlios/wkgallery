@@ -6,7 +6,6 @@
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
  */
-
 package msaccessimpl;
 
 import abstractlayer.Fattura;
@@ -19,9 +18,10 @@ import javax.sql.RowSet;
  *
  * @author Marco Celesti
  */
-public class MSAccessFatturaDAO implements FatturaDAO{
+public class MSAccessFatturaDAO implements FatturaDAO {
+
     private Connection connection;
-    
+
     /** Creates a new instance of MSAccessFatturaDao */
     public MSAccessFatturaDAO(Connection connection) {
         this.connection = connection;
@@ -50,5 +50,4 @@ public class MSAccessFatturaDAO implements FatturaDAO{
     public Collection selectFatturaTO(Fattura criteria) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
- 
 }

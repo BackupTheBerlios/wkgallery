@@ -20,7 +20,7 @@ public abstract class Cliente {
     protected int nCiv;
     protected String citta;
     protected String provincia;
-    protected String regione;
+    protected Regione regione;
     protected String stato;
     protected String tel1;
     protected String tel2;
@@ -47,7 +47,7 @@ public abstract class Cliente {
      * @param mail2 Indirizzo e-mail n.2
      * @param note Note relative al cliente
      */
-    public Cliente(String codiceCliente, String indirizzo, int nCiv, String citta, String provincia, String regione, String stato, String tel1, String tel2, String cell1, String mail1, String mail2, String note) {
+    public Cliente(String codiceCliente, String indirizzo, int nCiv, String citta, String provincia, Regione regione, String stato, String tel1, String tel2, String cell1, String mail1, String mail2, String note) {
         this.codiceCliente = codiceCliente;
         this.indirizzo = indirizzo;
         this.nCiv = nCiv;
@@ -70,7 +70,7 @@ public abstract class Cliente {
         this.codiceCliente = "";
         this.indirizzo = "";
         this.nCiv = -1;
-        this.regione = "";
+        this.regione = Regione.Altro;
         this.stato = "";
         this.tel1 = "";
         this.tel2 = "";

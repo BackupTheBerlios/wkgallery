@@ -6,7 +6,6 @@
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
  */
-
 package abstractlayer;
 
 /**
@@ -19,8 +18,7 @@ public class Artista {
     private String cognome;
     private String nome;
     private String noteBiografiche;
-    
-  
+
     /** 
      * Crea una nuova istanza di Artista inizializzandola ai parametri passati.
      * @param codArt Codice dell'artista
@@ -34,7 +32,7 @@ public class Artista {
         this.nome = nome;
         this.noteBiografiche = noteBio;
     }
-    
+
     /**
      * Crea una nuova istanza di Artista non inizializzata.
      */
@@ -44,8 +42,7 @@ public class Artista {
         this.nome = "";
         this.noteBiografiche = "";
     }
-    
-    
+
     /** 
      * Metodo <i>get</i> per <code>codArt</code>. 
      * @return Codice dell'artista
@@ -53,7 +50,7 @@ public class Artista {
     public int getCodiceArtista() {
         return codiceArtista;
     }
-    
+
     /**
      * Metodo <i>set</i> per <code>codiceArtista</code>.
      * @param codiceArtista Codice dell'artista
@@ -61,7 +58,7 @@ public class Artista {
     public void setCodiceArtista(int codiceArtista) {
         this.codiceArtista = codiceArtista;
     }
-    
+
     /**
      * Metodo <i>get</i> per <code>cognome</code>.
      * @return Cognome
@@ -69,7 +66,7 @@ public class Artista {
     public String getCognome() {
         return cognome;
     }
-    
+
     /**
      * Metodo <i>set</i> per <code>cognome</code>.
      * @param cognome Cognome
@@ -77,7 +74,7 @@ public class Artista {
     public void setCognome(String cognome) {
         this.cognome = cognome;
     }
-    
+
     /**
      * Metodo <i>get</i> per <code>nome</code>.
      * @return Nome
@@ -85,7 +82,7 @@ public class Artista {
     public String getNome() {
         return nome;
     }
-    
+
     /**
      * Metodo <i>set</i> per <code>nome</code>.
      * @param nome Nome
@@ -93,7 +90,7 @@ public class Artista {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    
+
     /**
      * Metodo <i>get</i> per <code>noteBio</code>.
      * @return Note biografiche dell'artista
@@ -101,7 +98,7 @@ public class Artista {
     public String getNoteBiografiche() {
         return noteBiografiche;
     }
-    
+
     /**
      * Metodo <i>set</i> per <code>noteBio</code>.
      * @param noteBiografiche Note biografiche dell'artista
@@ -109,5 +106,4 @@ public class Artista {
     public void setNoteBiografiche(String noteBiografiche) {
         this.noteBiografiche = noteBiografiche;
     }
-    
 }

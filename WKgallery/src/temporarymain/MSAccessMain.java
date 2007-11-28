@@ -12,6 +12,7 @@ import abstractlayer.Artista;
 import abstractlayer.ClientePrivato;
 import abstractlayer.Fattura;
 import abstractlayer.Opera;
+import abstractlayer.Regione;
 import daorules.*;
 import java.sql.Connection;
 import java.util.Enumeration;
@@ -41,30 +42,19 @@ public class MSAccessMain {
         MSAccessClienteDAO clienteDAO = msaccessFactory.getClienteDAO();
         MSAccessFatturaDAO fatturaDAO = msaccessFactory.getFatturaDAO();
         MSAccessOperaDAO operaDAO = msaccessFactory.getOperaDAO();
-
-        Artista me = artistaDAO.findArtista(2);
-        /*
-        Opera o1 = new Opera("MC1", me, "mista", "120x120", "opera unica", "NP");
-        boolean inserito = operaDAO.insertOpera(o1);
-        System.out.println("opera inserita: " + inserito);
-        Opera opera = operaDAO.findOpera("MC1");
-        System.out.println("MC1 eseguita da: " + opera.getArtista().getCognome() + " " + opera.getArtista().getNome());
-        Opera o1 = new Opera("MC1", me, "mista", "120x120", "opera unica", "NP", true);
-        boolean update = operaDAO.updateOpera(o1);
-        System.out.println("opera updated: " + update);
-         */
-        Fattura f = new Fattura();
-        Opera o1 = new Opera("MC2", me, "olio", "100x80", "opera unica", "NP", false, f);
-        boolean inserito = operaDAO.insertOpera(o1);
-        System.out.println("opera inserita: " + inserito);
-
-        Vector v = operaDAO.selectOperaPerArtista(me);
-        for (Enumeration e = v.elements(); e.hasMoreElements();) {
-            System.out.println(e.nextElement());
-        }
         
-       //ClientePrivato cli = new ClientePrivato("BS1","Bertoldi","Mirko","Via dei dopati",1,);
-
+        Artista me = new Artista(1,"Celesti","Marco","Figo");
+        boolean artistaInserito = artistaDAO.insertArtista(me);
+        System.out.println("artista inserito: " + artistaInserito);
+        
+        Fattura f = new Fattura();
+        Opera o1 = new Opera("MC1", artistaDAO.findArtista(1), "olio", "100x80", "opera unica", "NP", false, f);
+        boolean operaInserita = operaDAO.insertOpera(o1);
+        System.out.println("opera inserita: " + operaInserita);
+    
+       ClientePrivato cli = new ClientePrivato("BS1","Bertoldi","Mirko","Via dei dopati",1,"Capriolo","Brescia",Regione.Lombardia,"Italia","030xxx","030111","3397624198","mirko@ciao.it","bertoldi@ciao.it","BRTxxx","zzz");
+       boolean inserito = clienteDAO.insertCliente(cli);
+       System.out.println("cliente inserito: " + inserito);
     }
 
     public static void main(String[] args) {

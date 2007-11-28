@@ -48,7 +48,7 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
             String nome = artista.getNome();
             String noteBio = artista.getNoteBiografiche();
 
-            PreparedStatement pstmt = connection.prepareStatement("INSERT INTO Artista (CodiceArtista, Cognome, Nome, NoteBiografiche) values (?,?,?,?)");
+            PreparedStatement pstmt = connection.prepareStatement("INSERT INTO Artista values (?,?,?,?)");
             pstmt.setInt(1, codArt);
             pstmt.setString(2, cognome);
             pstmt.setString(3, nome);
