@@ -10,15 +10,15 @@ package msaccessimpl;
 
 import abstractlayer.Artista;
 import daorules.ArtistaDAO;
+import exceptions.RecordCorrelatoException;
+import exceptions.RecordGiaPresenteException;
+import exceptions.RecordNonPresenteException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collection;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.sql.RowSet;
 
 /**
  *
@@ -29,72 +29,66 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
     private Connection connection;
 
     /** Crea una nuova istanza di MSAccessArtistaDAO
-     * @param connection Oggetto Connection per l'esecuzione di query
+     * @param connection l'oggetto Connection per l'esecuzione di query
      */
     public MSAccessArtistaDAO(Connection connection) {
         this.connection = connection;
     }
 
-    /**
-     * Metodo per inserire l'artista passato come parametro
-     * @param artista Il nuovo record
-    @return true se la cancellazione è avvenuta con successo
-     *         false altrimenti
-     */
-    public boolean insertArtista(Artista artista) {
-        try {
-            int codArt = artista.getCodiceArtista();
-            String cognome = artista.getCognome();
-            String nome = artista.getNome();
-            String noteBio = artista.getNoteBiografiche();
 
-            PreparedStatement pstmt = connection.prepareStatement("INSERT INTO Artista values (?,?,?,?)");
+    public void insertArtista(Artista artista) throws RecordGiaPresenteException {
+        int codArt = artista.getCodiceArtista();
+        if (artistaExists(codArt)) {
+            throw new RecordGiaPresenteException("CodiceArtista già presente in archivio");
+        }
+        String cognome = artista.getCognome();
+        String nome = artista.getNome();
+        String noteBio = artista.getNoteBiografiche();
+        try {
+            PreparedStatement pstmt =
+                    connection.prepareStatement("INSERT INTO Artista values (?,?,?,?)");
             pstmt.setInt(1, codArt);
             pstmt.setString(2, cognome);
             pstmt.setString(3, nome);
             pstmt.setString(4, noteBio);
+
             pstmt.executeUpdate();
             pstmt.close();
             makePersistent();
-            return true;
         } catch (SQLException ex) {
-            Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE,
+                    null, ex);
         }
-        return false;
     }
 
-    /**
-     * Metodo per cancellare un artista in base al CodiceArtista
-     * @param codiceArtista
-     * @return true se la cancellazione è avvenuta con successo
-     *         false altrimenti
-     */
-    public boolean deleteArtista(int codiceArtista) {
+
+    public void deleteArtista(int codiceArtista) throws RecordNonPresenteException, RecordCorrelatoException {
         try {
-            PreparedStatement pstmt = connection.prepareStatement("DELETE FROM Artista WHERE CodiceArtista = ?");
+
+            PreparedStatement pstmt =
+                    connection.prepareStatement("DELETE FROM Artista WHERE CodiceArtista = ?");
             pstmt.setInt(1, codiceArtista);
             int count = pstmt.executeUpdate();
             pstmt.close();
             // count contiene 1 se la cancellazione è avvenuta con successo
-            if (count > 0) {
-                makePersistent();
+            if (count == 0) {
+                throw new RecordNonPresenteException("CodiceArtista non presente in archivio");
             }
-            return true;
+            makePersistent();
         } catch (SQLException ex) {
-            Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RecordCorrelatoException("Si sta tentando di cancellare un Artista cui sono correlate Opere");
         }
-        return false;
     }
 
-    /**
-     * Metodo per trovare un record in base al CodiceArtista
-     * @param codiceArtista
-     * @return l'istanza di <code>Artista</code> trovata oppure una non inizializzata.
-     */
-    public Artista findArtista(int codiceArtista) {
+
+    public Artista findArtista(int codiceArtista) throws RecordNonPresenteException {
+        if (!artistaExists(codiceArtista)) {
+            throw new RecordNonPresenteException("CodiceArtista non presente in archivio");
+        }
         Artista artista = new Artista();
         try {
-            PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM Artista WHERE CodiceArtista = ?");
+            PreparedStatement pstmt =
+                    connection.prepareStatement("SELECT * FROM Artista WHERE CodiceArtista = ?");
             pstmt.setInt(1, codiceArtista);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
@@ -105,7 +99,8 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
             }
             pstmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE,
+                    null, ex);
         }
         return artista;
     }
@@ -116,17 +111,17 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
      * @return true se l'aggiornamento è avvenuto con successo
      *         false altrimenti
      */
-    public boolean updateArtista(Artista artista) {
+    public void updateArtista(Artista artista) throws RecordNonPresenteException {
         int codArt = artista.getCodiceArtista();
-        int trovato = findArtista(codArt).getCodiceArtista();
-        if (trovato == -1) {
-            return false;
-        } //Artista non presente
+        if (!artistaExists(codArt)) {
+            throw new RecordNonPresenteException("CodiceArtista non presente in archivio");
+        }
         String cognome = artista.getCognome();
         String nome = artista.getNome();
         String noteBio = artista.getNoteBiografiche();
         try {
-            PreparedStatement pstmt = connection.prepareStatement("UPDATE Artista SET Cognome = ?, Nome = ?, NoteBiografiche = ? WHERE CodiceArtista = ?");
+            PreparedStatement pstmt =
+                    connection.prepareStatement("UPDATE Artista SET Cognome = ?, Nome = ?, NoteBiografiche = ? WHERE CodiceArtista = ?");
             pstmt.setInt(4, codArt);
             pstmt.setString(1, cognome);
             pstmt.setString(2, nome);
@@ -136,16 +131,16 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
             makePersistent();
 
         } catch (SQLException ex) {
-            Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
+            Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE,
+                    null, ex);
         }
-        return true;
     }
-    
+
     public static Artista staticFindArtista(int codiceArtista, Connection conn) {
         Artista artista = new Artista();
         try {
-            PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM Artista WHERE CodiceArtista = ?");
+            PreparedStatement pstmt =
+                    conn.prepareStatement("SELECT * FROM Artista WHERE CodiceArtista = ?");
             pstmt.setInt(1, codiceArtista);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
@@ -156,21 +151,47 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
             }
             pstmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE,
+                    null, ex);
         }
         return artista;
     }
-    
+
+    private boolean artistaExists(int codiceArtista) {
+        int codiceReale = -1;
+        try {
+            PreparedStatement pstmt =
+                    connection.prepareStatement("SELECT CodiceArtista FROM Artista WHERE CodiceArtista = ?");
+            pstmt.setInt(1, codiceArtista);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                codiceReale = rs.getInt("CodiceArtista");
+                System.out.println("CodiceArtista: " + codiceReale);
+            }
+            if (codiceReale != -1) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MSAccessArtistaDAO.class.getName()).
+                    log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+
     /**
      * Metodo "dummy" per rendere persistente l'update alla tabella. Bug di MS Access.
      */
     public void makePersistent() {
         try {
-            PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM Artista");
+            PreparedStatement pstmt =
+                    connection.prepareStatement("SELECT * FROM Artista");
             pstmt.executeQuery();
             pstmt.close();
         } catch (SQLException ex) {
-            Logger.getLogger(MSAccessDAOFactory.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MSAccessDAOFactory.class.getName()).log(Level.SEVERE,
+                    null, ex);
         }
     }
 }

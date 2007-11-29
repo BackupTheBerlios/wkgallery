@@ -48,15 +48,16 @@ public class MSAccessOperaDAO implements OperaDAO {
             int annoFatt = fattura.getAnnoFattura();
 
             PreparedStatement pstmt =
-                    connection.prepareStatement("INSERT INTO Opera values (?,?,?,?,?,?,?,?)");
+                    connection.prepareStatement("INSERT INTO Opera values (?,?,?,?,?,?,?,?,?)");
             pstmt.setString(1, codOpera);
             pstmt.setInt(2, codArtista);
             pstmt.setString(3, tecnica);
             pstmt.setString(4, dimensioni);
             pstmt.setString(5, tipo);
-            pstmt.setString(6, foto);
-            pstmt.setInt(7, numFatt);
-            pstmt.setInt(8, annoFatt);
+            pstmt.setBoolean(6, false);
+            pstmt.setString(7, foto);
+            pstmt.setInt(8, numFatt);
+            pstmt.setInt(9, annoFatt);
             pstmt.executeUpdate();
             pstmt.close();
             makePersistent();
@@ -110,18 +111,6 @@ public class MSAccessOperaDAO implements OperaDAO {
                 annoFatt = rs.getInt("AnnoFattura");
             }
             pstmt.close();
-            /*
-            pstmt.clearParameters();
-            pstmt = connection.prepareStatement("SELECT * FROM Artista WHERE CodiceArtista = ?");
-            pstmt.setInt(1, codArt);
-            rs = pstmt.executeQuery();
-            if (rs.next()) {
-            artista.setCodiceArtista(rs.getInt("CodiceArtista"));
-            artista.setCognome(rs.getString("Cognome"));
-            artista.setNome(rs.getString("Nome"));
-            artista.setNoteBiografiche(rs.getString("NoteBiografiche"));
-            }
-             * */
 
             opera.setArtista(MSAccessArtistaDAO.staticFindArtista(codArt,
                     connection));
@@ -141,7 +130,6 @@ public class MSAccessOperaDAO implements OperaDAO {
             artista.setNoteBiografiche(rs.getString("NoteBiografiche"));
              * */
             }
-            //opera.setArtista(artista);
             pstmt.close();
             makePersistent();
         } catch (SQLException ex) {
@@ -237,6 +225,29 @@ public class MSAccessOperaDAO implements OperaDAO {
         return v;
     }
 
+    private boolean operaExists(int codiceOpera) {
+        String codiceReale = "";
+        try {
+            PreparedStatement pstmt =
+                    connection.prepareStatement("SELECT CodiceOpera FROM Opera WHERE CodiceOpera = ?");
+            pstmt.setInt(1, codiceOpera);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                codiceReale = rs.getString("CodiceOpera");
+                System.out.println("CodiceArtista: " + codiceReale);
+            }
+            if (!codiceReale.isEmpty()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MSAccessArtistaDAO.class.getName()).
+                    log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
     /**
      * Metodo "dummy" per rendere persistente l'update alla tabella. Bug di MS Access.
      */

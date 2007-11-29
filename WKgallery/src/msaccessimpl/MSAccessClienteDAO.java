@@ -101,7 +101,7 @@ public class MSAccessClienteDAO implements ClienteDAO {
                 String pIva = cli.getPIva();
                 String note = cli.getNote();
                 PreparedStatement pstmt =
-                        connection.prepareStatement("INSERT INTO ClientePrivato values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                        connection.prepareStatement("INSERT INTO ClienteProfessionista values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
                 pstmt.setString(1, codCli);
                 pstmt.setString(2, ragSoc);
                 pstmt.setString(3, pIva);
@@ -122,12 +122,11 @@ public class MSAccessClienteDAO implements ClienteDAO {
                 pstmt.executeUpdate();
                 pstmt.close();
                 makePersistent();
+                return true;
             } catch (SQLException ex) {
                 Logger.getLogger(MSAccessClienteDAO.class.getName()).log(Level.SEVERE,
                         null, ex);
             }
-        } else {
-            return false;
         }
         return false;
     }
