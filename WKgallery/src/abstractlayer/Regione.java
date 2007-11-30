@@ -28,8 +28,12 @@ public enum Regione {
         this.nomeRegione = nomeRegione;
     }
 
-    public int getIndiceRegione() {
-        return indiceRegione;
+    public static Regione getRegione (String nomeRegione) {
+        for (Regione r : Regione.values()) {
+            if (nomeRegione.equalsIgnoreCase(r.nomeRegione))
+                return r;
+        }
+        return Regione.Altro;
     }
 
     public String getNomeRegione() {

@@ -44,6 +44,13 @@ public class ClientePrivato extends Cliente{
         this.nome = nome;
         this.cf = cf;
     }
+    
+    public ClientePrivato() {
+        super();
+        this.cognome = "";
+        this.nome = "";
+        this.cf = "";
+    }
 
     public String getCf() {
         return cf;

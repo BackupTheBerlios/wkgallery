@@ -35,7 +35,6 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
         this.connection = connection;
     }
 
-
     public void insertArtista(Artista artista) throws RecordGiaPresenteException {
         int codArt = artista.getCodiceArtista();
         if (artistaExists(codArt)) {
@@ -61,10 +60,9 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
         }
     }
 
-
-    public void deleteArtista(int codiceArtista) throws RecordNonPresenteException, RecordCorrelatoException {
+    public void deleteArtista(int codiceArtista) throws RecordNonPresenteException,
+            RecordCorrelatoException {
         try {
-
             PreparedStatement pstmt =
                     connection.prepareStatement("DELETE FROM Artista WHERE CodiceArtista = ?");
             pstmt.setInt(1, codiceArtista);
@@ -79,7 +77,6 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
             throw new RecordCorrelatoException("Si sta tentando di cancellare un Artista cui sono correlate Opere");
         }
     }
-
 
     public Artista findArtista(int codiceArtista) throws RecordNonPresenteException {
         if (!artistaExists(codiceArtista)) {

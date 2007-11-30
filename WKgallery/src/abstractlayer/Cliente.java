@@ -13,7 +13,7 @@ package abstractlayer;
  * Rapprensenta il cliente della galleria.
  * @author Marco Celesti
  */
-public abstract class Cliente {
+public abstract class Cliente{
     // member variables
     protected String codiceCliente;
     protected String indirizzo;

@@ -6,14 +6,16 @@
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
  */
-
 package daorules;
 
 import abstractlayer.Artista;
+import exceptions.RecordCorrelatoException;
 import exceptions.RecordGiaPresenteException;
+import exceptions.RecordNonPresenteException;
 
 /** 
- * 
+ * L'interfaccia di riferimento per l'implementazione delle classi che si occupano di 
+ * interagire direttamente con l'archivio dei dati dell'entità Artista.
  *
  * @author Marco Celesti
  */
@@ -25,15 +27,28 @@ public interface ArtistaDAO {
      * @throws exceptions.RecordGiaPresenteException se il CodiceArtista è già stato utilizzato per un altro artista
      */
     public void insertArtista(Artista artista) throws RecordGiaPresenteException;
-    
+
     /**
      * Permette la cancellazione dall'archivio di un artista.
-     * @param codiceArtista
-     * @throws java.lang.Exception
+     * @param codiceArtista il CodiceArtista dell'artista da cancellare
+     * @throws exceptions.RecordNonPresenteException se il CodiceArtista non corrisponde ad alcun record
+     * @throws exceptions.RecordCorrelatoException se l'artista ha record correlati
      */
-    public void deleteArtista(int codiceArtista) throws Exception;
-    
-    public Artista findArtista(int codiceArtista) throws Exception;
-    
-    public void updateArtista(Artista artista) throws Exception;
+    public void deleteArtista(int codiceArtista) throws RecordNonPresenteException,
+            RecordCorrelatoException;
+
+    /**
+     * Permette di trovare un artista tramite il suo CodiceArtista.
+     * @param codiceArtista il CodiceArtista dell'artista da cancellare
+     * @return l'artista trovato
+     * @throws exceptions.RecordNonPresenteException se il CodiceArtista non corrisponde ad alcun record
+     */
+    public Artista findArtista(int codiceArtista) throws RecordNonPresenteException;
+
+    /**
+     * Permette di aggiornare i campi dell'artista, ma non il suo CodiceArtista.
+     * @param artista l'artista aggiornato
+     * @throws exceptions.RecordNonPresenteException se l'artista passato non aggiorna alcun record già esistente
+     */
+    public void updateArtista(Artista artista) throws RecordNonPresenteException;
 }

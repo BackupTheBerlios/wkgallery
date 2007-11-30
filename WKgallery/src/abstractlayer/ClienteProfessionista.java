@@ -41,6 +41,13 @@ public class ClienteProfessionista extends Cliente {
         this.cell2 = cell2;
     }
 
+    public ClienteProfessionista() {
+        super();
+        this.ragioneSociale = "";
+        this.pIva = "";
+        this.cell2 = "";
+    }
+    
     public String getPIva() {
         return pIva;
     }

@@ -6,25 +6,31 @@
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
  */
-
 package daorules;
 
-/**
- *
- * @author Marco Celesti
- */
 import abstractlayer.Artista;
 import abstractlayer.Opera;
+import exceptions.RecordCorrelatoException;
+import exceptions.RecordGiaPresenteException;
+import exceptions.RecordNonPresenteException;
 import java.util.Vector;
+
 /**
- *
+ * L'interfaccia di riferimento per l'implementazione delle classi che si occupano di 
+ * interagire direttamente con l'archivio dei dati dell'entità Opera.
+ * 
  * @author Marco Celesti
  */
 public interface OperaDAO {
-    
-    public boolean insertOpera(Opera opera);
-    public boolean deleteOpera(String codiceOpera);
-    public Opera findOpera(String codiceOpera);
-    public boolean updateOpera(Opera opera);
+
+    public void insertOpera(Opera opera) throws RecordGiaPresenteException;
+
+    public void deleteOpera(String codiceOpera)
+            throws RecordNonPresenteException, RecordCorrelatoException;
+
+    public Opera findOpera(String codiceOpera) throws RecordNonPresenteException;
+
+    public void updateOpera(Opera opera) throws RecordNonPresenteException;
+
     public Vector<Opera> selectOperaPerArtista(Artista artista);
 }
