@@ -10,6 +10,7 @@ package daorules;
 
 import abstractlayer.Artista;
 import abstractlayer.Opera;
+import exceptions.ChiavePrimariaException;
 import exceptions.RecordCorrelatoException;
 import exceptions.RecordGiaPresenteException;
 import exceptions.RecordNonPresenteException;
@@ -23,7 +24,8 @@ import java.util.Vector;
  */
 public interface OperaDAO {
 
-    public void insertOpera(Opera opera) throws RecordGiaPresenteException;
+    public void insertOpera(Opera opera) throws RecordGiaPresenteException,
+            ChiavePrimariaException;
 
     public void deleteOpera(String codiceOpera)
             throws RecordNonPresenteException, RecordCorrelatoException;

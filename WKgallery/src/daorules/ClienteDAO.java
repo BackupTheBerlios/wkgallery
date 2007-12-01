@@ -9,8 +9,8 @@
 package daorules;
 
 import abstractlayer.Cliente;
-import abstractlayer.ClientePrivato;
-import abstractlayer.ClienteProfessionista;
+import exceptions.BadFormatException;
+import exceptions.ChiavePrimariaException;
 import exceptions.RecordCorrelatoException;
 import exceptions.RecordGiaPresenteException;
 import exceptions.RecordNonPresenteException;
@@ -29,16 +29,16 @@ public interface ClienteDAO {
      * @param cliente Il nuovo cliente
      * @return 0 se tutto bene<br>1 altrimenti
      */
-    public void insertCliente(Cliente cliente) throws RecordGiaPresenteException;
+    public void insertCliente(Cliente cliente) throws RecordGiaPresenteException,
+            ChiavePrimariaException;
 
-    public void deleteCliente(String codiceCliente, int tipoCliente) throws RecordNonPresenteException,
+    public void deleteCliente(String codiceCliente) throws RecordNonPresenteException,
             RecordCorrelatoException;
 
-    public Cliente findCliente(String codiceCliente, int tipoCliente) throws RecordNonPresenteException;
+    public Cliente findCliente(String codiceCliente) throws RecordNonPresenteException,
+            BadFormatException;
 
-    public Vector<ClientePrivato> findAllClientiPrivati();
-    
-    public Vector<ClienteProfessionista> findAllClientiProfessionisti();
+    public Vector<Cliente> findAllClienti() throws BadFormatException;
 
     public void updateCliente(Cliente cliente) throws RecordNonPresenteException;
 

@@ -9,17 +9,17 @@
 package temporarymain;
 
 import abstractlayer.Artista;
-import abstractlayer.ClientePrivato;
-import abstractlayer.ClienteProfessionista;
+import abstractlayer.Cliente;
 import abstractlayer.Fattura;
 import abstractlayer.Opera;
 import abstractlayer.Regione;
 import daorules.*;
+import exceptions.BadFormatException;
+import exceptions.ChiavePrimariaException;
 import exceptions.RecordCorrelatoException;
 import exceptions.RecordGiaPresenteException;
 import exceptions.RecordNonPresenteException;
 import java.sql.Connection;
-import java.util.Enumeration;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,6 +28,7 @@ import msaccessimpl.MSAccessClienteDAO;
 import msaccessimpl.MSAccessDAOFactory;
 import msaccessimpl.MSAccessFatturaDAO;
 import msaccessimpl.MSAccessOperaDAO;
+import utilities.EMail;
 
 /**
  *
@@ -39,6 +40,7 @@ public class MSAccessMain {
 
     /** Creates a new instance of TempMain */
     public MSAccessMain() {
+
         MSAccessDAOFactory msaccessFactory =
                 (MSAccessDAOFactory) DAOFactory.getDAOFactory(DAOFactory.MSACCESS);
         connection = msaccessFactory.getConnection();
@@ -49,6 +51,14 @@ public class MSAccessMain {
         MSAccessFatturaDAO fatturaDAO = msaccessFactory.getFatturaDAO();
         MSAccessOperaDAO operaDAO = msaccessFactory.getOperaDAO();
 
+
+        Cliente cli1 = null;
+        Cliente cli2 = null;
+        Cliente cliB = null;
+        Cliente cliS = null;
+        Cliente cliA = null;
+        Cliente cliNull = null;
+        Vector<Cliente> v = null;
         Artista me =
                 new Artista(1, "Celesti", "Marco", "Figo");
         try {
@@ -56,18 +66,31 @@ public class MSAccessMain {
             System.out.println("OK me");
         } catch (RecordGiaPresenteException e) {
             System.out.println(e);
+        } catch (ChiavePrimariaException e) {
+                System.out.println(e);
         }
-        ClienteProfessionista cli2 =
-                new ClienteProfessionista("ProfBM1", "Bertoldi snc",
-                "Via dei dopati", 1, "Capriolo", "Brescia",
-                Regione.Lombardia, "Italia", "030xxx", "030111",
-                "3397624198", "", "mirko@ciao.it", "bertoldi@ciao.it",
-                "0215", "zzz");
+        
+        try {
+            String mail1 = EMail.toString(EMail.toEMail("mirko@ciao.it"));
+            System.out.println("----->mail1: " + mail1);
+            cli2 = new Cliente("ProfBM1", "Bertoldi snc", "",
+                    "Via dei dopati", 1, "Capriolo", "Brescia",
+                    Regione.Lombardia, "Italia", "030xxx", "030111",
+                    "3397624198", "",
+                    EMail.toEMail("mirko@ciao.it"),
+                    EMail.toEMail("bertoldi@ciao.it"), "zzz", "0216452316",
+                    true);
+
+        } catch (BadFormatException bfe) {
+            System.out.println(bfe);
+        }
         try {
             clienteDAO.insertCliente(cli2);
             System.out.println("OK cli2");
         } catch (RecordGiaPresenteException e) {
             System.out.println(e);
+        } catch (ChiavePrimariaException e) {
+                System.out.println(e);
         }
         Artista meAncora =
                 new Artista(1, "Light blue", "Mark", "Very figo");
@@ -76,6 +99,8 @@ public class MSAccessMain {
             System.out.println("OK meAncora");
         } catch (RecordGiaPresenteException e) {
             System.out.println(e);
+        } catch (ChiavePrimariaException e) {
+                System.out.println(e);
         }
         Fattura f = new Fattura();
         Opera o1 =
@@ -86,6 +111,8 @@ public class MSAccessMain {
             System.out.println("OK o1");
         } catch (RecordGiaPresenteException e) {
             System.out.println(e);
+        } catch (ChiavePrimariaException e) {
+                System.out.println(e);
         }
         Opera o1ancora =
                 new Opera("1_1", me, "mista", "100x100", "unica", "", false,
@@ -95,6 +122,8 @@ public class MSAccessMain {
             System.out.println("OK o1ancora");
         } catch (RecordGiaPresenteException e) {
             System.out.println(e);
+        } catch (ChiavePrimariaException e) {
+                System.out.println(e);
         }
         try {
             Opera o2 = operaDAO.findOpera("1_1");
@@ -110,21 +139,28 @@ public class MSAccessMain {
         }
 
         try {
-            clienteDAO.findCliente("ProfBM1", 2);
+            clienteDAO.findCliente("ProfBM1");
             System.out.println("OK ProfBM1");
-        } catch (RecordNonPresenteException e) {
-            System.out.println(e);
+        } catch (RecordNonPresenteException ex) {
+            Logger.getLogger(MSAccessMain.class.getName()).
+                    log(Level.SEVERE, null, ex);
+        } catch (BadFormatException ex) {
+            Logger.getLogger(MSAccessMain.class.getName()).
+                    log(Level.SEVERE, null, ex);
         }
 
         try {
-            clienteDAO.findCliente("ProfXX1", 2);
+            clienteDAO.findCliente("ProfXX1");
             System.out.println("OK ProfXX1");
         } catch (RecordNonPresenteException e) {
             System.out.println(e);
+        } catch (BadFormatException ex) {
+            Logger.getLogger(MSAccessMain.class.getName()).
+                    log(Level.SEVERE, null, ex);
         }
 
         try {
-            clienteDAO.deleteCliente("ProfBM1", 2);
+            clienteDAO.deleteCliente("ProfBM1");
             System.out.println("OK ProfBM1 ancora");
         } catch (RecordNonPresenteException e) {
             System.out.println(e);
@@ -149,77 +185,187 @@ public class MSAccessMain {
             Logger.getLogger(MSAccessMain.class.getName()).
                     log(Level.SEVERE, null, ex);
         }
-
-        ClientePrivato cli1 =
-                new ClientePrivato("PrivBM1", "Bertoldi", "Mirko",
-                "Via dei dopati", 1, "Capriolo", "Brescia",
-                Regione.Lombardia, "Italia", "030xxx", "030111",
-                "3397624198", "mirko@ciao.it", "bertoldi@ciao.it", "BRTxxx",
-                "zzz");
+        try {
+            cli1 = new Cliente("PrivBM1", "Bertoldi", "Mirko",
+                    "Via dei dopati", 1, "Capriolo", "Brescia",
+                    Regione.Lombardia, "Italia", "030xxx", "030111",
+                    "3397624198", "",
+                    EMail.toEMail("mirko@ciao.it"),
+                    EMail.toEMail("bertoldi@ciao.it"), "BRTxxx", "zzz",
+                    false);
+        } catch (BadFormatException bfe) {
+            System.out.println(bfe);
+        }
         try {
             clienteDAO.insertCliente(cli1);
         } catch (RecordGiaPresenteException ex) {
             Logger.getLogger(MSAccessMain.class.getName()).
                     log(Level.SEVERE, null, ex);
+        } catch (ChiavePrimariaException e) {
+                System.out.println(e);
         }
 
         try {
-            clienteDAO.deleteCliente("PrivBM1", 1);
+            clienteDAO.deleteCliente("PrivBM1");
             System.out.println("OK PrivBM1 ancora");
         } catch (RecordNonPresenteException e) {
             System.out.println(e);
         } catch (RecordCorrelatoException e) {
             System.out.println(e);
         }
-
-        ClientePrivato cliB =
-                new ClientePrivato("PrivBM1", "Bertoldi", "Mirko",
-                "Via dei dopati", 1, "Capriolo", "Brescia",
-                Regione.Lombardia, "Italia", "030xxx", "030111",
-                "3397624198", "mirko@ciao.it", "bertoldi@ciao.it", "BRTxxx",
-                "zzz");
-
+        try {
+            cliB = new Cliente("PrivBM1", "Bertoldi", "Mirko",
+                    "Via dei dopati", 1, "Capriolo", "Brescia",
+                    Regione.Lombardia, "Italia", "030xxx", "030111",
+                    "3397624198", "",
+                    EMail.toEMail("mirko@ciao.bye.it"),
+                    EMail.toEMail(""), "BRTxxx", "zzz",
+                    false);
+        } catch (BadFormatException ex) {
+            Logger.getLogger(MSAccessMain.class.getName()).
+                    log(Level.SEVERE, null, ex);
+        }
         try {
             clienteDAO.insertCliente(cliB);
         } catch (RecordGiaPresenteException ex) {
             Logger.getLogger(MSAccessMain.class.getName()).
                     log(Level.SEVERE, null, ex);
+        } catch (ChiavePrimariaException e) {
+                System.out.println(e);
         }
-
-        ClientePrivato cliS =
-                new ClientePrivato("PrivSM1", "Sertoldi", "Mirko",
-                "Via dei dopati", 1, "Capriolo", "Brescia",
-                Regione.Lombardia, "Italia", "030xxx", "030111",
-                "3397624198", "mirko@ciao.it", "bertoldi@ciao.it", "BRTxxx",
-                "zzz");
-
+        try {
+            cliS = new Cliente("PrivSM1", "Sertoldi", "Mirko", "Via dei dopati",
+                    1, "Capriolo", "Brescia", Regione.Lombardia, "Italia",
+                    "030xxx", "030111", "3397624198", "",
+                    EMail.toEMail("mirko@ciao.it"),
+                    EMail.toEMail("bertoldi@ciao.it"), "BRTxxx", "zzz", false);
+        } catch (BadFormatException ex) {
+            Logger.getLogger(MSAccessMain.class.getName()).
+                    log(Level.SEVERE, null, ex);
+        }
         try {
             clienteDAO.insertCliente(cliS);
         } catch (RecordGiaPresenteException ex) {
             Logger.getLogger(MSAccessMain.class.getName()).
                     log(Level.SEVERE, null, ex);
+        } catch (ChiavePrimariaException e) {
+                System.out.println(e);
         }
-
-        ClientePrivato cliA =
-                new ClientePrivato("PrivAM1", "Aertoldi", "Mirko",
-                "Via dei dopati", 1, "Capriolo", "Brescia",
-                Regione.Lombardia, "Italia", "030xxx", "030111",
-                "3397624198", "mirko@ciao.it", "bertoldi@ciao.it", "BRTxxx",
-                "zzz");
-
+        try {
+            cliA = new Cliente("PrivAM1", "Aertoldi", "Mirko", "Via dei dopati",
+                    1, "Capriolo", "Brescia", Regione.Lombardia, "Italia",
+                    "030xxx", "030111", "3397624198", "",
+                    EMail.toEMail("mirko@ciao.it"),
+                    EMail.toEMail("bertoldi@ciao.it"), "BRTxxx", "zzz", false);
+        } catch (BadFormatException ex) {
+            Logger.getLogger(MSAccessMain.class.getName()).
+                    log(Level.SEVERE, null, ex);
+        }
         try {
             clienteDAO.insertCliente(cliA);
         } catch (RecordGiaPresenteException ex) {
             Logger.getLogger(MSAccessMain.class.getName()).
                     log(Level.SEVERE, null, ex);
+        } catch (ChiavePrimariaException e) {
+                System.out.println(e);
         }
 
-
-        Vector<ClientePrivato> v = clienteDAO.findAllClientiPrivati();
-
-        for (ClientePrivato a : v) {
-            System.out.println(a.getCognome() + "\n");
+        try {
+            v = clienteDAO.findAllClienti();
+        } catch (BadFormatException ex) {
+            Logger.getLogger(MSAccessMain.class.getName()).
+                    log(Level.SEVERE, null, ex);
         }
+        for (Cliente a : v) {
+            System.out.println(a.getCognRsoc1() + "\n");
+        }
+        try {
+            cliNull = new Cliente("", "Bertoldi", "Mirko",
+                    "Via dei dopati", 1, "Capriolo", "Brescia",
+                    Regione.Lombardia, "Italia", "030xxx", "030111",
+                    "3397624198", "",
+                    EMail.toEMail("mirko@ciao.bye.it"),
+                    EMail.toEMail(""), "BRTxxx", "zzz",
+                    false);
+        } catch (BadFormatException ex) {
+            Logger.getLogger(MSAccessMain.class.getName()).
+                    log(Level.SEVERE, null, ex);
+        }
+        try {
+            clienteDAO.insertCliente(cliNull);
+        } catch (RecordGiaPresenteException ex) {
+            Logger.getLogger(MSAccessMain.class.getName()).
+                    log(Level.SEVERE, null, ex);
+        } catch (ChiavePrimariaException e) {
+                System.out.println(e);
+        }
+    /*
+    Fattura f = new Fattura();
+    boolean operaInserita = operaDAO.insertOpera(o1);
+    System.out.println("opera inserita: " + operaInserita);
+    ClientePrivato cli1 = new ClientePrivato("PvBM1", "Bertoldi", "Mirko",
+    "Via dei dopati", 1, "Capriolo", "Brescia", Regione.Lombardia,
+    "Italia", "030xxx", "030111", "3397624198", "mirko@ciao.it",
+    "bertoldi@ciao.it", "BRTxxx", "zzz");
+    boolean inseritoP = clienteDAO.insertCliente(cli1);
+    System.out.println("clientePv inserito: " + inseritoP);
+    ClienteProfessionista cli2 = new ClienteProfessionista("PrBM1",
+    "Bertoldi snc", "Via dei dopati", 1, "Capriolo", "Brescia",
+    Regione.Lombardia, "Italia", "030xxx", "030111", "3397624198",
+    "", "mirko@ciao.it", "bertoldi@ciao.it", "0215", "zzz");
+    boolean inseritoPr = clienteDAO.insertCliente(cli2);
+    System.out.println("clientePr inserito: " + inseritoPr);
+    Artista meAncora = new Artista(1, "Light blue", "Mark", "Very figo");
+    try {
+    artistaDAO.insertArtista(meAncora);
+    } catch (Exception e) {
+    System.out.println(e);
+    }
+    System.out.println("see ya");
+    artistaDAO.findArtista(5);
+    System.out.println("see ya");
+    try {
+    artistaDAO.deleteArtista(1);
+    } catch (RecordNonPresenteException ex) {
+    System.out.println(ex);
+    } catch (Exception e) {
+    System.out.println(e);
+    }
+     */
+    /*
+    Fattura f = new Fattura();
+    boolean operaInserita = operaDAO.insertOpera(o1);
+    System.out.println("opera inserita: " + operaInserita);
+    ClientePrivato cli1 = new ClientePrivato("PvBM1", "Bertoldi", "Mirko",
+    "Via dei dopati", 1, "Capriolo", "Brescia", Regione.Lombardia,
+    "Italia", "030xxx", "030111", "3397624198", "mirko@ciao.it",
+    "bertoldi@ciao.it", "BRTxxx", "zzz");
+    boolean inseritoP = clienteDAO.insertCliente(cli1);
+    System.out.println("clientePv inserito: " + inseritoP);
+    ClienteProfessionista cli2 = new ClienteProfessionista("PrBM1",
+    "Bertoldi snc", "Via dei dopati", 1, "Capriolo", "Brescia",
+    Regione.Lombardia, "Italia", "030xxx", "030111", "3397624198",
+    "", "mirko@ciao.it", "bertoldi@ciao.it", "0215", "zzz");
+    boolean inseritoPr = clienteDAO.insertCliente(cli2);
+    System.out.println("clientePr inserito: " + inseritoPr);
+    Artista meAncora = new Artista(1, "Light blue", "Mark", "Very figo");
+    try {
+    artistaDAO.insertArtista(meAncora);
+    } catch (Exception e) {
+    System.out.println(e);
+    }
+    System.out.println("see ya");
+    artistaDAO.findArtista(5);
+    System.out.println("see ya");
+    try {
+    artistaDAO.deleteArtista(1);
+    } catch (RecordNonPresenteException ex) {
+    System.out.println(ex);
+    } catch (Exception e) {
+    System.out.println(e);
+    }
+     */
+
 
     /*
     Fattura f = new Fattura();

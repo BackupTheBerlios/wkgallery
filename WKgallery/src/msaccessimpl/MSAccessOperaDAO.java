@@ -12,6 +12,7 @@ import abstractlayer.Artista;
 import abstractlayer.Fattura;
 import abstractlayer.Opera;
 import daorules.OperaDAO;
+import exceptions.ChiavePrimariaException;
 import exceptions.RecordGiaPresenteException;
 import exceptions.RecordNonPresenteException;
 import java.sql.Connection;
@@ -35,9 +36,11 @@ public class MSAccessOperaDAO implements OperaDAO {
         this.connection = connection;
     }
 
-    public void insertOpera(Opera opera) throws RecordGiaPresenteException {
+    public void insertOpera(Opera opera) throws RecordGiaPresenteException, ChiavePrimariaException {
         try {
             String codOpera = opera.getCodiceOpera();
+            if (codOpera.isEmpty())
+                throw new ChiavePrimariaException("CodiceOpera non può contenere una stringa di lunghezza zero.");
             if (operaExists(codOpera)) {
                 throw new RecordGiaPresenteException("CodiceOpera già presente in archivio");
             }

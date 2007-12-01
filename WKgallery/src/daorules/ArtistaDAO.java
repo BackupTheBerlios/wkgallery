@@ -9,6 +9,7 @@
 package daorules;
 
 import abstractlayer.Artista;
+import exceptions.ChiavePrimariaException;
 import exceptions.RecordCorrelatoException;
 import exceptions.RecordGiaPresenteException;
 import exceptions.RecordNonPresenteException;
@@ -26,7 +27,8 @@ public interface ArtistaDAO {
      * @param artista il nuovo record
      * @throws exceptions.RecordGiaPresenteException se il CodiceArtista è già stato utilizzato per un altro artista
      */
-    public void insertArtista(Artista artista) throws RecordGiaPresenteException;
+    public void insertArtista(Artista artista) throws RecordGiaPresenteException,
+            ChiavePrimariaException;
 
     /**
      * Permette la cancellazione dall'archivio di un artista.

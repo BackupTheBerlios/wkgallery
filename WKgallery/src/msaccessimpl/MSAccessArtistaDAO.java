@@ -10,6 +10,7 @@ package msaccessimpl;
 
 import abstractlayer.Artista;
 import daorules.ArtistaDAO;
+import exceptions.ChiavePrimariaException;
 import exceptions.RecordCorrelatoException;
 import exceptions.RecordGiaPresenteException;
 import exceptions.RecordNonPresenteException;
@@ -35,8 +36,10 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
         this.connection = connection;
     }
 
-    public void insertArtista(Artista artista) throws RecordGiaPresenteException {
+    public void insertArtista(Artista artista) throws RecordGiaPresenteException, ChiavePrimariaException {
         int codArt = artista.getCodiceArtista();
+        if (codArt <= 0)
+                throw new ChiavePrimariaException("CodiceArtista deve essere positivo non nullo.");
         if (artistaExists(codArt)) {
             throw new RecordGiaPresenteException("CodiceArtista già presente in archivio");
         }
