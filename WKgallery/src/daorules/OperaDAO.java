@@ -32,6 +32,8 @@ public interface OperaDAO {
 
     public Opera findOpera(String codiceOpera) throws RecordNonPresenteException;
 
+    public Vector<Opera> findAllOpere();
+    
     public void updateOpera(Opera opera) throws RecordNonPresenteException;
 
     public Vector<Opera> selectOperaPerArtista(Artista artista);

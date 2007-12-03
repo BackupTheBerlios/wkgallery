@@ -1,13 +1,15 @@
 package msaccessimpl;
 
-import abstractlayer.*;
-import java.sql.*;
+
 import daorules.DAOFactory;
 /*
  * MSAccessDAOFactory.java
  *
  * Utilizza il pattern Singleton
  */
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

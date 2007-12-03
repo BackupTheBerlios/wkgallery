@@ -36,11 +36,13 @@ public class MSAccessOperaDAO implements OperaDAO {
         this.connection = connection;
     }
 
-    public void insertOpera(Opera opera) throws RecordGiaPresenteException, ChiavePrimariaException {
+    public void insertOpera(Opera opera) throws RecordGiaPresenteException,
+            ChiavePrimariaException {
         try {
             String codOpera = opera.getCodiceOpera();
-            if (codOpera.isEmpty())
+            if (codOpera.isEmpty()) {
                 throw new ChiavePrimariaException("CodiceOpera non può contenere una stringa di lunghezza zero.");
+            }
             if (operaExists(codOpera)) {
                 throw new RecordGiaPresenteException("CodiceOpera già presente in archivio");
             }
@@ -129,6 +131,7 @@ public class MSAccessOperaDAO implements OperaDAO {
                     connection));
             Fattura f = new Fattura();
             opera.setFattura(f);
+        //TODO concludere recupero di fattura
 //            pstmt = connection.prepareStatement("SELECT * FROM Fattura WHERE NumeroFattura = ? AND AnnoFattura = ?");
 //            pstmt.setInt(1, numFatt);
 //            pstmt.setInt(2, annoFatt);
@@ -220,6 +223,32 @@ public class MSAccessOperaDAO implements OperaDAO {
                 opera.setTecnica(rs.getString("Tecnica"));
                 opera.setTipo(rs.getString("Tipo"));
                 opera.setArtista(artista);
+                opera.setFoto(rs.getString("Foto"));
+                opera.setVenduto(rs.getBoolean("Venduto"));
+                v.add(opera);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MSAccessOperaDAO.class.getName()).log(Level.SEVERE,
+                    null, ex);
+        }
+        return v;
+    }
+
+    public Vector<Opera> findAllOpere() {
+        Vector<Opera> v = new Vector<Opera>();
+        try {
+            PreparedStatement pstmt =
+                    connection.prepareStatement("SELECT * FROM Opera");
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                Opera opera = new Opera();
+                opera.setCodiceOpera(rs.getString("CodiceOpera"));
+                opera.setDimensioni(rs.getString("Dimensioni"));
+                opera.setTecnica(rs.getString("Tecnica"));
+                opera.setTipo(rs.getString("Tipo"));
+                opera.setArtista(MSAccessArtistaDAO.staticFindArtista(rs.getInt("Artista"),
+                        connection));
                 opera.setFoto(rs.getString("Foto"));
                 opera.setVenduto(rs.getBoolean("Venduto"));
                 v.add(opera);

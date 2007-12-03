@@ -18,6 +18,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -36,10 +37,12 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
         this.connection = connection;
     }
 
-    public void insertArtista(Artista artista) throws RecordGiaPresenteException, ChiavePrimariaException {
+    public void insertArtista(Artista artista) throws RecordGiaPresenteException,
+            ChiavePrimariaException {
         int codArt = artista.getCodiceArtista();
-        if (codArt <= 0)
-                throw new ChiavePrimariaException("CodiceArtista deve essere positivo non nullo.");
+        if (codArt <= 0) {
+            throw new ChiavePrimariaException("CodiceArtista deve essere positivo non nullo.");
+        }
         if (artistaExists(codArt)) {
             throw new RecordGiaPresenteException("CodiceArtista già presente in archivio");
         }
@@ -155,6 +158,28 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
                     null, ex);
         }
         return artista;
+    }
+
+    public Vector<Artista> findAllArtisti() {
+        Vector<Artista> v = new Vector<Artista>();
+        try {
+            PreparedStatement pstmt =
+                    connection.prepareStatement("SELECT * FROM Artista");
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Artista artista = new Artista();
+                artista.setCodiceArtista(rs.getInt("CodiceArtista"));
+                artista.setCognome(rs.getString("Cognome"));
+                artista.setNome(rs.getString("Nome"));
+                artista.setNoteBiografiche(rs.getString("NoteBiografiche"));
+                v.add(artista);
+            }
+            pstmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE,
+                    null, ex);
+        }
+        return v;
     }
 
     private boolean artistaExists(int codiceArtista) {

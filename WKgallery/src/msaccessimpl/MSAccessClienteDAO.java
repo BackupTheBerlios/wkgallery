@@ -68,10 +68,6 @@ public class MSAccessClienteDAO implements ClienteDAO {
             String note = cliente.getNote();
             boolean professionista = cliente.isProfessionista();
 
-            System.out.println("--------------------------------");
-            System.out.println(mail1);
-            System.out.println("--------------------------------");
-            
             PreparedStatement pstmt =
                     connection.prepareStatement("INSERT INTO Cliente values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pstmt.setString(1, codCliente);
@@ -161,9 +157,57 @@ public class MSAccessClienteDAO implements ClienteDAO {
     }
 
     public void updateCliente(Cliente cliente) throws RecordNonPresenteException {
-        String codCli = cliente.getCodiceCliente();
-    //TODO concludere
+        try {
+            String codCli = cliente.getCodiceCliente();
+            if (!clienteExists(codCli)) {
+                throw new RecordNonPresenteException("CodiceCliente non presente in archivio");
+            }
+            String cognRsoc1 = cliente.getCognRsoc1();
+            String nomeRsoc2 = cliente.getNomeRsoc2();
+            String indirizzo = cliente.getIndirizzo();
+            int nCiv = cliente.getNCiv();
+            String citta = cliente.getCitta();
+            String prov = cliente.getProvincia();
+            String regione = cliente.getRegione().getNomeRegione();
+            String stato = cliente.getStato();
+            String tel1 = cliente.getTel1();
+            String tel2 = cliente.getTel2();
+            String cell1 = cliente.getCell1();
+            String cell2 = cliente.getCell2();
+            String mail1 = EMail.toString(cliente.getMail1());
+            String mail2 = EMail.toString(cliente.getMail2());
+            String cfPiva = cliente.getCfPiva();
+            String note = cliente.getNote();
+            boolean professionista = cliente.isProfessionista();
 
+            PreparedStatement pstmt =
+                    connection.prepareStatement("UPDATE Cliente SET Cognome_Rsoc1 = ?, Nome_Rsoc2 = ?, Dimensioni = ?, Indirizzo = ?, NCiv = ?, Citta = ?, Provincia = ?, Regione = ?, Stato = ?, Telefono1 = ?, Telefono2 = ?, Cellulare1 = ?, Cellulare2 = ?, Cellulare1 = ?, Mail1 = ?, Mail2 = ?, CF_PIVA = ?, Note = ?, Professionista = ? WHERE ID = ?");
+            pstmt.setString(18, codCli);
+            pstmt.setString(1, cognRsoc1);
+            pstmt.setString(2, nomeRsoc2);
+            pstmt.setString(3, indirizzo);
+            pstmt.setInt(4, nCiv);
+            pstmt.setString(5, citta);
+            pstmt.setString(6, prov);
+            pstmt.setString(7, regione);
+            pstmt.setString(8, stato);
+            pstmt.setString(9, tel1);
+            pstmt.setString(10, tel2);
+            pstmt.setString(11, cell1);
+            pstmt.setString(12, cell2);
+            pstmt.setString(13, mail1);
+            pstmt.setString(14, mail2);
+            pstmt.setString(15, cfPiva);
+            pstmt.setString(16, note);
+            pstmt.setBoolean(17, professionista);
+            pstmt.executeUpdate();
+            pstmt.close();
+            makePersistent();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(MSAccessClienteDAO.class.getName()).
+                    log(Level.SEVERE, null, ex);
+        }
     }
 
     public RowSet selectClienteRS(Cliente criteria) {
@@ -172,6 +216,82 @@ public class MSAccessClienteDAO implements ClienteDAO {
 
     public Collection selectClienteTO(Cliente criteria) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    public Vector<Cliente> findAllClientiPrivati() throws BadFormatException {
+        Cliente cliente;
+        Vector<Cliente> v = new Vector<Cliente>();
+        try {
+            PreparedStatement pstmt =
+                    connection.prepareStatement("SELECT * FROM Cliente WHERE Professionista = false");
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                cliente = new Cliente();
+                cliente.setCodiceCliente(rs.getString("ID"));
+                cliente.setCognRsoc1(rs.getString("Cognome_Rsoc1"));
+                cliente.setNomeRsoc2(rs.getString("Nome_Rsoc2"));
+                cliente.setIndirizzo(rs.getString("Indirizzo"));
+                cliente.setNCiv(rs.getInt("NCiv"));
+                cliente.setCitta(rs.getString("Citta"));
+                cliente.setProvincia(rs.getString("Provincia"));
+                cliente.setRegione(Regione.getRegione(rs.getString("Regione")));
+                cliente.setStato(rs.getString("Stato"));
+                cliente.setTel1(rs.getString("Telefono1"));
+                cliente.setTel2(rs.getString("Telefono2"));
+                cliente.setCell1(rs.getString("Cellulare1"));
+                cliente.setCell2(rs.getString("Cellulare2"));
+                cliente.setMail1(EMail.toEMail(rs.getString("Mail1")));
+                cliente.setMail2(EMail.toEMail(rs.getString("Mail2")));
+                cliente.setCfPiva(rs.getString("CF_PIVA"));
+                cliente.setNote(rs.getString("Note"));
+                cliente.setProfessionista(rs.getBoolean("Professionista"));
+                v.add(cliente);
+            }
+            pstmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE,
+                    null, ex);
+        }
+        Collections.sort(v, new ClienteComparator());
+        return v;
+    }
+    
+    public Vector<Cliente> findAllClientiProfessionisti() throws BadFormatException {
+        Cliente cliente;
+        Vector<Cliente> v = new Vector<Cliente>();
+        try {
+            PreparedStatement pstmt =
+                    connection.prepareStatement("SELECT * FROM Cliente WHERE Professionista = true");
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                cliente = new Cliente();
+                cliente.setCodiceCliente(rs.getString("ID"));
+                cliente.setCognRsoc1(rs.getString("Cognome_Rsoc1"));
+                cliente.setNomeRsoc2(rs.getString("Nome_Rsoc2"));
+                cliente.setIndirizzo(rs.getString("Indirizzo"));
+                cliente.setNCiv(rs.getInt("NCiv"));
+                cliente.setCitta(rs.getString("Citta"));
+                cliente.setProvincia(rs.getString("Provincia"));
+                cliente.setRegione(Regione.getRegione(rs.getString("Regione")));
+                cliente.setStato(rs.getString("Stato"));
+                cliente.setTel1(rs.getString("Telefono1"));
+                cliente.setTel2(rs.getString("Telefono2"));
+                cliente.setCell1(rs.getString("Cellulare1"));
+                cliente.setCell2(rs.getString("Cellulare2"));
+                cliente.setMail1(EMail.toEMail(rs.getString("Mail1")));
+                cliente.setMail2(EMail.toEMail(rs.getString("Mail2")));
+                cliente.setCfPiva(rs.getString("CF_PIVA"));
+                cliente.setNote(rs.getString("Note"));
+                cliente.setProfessionista(rs.getBoolean("Professionista"));
+                v.add(cliente);
+            }
+            pstmt.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE,
+                    null, ex);
+        }
+        Collections.sort(v, new ClienteComparator());
+        return v;
     }
 
     public Vector<Cliente> findAllClienti() throws BadFormatException {

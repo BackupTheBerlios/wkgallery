@@ -67,9 +67,9 @@ public class MSAccessMain {
         } catch (RecordGiaPresenteException e) {
             System.out.println(e);
         } catch (ChiavePrimariaException e) {
-                System.out.println(e);
+            System.out.println(e);
         }
-        
+
         try {
             String mail1 = EMail.toString(EMail.toEMail("mirko@ciao.it"));
             System.out.println("----->mail1: " + mail1);
@@ -90,7 +90,7 @@ public class MSAccessMain {
         } catch (RecordGiaPresenteException e) {
             System.out.println(e);
         } catch (ChiavePrimariaException e) {
-                System.out.println(e);
+            System.out.println(e);
         }
         Artista meAncora =
                 new Artista(1, "Light blue", "Mark", "Very figo");
@@ -100,7 +100,7 @@ public class MSAccessMain {
         } catch (RecordGiaPresenteException e) {
             System.out.println(e);
         } catch (ChiavePrimariaException e) {
-                System.out.println(e);
+            System.out.println(e);
         }
         Fattura f = new Fattura();
         Opera o1 =
@@ -112,7 +112,7 @@ public class MSAccessMain {
         } catch (RecordGiaPresenteException e) {
             System.out.println(e);
         } catch (ChiavePrimariaException e) {
-                System.out.println(e);
+            System.out.println(e);
         }
         Opera o1ancora =
                 new Opera("1_1", me, "mista", "100x100", "unica", "", false,
@@ -123,7 +123,7 @@ public class MSAccessMain {
         } catch (RecordGiaPresenteException e) {
             System.out.println(e);
         } catch (ChiavePrimariaException e) {
-                System.out.println(e);
+            System.out.println(e);
         }
         try {
             Opera o2 = operaDAO.findOpera("1_1");
@@ -202,7 +202,7 @@ public class MSAccessMain {
             Logger.getLogger(MSAccessMain.class.getName()).
                     log(Level.SEVERE, null, ex);
         } catch (ChiavePrimariaException e) {
-                System.out.println(e);
+            System.out.println(e);
         }
 
         try {
@@ -231,7 +231,7 @@ public class MSAccessMain {
             Logger.getLogger(MSAccessMain.class.getName()).
                     log(Level.SEVERE, null, ex);
         } catch (ChiavePrimariaException e) {
-                System.out.println(e);
+            System.out.println(e);
         }
         try {
             cliS = new Cliente("PrivSM1", "Sertoldi", "Mirko", "Via dei dopati",
@@ -249,7 +249,7 @@ public class MSAccessMain {
             Logger.getLogger(MSAccessMain.class.getName()).
                     log(Level.SEVERE, null, ex);
         } catch (ChiavePrimariaException e) {
-                System.out.println(e);
+            System.out.println(e);
         }
         try {
             cliA = new Cliente("PrivAM1", "Aertoldi", "Mirko", "Via dei dopati",
@@ -267,7 +267,7 @@ public class MSAccessMain {
             Logger.getLogger(MSAccessMain.class.getName()).
                     log(Level.SEVERE, null, ex);
         } catch (ChiavePrimariaException e) {
-                System.out.println(e);
+            System.out.println(e);
         }
 
         try {
@@ -297,8 +297,17 @@ public class MSAccessMain {
             Logger.getLogger(MSAccessMain.class.getName()).
                     log(Level.SEVERE, null, ex);
         } catch (ChiavePrimariaException e) {
-                System.out.println(e);
+            System.out.println(e);
         }
+        Vector<Cliente> a = null;
+        try {
+            a = clienteDAO.findAllClientiPrivati();
+        } catch (BadFormatException ex) {
+            Logger.getLogger(MSAccessMain.class.getName()).
+                    log(Level.SEVERE, null, ex);
+        }
+        
+        System.out.println("a.size()=" + a.size());
     /*
     Fattura f = new Fattura();
     boolean operaInserita = operaDAO.insertOpera(o1);

@@ -13,6 +13,7 @@ import exceptions.ChiavePrimariaException;
 import exceptions.RecordCorrelatoException;
 import exceptions.RecordGiaPresenteException;
 import exceptions.RecordNonPresenteException;
+import java.util.Vector;
 
 /** 
  * L'interfaccia di riferimento per l'implementazione delle classi che si occupano di 
@@ -26,6 +27,7 @@ public interface ArtistaDAO {
      * Permette l'inserimento nell'archivio di un nuovo artista.
      * @param artista il nuovo record
      * @throws exceptions.RecordGiaPresenteException se il CodiceArtista è già stato utilizzato per un altro artista
+     * @throws exceptions.ChiavePrimariaException se il CodiceArtista del nuovo record è vuoto
      */
     public void insertArtista(Artista artista) throws RecordGiaPresenteException,
             ChiavePrimariaException;
@@ -46,6 +48,8 @@ public interface ArtistaDAO {
      * @throws exceptions.RecordNonPresenteException se il CodiceArtista non corrisponde ad alcun record
      */
     public Artista findArtista(int codiceArtista) throws RecordNonPresenteException;
+
+    public Vector<Artista> findAllArtisti();
 
     /**
      * Permette di aggiornare i campi dell'artista, ma non il suo CodiceArtista.
