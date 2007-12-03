@@ -36,5 +36,7 @@ public interface OperaDAO {
     
     public void updateOpera(Opera opera) throws RecordNonPresenteException;
 
+    public void updatePrezzo(Opera opera) throws RecordNonPresenteException;
+    
     public Vector<Opera> selectOperaPerArtista(Artista artista);
 }

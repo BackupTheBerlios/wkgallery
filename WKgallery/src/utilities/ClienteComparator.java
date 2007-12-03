@@ -14,7 +14,9 @@ import java.util.Comparator;
 public class ClienteComparator implements Comparator<Cliente> {
 
     public int compare(Cliente cli1, Cliente cli2) {
-        return cli1.getCognRsoc1().compareToIgnoreCase(cli2.getCognRsoc1());
+        String cognRagSoc1 = cli1.getCognRsoc1();
+        String cognRagSoc2 = cli2.getCognRsoc1();
+        return cognRagSoc1.compareToIgnoreCase(cognRagSoc2);
     }
 
 }

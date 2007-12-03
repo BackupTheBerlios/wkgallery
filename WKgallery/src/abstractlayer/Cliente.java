@@ -43,7 +43,7 @@ public class Cliente {
         this.nCiv = -1;
         this.citta = "";
         this.provincia = "";
-        this.regione = Regione.Altro;
+        this.regione = Regione.Estero;
         this.stato = "";
         this.tel1 = "";
         this.tel2 = "";

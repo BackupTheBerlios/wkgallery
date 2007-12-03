@@ -8,9 +8,11 @@
  */
 package daorules;
 
+import abstractlayer.Cliente;
 import abstractlayer.Fattura;
-import java.util.Collection;
-import javax.sql.RowSet;
+import exceptions.ChiavePrimariaException;
+import exceptions.RecordGiaPresenteException;
+import java.util.Vector;
 
 /**
  *
@@ -18,15 +20,15 @@ import javax.sql.RowSet;
  */
 public interface FatturaDAO {
 
-    public int insertFattura(Fattura fattura);
+    public void insertFattura(Fattura fattura) throws RecordGiaPresenteException, ChiavePrimariaException;
 
-    public boolean deleteFattura(int numero_anno);
+    public void deleteFattura(int numero_anno);
 
     public Fattura findFattura(int numero_anno);
 
-    public boolean updateFattura(Fattura fattura);
+    public void updateFattura(Fattura fattura);
 
-    public RowSet selectFatturaRS(Fattura fattura);
+    public Vector<Fattura> selectFatturaPerCliente(Cliente cliente);
 
-    public Collection selectFatturaTO(Fattura criteria);
+//    public Collection selectFatturaTO(Fattura criteria);
 }

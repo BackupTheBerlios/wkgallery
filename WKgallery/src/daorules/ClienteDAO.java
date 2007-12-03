@@ -9,6 +9,7 @@
 package daorules;
 
 import abstractlayer.Cliente;
+import abstractlayer.Regione;
 import exceptions.BadFormatException;
 import exceptions.ChiavePrimariaException;
 import exceptions.RecordCorrelatoException;
@@ -42,7 +43,8 @@ public interface ClienteDAO {
 
     public void updateCliente(Cliente cliente) throws RecordNonPresenteException;
 
-    public RowSet selectClienteRS(Cliente criteria);
+    public Vector<Cliente> selectClientiPerStringa(String s) throws BadFormatException;
 
-    public Collection selectClienteTO(Cliente criteria);
+    public Vector<Cliente> selectClientiPerRegione(Vector<Regione> regioni)
+            throws BadFormatException;
 }

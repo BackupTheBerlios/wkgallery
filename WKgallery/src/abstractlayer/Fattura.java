@@ -9,6 +9,7 @@
 package abstractlayer;
 
 import java.util.List;
+import java.util.Vector;
 
 /**
  * La fattura (o l'ordine) emessa per un cliente.
@@ -18,9 +19,8 @@ public class Fattura {
 
     private int numeroFattura;
     private int annoFattura;
-    private int numero_anno;
     private Cliente cliente;
-    private List<Opera> listaOpere;
+    private Vector<Opera> opere;
 
     /**
      * 
@@ -30,20 +30,18 @@ public class Fattura {
      * @param listaOpere Lista di opere presenti nella fattura (o nell'ordine)
      */
     public Fattura(int numeroFattura, int annoFattura, Cliente cliente,
-            List<Opera> listaOpere) {
+            Vector<Opera> opere) {
         this.numeroFattura = numeroFattura;
         this.annoFattura = annoFattura;
         this.cliente = cliente;
-        this.listaOpere = listaOpere;
-        String numeroanno = "" + numeroFattura + annoFattura;
-        numero_anno = Integer.parseInt(numeroanno);
+        this.opere = opere;
     }
 
     public Fattura() {
         this.numeroFattura = -1;
         this.annoFattura = -1;
         this.cliente = null;
-        this.listaOpere = null;
+        this.opere = null;
     }
 
     public int getAnnoFattura() {
@@ -62,12 +60,8 @@ public class Fattura {
         this.cliente = cliente;
     }
 
-    public List<Opera> getListaOpere() {
-        return listaOpere;
-    }
-
-    public void setListaOpere(List<Opera> listaOpere) {
-        this.listaOpere = listaOpere;
+    public Vector<Opera> getOpere() {
+        return opere;
     }
 
     public int getNumeroFattura() {
@@ -76,13 +70,5 @@ public class Fattura {
 
     public void setNumeroFattura(int numeroFattura) {
         this.numeroFattura = numeroFattura;
-    }
-
-    public int getNumero_anno() {
-        return numero_anno;
-    }
-
-    public void setNumero_anno(int numero_anno) {
-        this.numero_anno = numero_anno;
     }
 }

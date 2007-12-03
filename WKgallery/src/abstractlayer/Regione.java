@@ -19,7 +19,7 @@ public enum Regione {
     Sardegna(14, "Sardegna"), Sicilia(15, "Sicilia"),
     Toscana(16, "Toscana"), Trentino_Alto_Adige(17, "Trentino Alto-Adige"),
     Umbria(18, "Umbria"), Valle_d_Aosta(19, "Valle d'Aosta"),
-    Veneto(20, "Veneto"), Altro(100, "Altro");
+    Veneto(20, "Veneto"), Estero(100, "Estero");
     private int indiceRegione;
     private String nomeRegione;
 
@@ -28,12 +28,13 @@ public enum Regione {
         this.nomeRegione = nomeRegione;
     }
 
-    public static Regione getRegione (String nomeRegione) {
+    public static Regione getRegione(String nomeRegione) {
         for (Regione r : Regione.values()) {
-            if (nomeRegione.equalsIgnoreCase(r.nomeRegione))
+            if (nomeRegione.equalsIgnoreCase(r.nomeRegione)) {
                 return r;
+            }
         }
-        return Regione.Altro;
+        return Regione.Estero;
     }
 
     public String getNomeRegione() {

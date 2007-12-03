@@ -23,8 +23,9 @@ public class Opera {
     private String dimensioni;
     private String tipo;
     private String foto;
+    private float prezzo;
 
-    public Opera(String codiceOpera, Artista artista, String tecnica, String dimensioni, String tipo, String foto, boolean venduto, Fattura fattura) {
+    public Opera(String codiceOpera, Artista artista, String tecnica, String dimensioni, String tipo, String foto, boolean venduto, Fattura fattura, float prezzo) {
         this.codiceOpera = codiceOpera;
         this.artista = artista;
         this.tecnica = tecnica;
@@ -33,6 +34,7 @@ public class Opera {
         this.foto = foto;
         this.venduto = venduto;
         this.fattura = fattura;
+        this.prezzo = prezzo;
     }
 
     public Opera() {
@@ -44,6 +46,7 @@ public class Opera {
         this.foto = "";
         this.venduto = false;
         this.fattura = null;
+        this.prezzo = -1.0f;
     }
     
     /**
@@ -112,5 +115,13 @@ public class Opera {
 
     public void setFoto(String foto) {
         this.foto = foto;
+    }
+
+    public float getPrezzo() {
+        return prezzo;
+    }
+
+    public void setPrezzo(float prezzo) {
+        this.prezzo = prezzo;
     }
 }
