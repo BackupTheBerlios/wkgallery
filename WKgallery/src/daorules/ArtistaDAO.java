@@ -43,12 +43,16 @@ public interface ArtistaDAO {
 
     /**
      * Permette di trovare un artista tramite il suo CodiceArtista.
-     * @param codiceArtista il CodiceArtista dell'artista da cancellare
+     * @param codiceArtista il CodiceArtista dell'artista da cercare
      * @return l'artista trovato
      * @throws exceptions.RecordNonPresenteException se il CodiceArtista non corrisponde ad alcun record
      */
     public Artista findArtista(int codiceArtista) throws RecordNonPresenteException;
-
+    
+    /**
+     * Restituisce il vettore contenente l'intera lista di artisti.
+     * @return il vettore con gli artisti
+     */
     public Vector<Artista> findAllArtisti();
 
     /**

@@ -119,8 +119,7 @@ public class MSAccessClienteDAO implements ClienteDAO {
 
     }
 
-    public Cliente findCliente(String codiceCliente) throws RecordNonPresenteException,
-            BadFormatException {
+    public Cliente findCliente(String codiceCliente) throws RecordNonPresenteException {
         if (!clienteExists(codiceCliente)) {
             throw new RecordNonPresenteException("CodiceCliente non presente in archivio");
         }
@@ -151,6 +150,8 @@ public class MSAccessClienteDAO implements ClienteDAO {
                 cliente.setProfessionista(rs.getBoolean("Professionista"));
             }
             pstmt.close();
+        } catch (BadFormatException ex) {
+            Logger.getLogger(MSAccessClienteDAO.class.getName()).log(Level.WARNING, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE,
                     null, ex);
@@ -212,7 +213,7 @@ public class MSAccessClienteDAO implements ClienteDAO {
         }
     }
 
-    public Vector<Cliente> selectClientiPerStringa(String s) throws BadFormatException {
+    public Vector<Cliente> selectClientiPerStringa(String s) {
         Cliente cliente;
         Vector<Cliente> v = new Vector<Cliente>();
         try {
@@ -244,6 +245,8 @@ public class MSAccessClienteDAO implements ClienteDAO {
                 v.add(cliente);
             }
             pstmt.close();
+        } catch (BadFormatException ex) {
+            Logger.getLogger(MSAccessClienteDAO.class.getName()).log(Level.WARNING, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE,
                     null, ex);
@@ -252,8 +255,7 @@ public class MSAccessClienteDAO implements ClienteDAO {
         return v;
     }
 
-    public Vector<Cliente> selectClientiPerRegione(Vector<Regione> regioni)
-            throws BadFormatException {
+    public Vector<Cliente> selectClientiPerRegione(Vector<Regione> regioni) {
         Cliente cliente;
         Vector<Cliente> v = new Vector<Cliente>();
         for (Regione r : regioni) {
@@ -287,6 +289,8 @@ public class MSAccessClienteDAO implements ClienteDAO {
                     tempV.add(cliente);
                 }
                 pstmt.close();
+            } catch (BadFormatException ex) {
+                Logger.getLogger(MSAccessClienteDAO.class.getName()).log(Level.WARNING, null, ex);
             } catch (SQLException ex) {
                 Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE,
                         null, ex);
@@ -297,7 +301,7 @@ public class MSAccessClienteDAO implements ClienteDAO {
         return v;
     }
 
-    public Vector<Cliente> findAllClientiPrivati() throws BadFormatException {
+    public Vector<Cliente> findAllClientiPrivati() {
         Cliente cliente;
         Vector<Cliente> v = new Vector<Cliente>();
         try {
@@ -327,6 +331,8 @@ public class MSAccessClienteDAO implements ClienteDAO {
                 v.add(cliente);
             }
             pstmt.close();
+        } catch (BadFormatException ex) {
+            Logger.getLogger(MSAccessClienteDAO.class.getName()).log(Level.WARNING, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE,
                     null, ex);
@@ -335,7 +341,7 @@ public class MSAccessClienteDAO implements ClienteDAO {
         return v;
     }
 
-    public Vector<Cliente> findAllClientiProfessionisti() throws BadFormatException {
+    public Vector<Cliente> findAllClientiProfessionisti() {
         Cliente cliente;
         Vector<Cliente> v = new Vector<Cliente>();
         try {
@@ -365,6 +371,8 @@ public class MSAccessClienteDAO implements ClienteDAO {
                 v.add(cliente);
             }
             pstmt.close();
+        } catch (BadFormatException ex) {
+            Logger.getLogger(MSAccessClienteDAO.class.getName()).log(Level.WARNING, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE,
                     null, ex);
@@ -373,7 +381,7 @@ public class MSAccessClienteDAO implements ClienteDAO {
         return v;
     }
 
-    public Vector<Cliente> findAllClienti() throws BadFormatException {
+    public Vector<Cliente> findAllClienti() {
         Cliente cliente;
         Vector<Cliente> v = new Vector<Cliente>();
         try {
@@ -403,6 +411,8 @@ public class MSAccessClienteDAO implements ClienteDAO {
                 v.add(cliente);
             }
             pstmt.close();
+        } catch (BadFormatException ex) {
+            Logger.getLogger(MSAccessClienteDAO.class.getName()).log(Level.WARNING, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE,
                     null, ex);
@@ -411,8 +421,7 @@ public class MSAccessClienteDAO implements ClienteDAO {
         return v;
     }
     
-    public Cliente staticFindCliente(String codiceCliente, Connection conn) throws RecordNonPresenteException,
-            BadFormatException {
+    public Cliente staticFindCliente(String codiceCliente, Connection conn) throws RecordNonPresenteException {
         if (!clienteExists(codiceCliente)) {
             throw new RecordNonPresenteException("CodiceCliente non presente in archivio");
         }
@@ -443,6 +452,8 @@ public class MSAccessClienteDAO implements ClienteDAO {
                 cliente.setProfessionista(rs.getBoolean("Professionista"));
             }
             pstmt.close();
+        } catch (BadFormatException ex) {
+            Logger.getLogger(MSAccessClienteDAO.class.getName()).log(Level.WARNING, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE,
                     null, ex);
