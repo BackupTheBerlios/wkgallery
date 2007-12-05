@@ -29,6 +29,9 @@ public class EMail {
     }
 
     public static EMail toEMail(String mailNotFormatted) throws BadFormatException {
+        if (mailNotFormatted == null) {
+            return new EMail();
+        }
         if (mailNotFormatted.length() != 0) {
             String actualUser = "";
             String actualDominio = "";

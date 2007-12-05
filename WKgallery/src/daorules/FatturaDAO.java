@@ -8,10 +8,12 @@
  */
 package daorules;
 
+import abstractlayer.Artista;
 import abstractlayer.Cliente;
 import abstractlayer.Fattura;
 import exceptions.ChiavePrimariaException;
 import exceptions.RecordGiaPresenteException;
+import exceptions.RecordNonPresenteException;
 import java.util.Vector;
 
 /**
@@ -20,15 +22,62 @@ import java.util.Vector;
  */
 public interface FatturaDAO {
 
-    public void insertFattura(Fattura fattura) throws RecordGiaPresenteException, ChiavePrimariaException;
+    /**
+     * Permette l'inserimento di una nuova fattura. Tale metodo modifica di conseguenza 
+     * i campi relativi all'entità Opera inclusi interessati dalla fattura, settando
+     * solo in questo momento il prezzo.
+     * @param fattura la nuova fattura
+     * @throws exceptions.RecordGiaPresenteException se la nuova fattura è già presente in archivio
+     * @throws exceptions.ChiavePrimariaException se la nuova fattura ha il campo Numero o Anno vuoti
+     */
+    public void insertFattura(Fattura fattura) throws RecordGiaPresenteException,
+                                                       ChiavePrimariaException;
 
-    public void deleteFattura(int numero_anno);
+    /**
+     * Permette la cancellazione di una fattura.
+     * @param numero numero della fattura
+     * @param anno anno della fattura
+     * @throws exceptions.RecordNonPresenteException se la fattura non è presente in archivio
+     */
+    public void deleteFattura(int numero, int anno) throws RecordNonPresenteException;
 
-    public Fattura findFattura(int numero_anno);
+    /**
+     * Permette di trovare una fattura dati numero ed anno.
+     * @param numero numero della fattura
+     * @param anno anno della fattura
+     * @return la fattura trovata
+     * @throws exceptions.RecordNonPresenteException se la fattura non è presente in archivio
+     */
+    public Fattura findFattura(int numero, int anno) throws RecordNonPresenteException;
 
-    public void updateFattura(Fattura fattura);
+    /**
+     * Permette di recuperare tutte le fatture in archivio.
+     * @return la lista di tutte le fatture
+     */
+    public Vector<Fattura> findAllFatture();
+    
+    /**
+     * Permette l'aggiornamento dell'istanza di fattura già presente in archivio: 
+     * è possibile modificare il cliente correlato nonchè la lista delle opere
+     * interessate dalla fattura.
+     * @param fattura
+     * @throws exceptions.RecordNonPresenteException
+     */
+    public void updateFattura(Fattura fattura) throws RecordNonPresenteException;
 
+    /**
+     * Permette di recuperare tutte le fatture emesse per un particolare cliente.
+     * @param cliente il cliente di cui trovare le fatture
+     * @return il vettore contenente le fatture del particolare cliente
+     */
     public Vector<Fattura> selectFatturaPerCliente(Cliente cliente);
 
-//    public Collection selectFatturaTO(Fattura criteria);
+    /**
+     * Permette di recuperare tutte le fatture emesse contenenti opere di un
+     * particolare artista.
+     * @param artista l'artista di cui si vogliono conoscere le fatture correlate
+     * ad opere da questi prodotte
+     * @return il vettore contenente le fatture richieste
+     */
+    public Vector<Fattura> selectFatturaPerArtista(Artista artista);
 }

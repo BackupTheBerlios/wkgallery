@@ -10,7 +10,6 @@ package daorules;
 
 import abstractlayer.Cliente;
 import abstractlayer.Regione;
-import exceptions.BadFormatException;
 import exceptions.ChiavePrimariaException;
 import exceptions.RecordCorrelatoException;
 import exceptions.RecordGiaPresenteException;
@@ -24,25 +23,25 @@ import java.util.Vector;
 public interface ClienteDAO {
 
     /**
-     * Permette l'inserimento di un nuovo cliente
-     * @param cliente Il nuovo cliente
+     * Permette l'inserimento di un nuovo cliente.
+     * @param cliente il nuovo cliente
      * @throws exceptions.RecordGiaPresenteException se il nuovo cliente ha un codice già presente in archivio
      * @throws exceptions.ChiavePrimariaException se il nuovo cliente ha il campo CodiceCliente vuoto
      */
     public void insertCliente(Cliente cliente) throws RecordGiaPresenteException,
-            ChiavePrimariaException;
+                                                       ChiavePrimariaException;
 
     /**
-     * Permette la cancellazione di un cliente
-     * @param codiceCliente Il codice del cliente da cancellare
+     * Permette la cancellazione di un cliente.
+     * @param codiceCliente il codice del cliente da cancellare
      * @throws exceptions.RecordNonPresenteException se il cliente non esiste in archivio
      * @throws exceptions.RecordCorrelatoException se il cliente ha record (fatture, in particolare) correlati
      */
     public void deleteCliente(String codiceCliente) throws RecordNonPresenteException,
-            RecordCorrelatoException;
+                                                            RecordCorrelatoException;
 
     /**
-     * Permette di trovare un cliente
+     * Permette di trovare un cliente dato il suo codice.
      * @param codiceCliente il codice del cliente da trovare
      * @return il cliente trovato
      * @throws exceptions.RecordNonPresenteException se il cliente non esiste in archivio
@@ -60,13 +59,13 @@ public interface ClienteDAO {
      * @return il vettore contenente i clienti privati in archivio
      */
     public Vector<Cliente> findAllClientiPrivati();
-    
+
     /**
      * Permette di recuperare tutti i clienti professionisti in archivio
-     * @returnil vettore contenente i clienti professionisti in archivio
+     * @return il vettore contenente i clienti professionisti in archivio
      */
     public Vector<Cliente> findAllClientiProfessionisti();
-    
+
     /**
      * Permette di aggiornare un record di un cliente già presente in archivio.
      * @param cliente il cliente aggiornato

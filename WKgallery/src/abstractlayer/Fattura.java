@@ -30,7 +30,7 @@ public class Fattura {
      * @param listaOpere Lista di opere presenti nella fattura (o nell'ordine)
      */
     public Fattura(int numeroFattura, int annoFattura, Cliente cliente,
-            Vector<Opera> opere) {
+                    Vector<Opera> opere) {
         this.numeroFattura = numeroFattura;
         this.annoFattura = annoFattura;
         this.cliente = cliente;
@@ -62,6 +62,10 @@ public class Fattura {
 
     public Vector<Opera> getOpere() {
         return opere;
+    }
+
+    public void setOpere(Vector<Opera> opere) {
+        this.opere = opere;
     }
 
     public int getNumeroFattura() {

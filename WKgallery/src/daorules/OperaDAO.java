@@ -37,10 +37,9 @@ public interface OperaDAO {
      * Permette la cancellazione dall'archivio di un'opera.
      * @param codiceOpera il CodiceOpera dell'opera da cancellare
      * @throws exceptions.RecordNonPresenteException se il CodiceOpera non corrisponde ad alcun record
-     * @throws exceptions.RecordCorrelatoException se l'opera ha record correlati
      */
     public void deleteOpera(String codiceOpera)
-            throws RecordNonPresenteException, RecordCorrelatoException;
+            throws RecordNonPresenteException;
 
     /**
      * Permette di trovare un'opera tramite il suo CodiceOpera.
@@ -51,14 +50,22 @@ public interface OperaDAO {
     public Opera findOpera(String codiceOpera) throws RecordNonPresenteException;
 
     /**
-     * 
-     * @return
+     * Peremtte di recuperare tutte le opere presenti in archivio.
+     * @return l'elenco delle opere
      */
     public Vector<Opera> findAllOpere();
 
+    /**
+     * Permette di aggiornare i campi di un'opera.
+     * @param opera l'opera aggiornata
+     * @throws exceptions.RecordNonPresenteException se l'opera non è presente in archivio
+     */
     public void updateOpera(Opera opera) throws RecordNonPresenteException;
 
-    public void updatePrezzo(Opera opera) throws RecordNonPresenteException;
-
+    /**
+     * Permette di recuperare le opere diun particolare artista.
+     * @param artista l'artista di cui si vogliono recuperare le opere
+     * @return l'elenco di tutte le opere dell'artista
+     */
     public Vector<Opera> selectOperaPerArtista(Artista artista);
 }

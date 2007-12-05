@@ -21,12 +21,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.sql.RowSet;
 import utilities.EMail;
 
 /**
@@ -37,13 +35,15 @@ public class MSAccessClienteDAO implements ClienteDAO {
 
     private Connection connection;
 
-    /** Creates a new instance of MSAccessClienteDAO */
+    /** Creates a new instance of MSAccessClienteDAO
+     * @param connection 
+     */
     public MSAccessClienteDAO(Connection connection) {
         this.connection = connection;
     }
 
     public void insertCliente(Cliente cliente) throws RecordGiaPresenteException,
-            ChiavePrimariaException {
+                                                       ChiavePrimariaException {
         try {
             String codCliente = cliente.getCodiceCliente();
             if (codCliente.isEmpty()) {
@@ -95,13 +95,13 @@ public class MSAccessClienteDAO implements ClienteDAO {
             makePersistent();
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessClienteDAO.class.getName()).log(Level.SEVERE,
-                    null, ex);
+                                                                     null, ex);
         }
 
     }
 
     public void deleteCliente(String codiceCliente) throws RecordNonPresenteException,
-            RecordCorrelatoException {
+                                                            RecordCorrelatoException {
         try {
             PreparedStatement pstmt =
                     connection.prepareStatement("DELETE FROM Cliente WHERE ID = ?");
@@ -151,10 +151,11 @@ public class MSAccessClienteDAO implements ClienteDAO {
             }
             pstmt.close();
         } catch (BadFormatException ex) {
-            Logger.getLogger(MSAccessClienteDAO.class.getName()).log(Level.WARNING, null, ex);
+            Logger.getLogger(MSAccessClienteDAO.class.getName()).log(Level.WARNING,
+                                                                     null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE,
-                    null, ex);
+                                                                     null, ex);
         }
         return cliente;
     }
@@ -246,10 +247,11 @@ public class MSAccessClienteDAO implements ClienteDAO {
             }
             pstmt.close();
         } catch (BadFormatException ex) {
-            Logger.getLogger(MSAccessClienteDAO.class.getName()).log(Level.WARNING, null, ex);
+            Logger.getLogger(MSAccessClienteDAO.class.getName()).log(Level.WARNING,
+                                                                     null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE,
-                    null, ex);
+                                                                     null, ex);
         }
         Collections.sort(v, new ClienteComparator());
         return v;
@@ -290,10 +292,13 @@ public class MSAccessClienteDAO implements ClienteDAO {
                 }
                 pstmt.close();
             } catch (BadFormatException ex) {
-                Logger.getLogger(MSAccessClienteDAO.class.getName()).log(Level.WARNING, null, ex);
+                Logger.getLogger(MSAccessClienteDAO.class.getName()).log(Level.WARNING,
+                                                                         null,
+                                                                         ex);
             } catch (SQLException ex) {
                 Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE,
-                        null, ex);
+                                                                         null,
+                                                                         ex);
             }
             Collections.sort(tempV, new ClienteComparator());
             v.addAll(tempV);
@@ -332,10 +337,11 @@ public class MSAccessClienteDAO implements ClienteDAO {
             }
             pstmt.close();
         } catch (BadFormatException ex) {
-            Logger.getLogger(MSAccessClienteDAO.class.getName()).log(Level.WARNING, null, ex);
+            Logger.getLogger(MSAccessClienteDAO.class.getName()).log(Level.WARNING,
+                                                                     null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE,
-                    null, ex);
+                                                                     null, ex);
         }
         Collections.sort(v, new ClienteComparator());
         return v;
@@ -372,10 +378,11 @@ public class MSAccessClienteDAO implements ClienteDAO {
             }
             pstmt.close();
         } catch (BadFormatException ex) {
-            Logger.getLogger(MSAccessClienteDAO.class.getName()).log(Level.WARNING, null, ex);
+            Logger.getLogger(MSAccessClienteDAO.class.getName()).log(Level.WARNING,
+                                                                     null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE,
-                    null, ex);
+                                                                     null, ex);
         }
         Collections.sort(v, new ClienteComparator());
         return v;
@@ -412,19 +419,18 @@ public class MSAccessClienteDAO implements ClienteDAO {
             }
             pstmt.close();
         } catch (BadFormatException ex) {
-            Logger.getLogger(MSAccessClienteDAO.class.getName()).log(Level.WARNING, null, ex);
+            Logger.getLogger(MSAccessClienteDAO.class.getName()).log(Level.WARNING,
+                                                                     null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE,
-                    null, ex);
+                                                                     null, ex);
         }
         Collections.sort(v, new ClienteComparator());
         return v;
     }
-    
-    public Cliente staticFindCliente(String codiceCliente, Connection conn) throws RecordNonPresenteException {
-        if (!clienteExists(codiceCliente)) {
-            throw new RecordNonPresenteException("CodiceCliente non presente in archivio");
-        }
+
+    public static Cliente staticFindCliente(String codiceCliente,
+                                              Connection conn) {
         Cliente cliente = new Cliente();
         try {
             PreparedStatement pstmt =
@@ -453,10 +459,11 @@ public class MSAccessClienteDAO implements ClienteDAO {
             }
             pstmt.close();
         } catch (BadFormatException ex) {
-            Logger.getLogger(MSAccessClienteDAO.class.getName()).log(Level.WARNING, null, ex);
+            Logger.getLogger(MSAccessClienteDAO.class.getName()).log(Level.WARNING,
+                                                                     null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE,
-                    null, ex);
+                                                                     null, ex);
         }
         return cliente;
 
@@ -496,7 +503,7 @@ public class MSAccessClienteDAO implements ClienteDAO {
             pstmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessDAOFactory.class.getName()).log(Level.SEVERE,
-                    null, ex);
+                                                                     null, ex);
         }
     }
 }

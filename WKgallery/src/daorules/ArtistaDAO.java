@@ -17,7 +17,7 @@ import java.util.Vector;
 
 /** 
  * L'interfaccia di riferimento per l'implementazione delle classi che si occupano di 
- * interagire direttamente con l'archivio dei dati dell'entità Artista.
+ * interagire direttamente con l'archivio dati dell'entità Artista.
  *
  * @author Marco Celesti
  */

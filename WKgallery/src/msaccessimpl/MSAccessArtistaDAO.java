@@ -108,12 +108,6 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
         return artista;
     }
 
-    /**
-     * Metodo per l'update di un record
-     * @param artista L'istanza aggiornata
-     * @return true se l'aggiornamento è avvenuto con successo
-     *         false altrimenti
-     */
     public void updateArtista(Artista artista) throws RecordNonPresenteException {
         int codArt = artista.getCodiceArtista();
         if (!artistaExists(codArt)) {

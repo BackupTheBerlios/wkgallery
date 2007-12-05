@@ -1,6 +1,5 @@
 package msaccessimpl;
 
-
 import daorules.DAOFactory;
 /*
  * MSAccessDAOFactory.java
@@ -63,7 +62,7 @@ public class MSAccessDAOFactory extends DAOFactory {
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessDAOFactory.class.getName()).log(Level.SEVERE,
-                    null, ex);
+                                                                     null, ex);
         }
         return false;
     }
