@@ -6,6 +6,7 @@ import daorules.DAOFactory;
  *
  * Utilizza il pattern Singleton
  */
+import exceptions.ArchivioNonTrovatoException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -33,8 +34,10 @@ public class MSAccessDAOFactory extends DAOFactory {
 
     }
 
-    public Connection getConnection() {
+    public Connection getConnection() throws ArchivioNonTrovatoException {
+        // now we can get the connection from the DriverManager
         try {
+
             Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
 
             // TODO: set right filepath
@@ -44,16 +47,20 @@ public class MSAccessDAOFactory extends DAOFactory {
 
             String database =
                     "jdbc:odbc:Driver={Microsoft Access Driver (*.mdb)};DBQ=";
-            database += filename.trim();// + ";DriverID=22;READONLY=false}"; // add on to the end
+            database += filename.trim(); // + ";DriverID=22;READONLY=false}"; // add on to the end
             // now we can get the connection from the DriverManager
             connection = DriverManager.getConnection(database, "", "");
             System.out.println("conn: " + connection);
-
-        } catch (Exception ex) {
-            System.err.println(ex);
+            return connection;
+        } catch (SQLException ex) {
+            Logger.getLogger(MSAccessDAOFactory.class.getName()).
+                    log(Level.SEVERE, null, ex);
+            return null;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MSAccessDAOFactory.class.getName()).
+                    log(Level.SEVERE, null, ex);
+            return null;
         }
-
-        return connection;
     }
 
     public boolean closeConnection() {

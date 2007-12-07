@@ -9,6 +9,7 @@
 
 package daorules;
 
+import exceptions.ArchivioNonTrovatoException;
 import java.sql.Connection;
 import msaccessimpl.MSAccessDAOFactory;
 
@@ -30,7 +31,14 @@ public abstract class DAOFactory {
     public abstract ClienteDAO getClienteDAO();
     public abstract FatturaDAO getFatturaDAO();
     
-    public abstract Connection getConnection();
+    /**
+     * Permette di ottenere la connessione all'archivio dati per poter
+     * accedere ad esso con i metodi definiti nelle interfacce specifiche.
+     * @return l'oggetto per gestire la connesione
+     * @throws exceptions.ArchivioNonTrovatoException se l'archivio di dati non
+     * viene trovato
+     */
+    public abstract Connection getConnection() throws ArchivioNonTrovatoException;
     
     public static DAOFactory getDAOFactory(int whichFactory) {
         

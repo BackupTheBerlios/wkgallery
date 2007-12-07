@@ -14,6 +14,7 @@ import abstractlayer.Fattura;
 import abstractlayer.Opera;
 import abstractlayer.Regione;
 import daorules.*;
+import exceptions.ArchivioNonTrovatoException;
 import exceptions.BadFormatException;
 import exceptions.ChiavePrimariaException;
 import exceptions.RecordCorrelatoException;
@@ -47,7 +48,11 @@ public class MSAccessMain {
 
         MSAccessDAOFactory msaccessFactory =
                 (MSAccessDAOFactory) DAOFactory.getDAOFactory(DAOFactory.MSACCESS);
+        try {
         connection = msaccessFactory.getConnection();
+        } catch (ArchivioNonTrovatoException ante) {
+            System.err.println(ante);
+        }
         // Create DAOs
         //ArtistaDAO art = msaccessFactory.getArtistaDAO();
         MSAccessArtistaDAO artistaDAO = msaccessFactory.getArtistaDAO();
