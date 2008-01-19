@@ -42,7 +42,7 @@ public class MSAccessDAOFactory extends DAOFactory {
 
             // TODO: set right filepath
             String filename =
-                    "D:\\Documents and Settings\\Marco Celesti\\Documenti\\Università\\Laurea specialistica\\I° Anno LS\\II° Semestre\\Progetto di Informatica III\\Progetto\\DB\\WKgallery.mdb";
+                    "D:\\Documents and Settings\\Marco Celesti.MarcoFisso\\Documenti\\Università\\Laurea specialistica\\I° Anno LS\\II° Semestre\\Progetto di Informatica III\\Progetto\\DB\\WKgallery.mdb";
             filename = filename.replace('\\', '/').trim();
 
             String database =

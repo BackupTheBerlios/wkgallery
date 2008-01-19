@@ -42,32 +42,34 @@ import utilities.EMail;
  */
 public class MainFrame extends javax.swing.JFrame {
 
+    // Variabili necessarie per l'utilizzo dei metodi 'core'
     Connection connection;
-    private Cliente cliLett;
-    private Cliente cliLett2;
-    private Cliente cliLett3;
-    
-    MSAccessArtistaDAO artistaDAO;
-    MSAccessClienteDAO clienteDAO;
-    MSAccessFatturaDAO fatturaDAO;
-    MSAccessOperaDAO operaDAO;
+    DAOFactory factoryDAO;
+    ArtistaDAO artistaDAO;
+    ClienteDAO clienteDAO;
+    FatturaDAO fatturaDAO;
+    OperaDAO operaDAO;
 
     /** Creates new form guiframe */
     public MainFrame() {
-        
         initComponents();
-        MSAccessDAOFactory msaccessFactory =
-                (MSAccessDAOFactory) DAOFactory.getDAOFactory(DAOFactory.MSACCESS);
+        
+        // Qui ci dovrebbe essere il discorso relativo alla scelta
+        // del database. Nel caso (ovvio per noi) che si scelga 
+        // Access, le variabili *DAO vengono "specializzate" per Access
+        // con factoryDAO.get*DAO
+        
+        factoryDAO = (MSAccessDAOFactory) DAOFactory.getDAOFactory(DAOFactory.MSACCESS);
         try {
-            connection = msaccessFactory.getConnection();
+            connection = factoryDAO.getConnection();
         } catch (ArchivioNonTrovatoException ante) {
             System.err.println(ante);
         }
-        // Create DAOs
-        clienteDAO = msaccessFactory.getClienteDAO();
-        artistaDAO = msaccessFactory.getArtistaDAO();
-        fatturaDAO = msaccessFactory.getFatturaDAO();
-        operaDAO = msaccessFactory.getOperaDAO();
+        // Creo DAOs già "specializzati"
+        clienteDAO = factoryDAO.getClienteDAO();
+        artistaDAO = factoryDAO.getArtistaDAO();
+        fatturaDAO = factoryDAO.getFatturaDAO();
+        operaDAO = factoryDAO.getOperaDAO();
 
         Fattura f = null;
         try {
@@ -210,7 +212,8 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         JTextField cod = jTextField3;
-        String cod1 = cod.toString();
+        String cod1 = cod.getText(); //Non cod.toString()
+        //System.out.println("cod1: " + cod1);
         Cliente a = null;
         try {
             a = clienteDAO.findCliente(cod1);
