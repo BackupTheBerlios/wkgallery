@@ -3,7 +3,6 @@
  *
  * Created on 17 gennaio 2008, 19.36
  */
-
 package gui;
 
 import abstractlayer.Artista;
@@ -37,35 +36,39 @@ import utilities.EMail;
  *
  * @author Marco Celesti
  */
-
 /**
  *
  * @author  Mir1
  */
-public class guiframe extends javax.swing.JFrame {
-        Connection connection;
+public class MainFrame extends javax.swing.JFrame {
+
+    Connection connection;
     private Cliente cliLett;
     private Cliente cliLett2;
     private Cliente cliLett3;
     
-    
-    
-    /** Creates new form guigrame */
-    public guiframe() {
+    MSAccessArtistaDAO artistaDAO;
+    MSAccessClienteDAO clienteDAO;
+    MSAccessFatturaDAO fatturaDAO;
+    MSAccessOperaDAO operaDAO;
+
+    /** Creates new form guiframe */
+    public MainFrame() {
+        
         initComponents();
         MSAccessDAOFactory msaccessFactory =
                 (MSAccessDAOFactory) DAOFactory.getDAOFactory(DAOFactory.MSACCESS);
         try {
-        connection = msaccessFactory.getConnection();
+            connection = msaccessFactory.getConnection();
         } catch (ArchivioNonTrovatoException ante) {
             System.err.println(ante);
         }
         // Create DAOs
-        //ArtistaDAO art = msaccessFactory.getArtistaDAO();
-        MSAccessArtistaDAO artistaDAO = msaccessFactory.getArtistaDAO();
-        MSAccessClienteDAO clienteDAO = msaccessFactory.getClienteDAO();
-        MSAccessFatturaDAO fatturaDAO = msaccessFactory.getFatturaDAO();
-        MSAccessOperaDAO operaDAO = msaccessFactory.getOperaDAO();
+        clienteDAO = msaccessFactory.getClienteDAO();
+        artistaDAO = msaccessFactory.getArtistaDAO();
+        fatturaDAO = msaccessFactory.getFatturaDAO();
+        operaDAO = msaccessFactory.getOperaDAO();
+
         Fattura f = null;
         try {
             f = fatturaDAO.findFattura(1, 2007);
@@ -76,7 +79,7 @@ public class guiframe extends javax.swing.JFrame {
             System.out.println(e);
         }
     }
-    
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -170,7 +173,7 @@ public class guiframe extends javax.swing.JFrame {
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(125, Short.MAX_VALUE))
+                .addContainerGap(122, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Modulo di ricerca", jPanel1);
@@ -205,35 +208,34 @@ public class guiframe extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        JTextField cod=jTextField3;
-        String cod1=cod.toString();
-        ClienteDAO a = null;
-    try {
-    a = ClienteDAO.findCliente(cod1);
-    } catch (BadFormatException ex) {
-    Logger.getLogger(MSAccessMain.class.getName()).
-    log(Level.SEVERE, null, ex);
-    }
+        JTextField cod = jTextField3;
+        String cod1 = cod.toString();
+        Cliente a = null;
+        try {
+            a = clienteDAO.findCliente(cod1);
+        } catch (RecordNonPresenteException ex) {
+            Logger.getLogger(MSAccessMain.class.getName()).
+                    log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
+    // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
-    
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
         new MSAccessMain();
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
-                new guiframe().setVisible(true);
+                new MainFrame().setVisible(true);
             }
         });
     }
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -250,5 +252,4 @@ public class guiframe extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
-    
 }
