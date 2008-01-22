@@ -76,6 +76,8 @@ public class EMail {
     }
 
     public static boolean isCorrect(String stringEmail) {
+        //prova
+        String prova;
         String[] user_dominio = stringEmail.split("@");
         if (user_dominio[0].isEmpty() || user_dominio[1].isEmpty()) {
             return false;
