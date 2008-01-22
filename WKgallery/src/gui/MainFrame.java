@@ -3,7 +3,6 @@
  *
  * Created on 22 gennaio 2008, 10.43
  */
-
 package gui;
 
 import abstractlayer.Artista;
@@ -44,37 +43,36 @@ import utilities.EMail;
  * @author  Mir1
  */
 public class MainFrame extends javax.swing.JFrame {
-    
+
     /* necessari per la connessione con il DB*/
     Connection connection;
     String cod;
-    MSAccessArtistaDAO artistaDAO;
-    MSAccessClienteDAO clienteDAO;
-    MSAccessFatturaDAO fatturaDAO;
-    MSAccessOperaDAO operaDAO;
-    String ColumnsCli[]={"ID", "Cognome / Rag.Soc" , "Nome / Rag.Soc. 2","Indirizzo", "N° Civico", "Città", "Provincia", "regione", "Stato", "Tel1", "Tel2", "Cell1", "Cell2", "Mail1", "Mail2", "CF / P.IVA", "Note"};
+    ArtistaDAO artistaDAO;
+    ClienteDAO clienteDAO;
+    FatturaDAO fatturaDAO;
+    OperaDAO operaDAO;
+    String ColumnsCli[] = {"ID", "Cognome / Rag.Soc", "Nome / Rag.Soc. 2", "Indirizzo", "N° Civico", "Città", "Provincia", "regione", "Stato", "Tel1", "Tel2", "Cell1", "Cell2", "Mail1", "Mail2", "CF / P.IVA", "Note"};
+    DefaultTableModel modelCli = new DefaultTableModel();
 
-    DefaultTableModel modelCli;
-    
-    
-    
     /** Creates new form MainFrame */
     public MainFrame() {
         initComponents();
-        MSAccessDAOFactory msaccessFactory =
+        DAOFactory factoryDAO =
                 (MSAccessDAOFactory) DAOFactory.getDAOFactory(DAOFactory.MSACCESS);
         try {
-            connection = msaccessFactory.getConnection();
+            connection = factoryDAO.getConnection();
         } catch (ArchivioNonTrovatoException ante) {
             System.err.println(ante);
         }
         // Create DAOs
-        clienteDAO = msaccessFactory.getClienteDAO();
-        artistaDAO = msaccessFactory.getArtistaDAO();
-        fatturaDAO = msaccessFactory.getFatturaDAO();
-        operaDAO = msaccessFactory.getOperaDAO();
+        clienteDAO = factoryDAO.getClienteDAO();
+        artistaDAO = factoryDAO.getArtistaDAO();
+        fatturaDAO = factoryDAO.getFatturaDAO();
+        operaDAO = factoryDAO.getOperaDAO();
+        
+        fillTab1();
     }
-    
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -119,32 +117,32 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     /*funzione per popolare la tabella del tab clienti */
-    public void fillTab1 (){
+    public void fillTab1() {
         modelCli.addColumn(ColumnsCli);
-        Vector<Cliente> c=clienteDAO.findAllClienti();
-        Iterator it =c.iterator();
-        while(it.hasNext()){
-            Cliente r = (Cliente)it.next();
-            Object[] s ={r.getCodiceCliente(),r.getCognRsoc1(), r.getNomeRsoc2(), r.getIndirizzo(), r.getNCiv(), r.getCitta(), r.getProvincia(), r.getRegione(), r.getStato(), r.getTel1(), r.getTel2(), r.getCell1(), r.getCell2(), r.getMail1(), r.getMail2(), r.getCfPiva(), r.getNote()};
+        Vector<Cliente> c = clienteDAO.findAllClienti();
+        Iterator it = c.iterator();
+        while (it.hasNext()) {
+            Cliente r = (Cliente) it.next();
+            Object[] s = {r.getCodiceCliente(), r.getCognRsoc1(), r.getNomeRsoc2(), r.getIndirizzo(), r.getNCiv(), r.getCitta(), r.getProvincia(), r.getRegione(), r.getStato(), r.getTel1(), r.getTel2(), r.getCell1(), r.getCell2(), r.getMail1(), r.getMail2(), r.getCfPiva(), r.getNote()};
             modelCli.addRow(s);
+        }
     }
-    }
+
     /**
      * @param args the command line arguments
      */
-   public static void main(String args[]) {
+    public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
+
             public void run() {
                 new MainFrame().setVisible(true);
-                //fillTab1();
+                
             }
         });
     }
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
-    
 }
