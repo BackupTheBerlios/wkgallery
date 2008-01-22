@@ -52,7 +52,7 @@ public class MainFrame extends javax.swing.JFrame {
     FatturaDAO fatturaDAO;
     OperaDAO operaDAO;
     String ColumnsCli[] = {"ID", "Cognome / Rag.Soc", "Nome / Rag.Soc. 2", "Indirizzo", "N° Civico", "Città", "Provincia", "regione", "Stato", "Tel1", "Tel2", "Cell1", "Cell2", "Mail1", "Mail2", "CF / P.IVA", "Note"};
-    DefaultTableModel modelCli = new DefaultTableModel();
+    DefaultTableModel modelCli;
 
     /** Creates new form MainFrame */
     public MainFrame() {
@@ -70,6 +70,7 @@ public class MainFrame extends javax.swing.JFrame {
         fatturaDAO = factoryDAO.getFatturaDAO();
         operaDAO = factoryDAO.getOperaDAO();
         
+        modelCli = new DefaultTableModel();
         fillTab1();
     }
 
