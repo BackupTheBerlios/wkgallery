@@ -39,7 +39,7 @@ public interface OperaDAO {
      * @throws exceptions.RecordNonPresenteException se il CodiceOpera non corrisponde ad alcun record
      */
     public void deleteOpera(String codiceOpera)
-            throws RecordNonPresenteException;
+            throws RecordNonPresenteException, RecordCorrelatoException;
 
     /**
      * Permette di trovare un'opera tramite il suo CodiceOpera.

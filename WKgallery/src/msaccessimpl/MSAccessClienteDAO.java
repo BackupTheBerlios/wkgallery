@@ -8,6 +8,7 @@
  */
 package msaccessimpl;
 
+import abstractlayer.Fattura;
 import exceptions.BadFormatException;
 import utilities.ClienteComparator;
 import abstractlayer.Cliente;
@@ -56,6 +57,7 @@ public class MSAccessClienteDAO implements ClienteDAO {
             String nomeRsoc2 = cliente.getNomeRsoc2();
             String indirizzo = cliente.getIndirizzo();
             int nCiv = cliente.getNCiv();
+            String cap = cliente.getCap();
             String citta = cliente.getCitta();
             String prov = cliente.getProvincia();
             String regione = cliente.getRegione().getNomeRegione();
@@ -71,7 +73,7 @@ public class MSAccessClienteDAO implements ClienteDAO {
             boolean professionista = cliente.isProfessionista();
 
             PreparedStatement pstmt =
-                    connection.prepareStatement("INSERT INTO Cliente values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                    connection.prepareStatement("INSERT INTO Cliente values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             pstmt.setString(1, codCliente);
             pstmt.setString(2, cognRsoc1);
             pstmt.setString(3, nomeRsoc2);
@@ -90,6 +92,7 @@ public class MSAccessClienteDAO implements ClienteDAO {
             pstmt.setString(16, cfPiva);
             pstmt.setString(17, note);
             pstmt.setBoolean(18, professionista);
+            pstmt.setString(19, cap);
             pstmt.executeUpdate();
             pstmt.close();
             makePersistent();
@@ -148,6 +151,7 @@ public class MSAccessClienteDAO implements ClienteDAO {
                 cliente.setCfPiva(rs.getString("CF_PIVA"));
                 cliente.setNote(rs.getString("Note"));
                 cliente.setProfessionista(rs.getBoolean("Professionista"));
+                cliente.setCap(rs.getString("Cap"));
             }
             pstmt.close();
         } catch (BadFormatException ex) {
@@ -182,10 +186,11 @@ public class MSAccessClienteDAO implements ClienteDAO {
             String mail2 = EMail.toString(cliente.getMail2());
             String cfPiva = cliente.getCfPiva();
             String note = cliente.getNote();
+            String cap = cliente.getCap();
             boolean professionista = cliente.isProfessionista();
 
             PreparedStatement pstmt =
-                    connection.prepareStatement("UPDATE Cliente SET Cognome_Rsoc1 = ?, Nome_Rsoc2 = ?, Dimensioni = ?, Indirizzo = ?, NCiv = ?, Citta = ?, Provincia = ?, Regione = ?, Stato = ?, Telefono1 = ?, Telefono2 = ?, Cellulare1 = ?, Cellulare2 = ?, Cellulare1 = ?, Mail1 = ?, Mail2 = ?, CF_PIVA = ?, Note = ?, Professionista = ? WHERE ID = ?");
+                    connection.prepareStatement("UPDATE Cliente SET Cognome_Rsoc1 = ?, Nome_Rsoc2 = ?, Dimensioni = ?, Indirizzo = ?, NCiv = ?, Citta = ?, Provincia = ?, Regione = ?, Stato = ?, Telefono1 = ?, Telefono2 = ?, Cellulare1 = ?, Cellulare2 = ?, Cellulare1 = ?, Mail1 = ?, Mail2 = ?, CF_PIVA = ?, Note = ?, Professionista = ?, Cap = ? WHERE ID = ?");
             pstmt.setString(18, codCli);
             pstmt.setString(1, cognRsoc1);
             pstmt.setString(2, nomeRsoc2);
@@ -204,6 +209,7 @@ public class MSAccessClienteDAO implements ClienteDAO {
             pstmt.setString(15, cfPiva);
             pstmt.setString(16, note);
             pstmt.setBoolean(17, professionista);
+            pstmt.setString(18, cap);
             pstmt.executeUpdate();
             pstmt.close();
             makePersistent();
@@ -243,6 +249,7 @@ public class MSAccessClienteDAO implements ClienteDAO {
                 cliente.setCfPiva(rs.getString("CF_PIVA"));
                 cliente.setNote(rs.getString("Note"));
                 cliente.setProfessionista(rs.getBoolean("Professionista"));
+                cliente.setCap(rs.getString("Cap"));
                 v.add(cliente);
             }
             pstmt.close();
@@ -288,6 +295,7 @@ public class MSAccessClienteDAO implements ClienteDAO {
                     cliente.setCfPiva(rs.getString("CF_PIVA"));
                     cliente.setNote(rs.getString("Note"));
                     cliente.setProfessionista(rs.getBoolean("Professionista"));
+                    cliente.setCap(rs.getString("Cap"));
                     tempV.add(cliente);
                 }
                 pstmt.close();
@@ -333,6 +341,7 @@ public class MSAccessClienteDAO implements ClienteDAO {
                 cliente.setCfPiva(rs.getString("CF_PIVA"));
                 cliente.setNote(rs.getString("Note"));
                 cliente.setProfessionista(rs.getBoolean("Professionista"));
+                cliente.setCap(rs.getString("Cap"));
                 v.add(cliente);
             }
             pstmt.close();
@@ -374,6 +383,7 @@ public class MSAccessClienteDAO implements ClienteDAO {
                 cliente.setCfPiva(rs.getString("CF_PIVA"));
                 cliente.setNote(rs.getString("Note"));
                 cliente.setProfessionista(rs.getBoolean("Professionista"));
+                cliente.setCap(rs.getString("Cap"));
                 v.add(cliente);
             }
             pstmt.close();
@@ -387,7 +397,7 @@ public class MSAccessClienteDAO implements ClienteDAO {
         Collections.sort(v, new ClienteComparator());
         return v;
     }
-
+    
     public Vector<Cliente> findAllClienti() {
         Cliente cliente;
         Vector<Cliente> v = new Vector<Cliente>();
@@ -415,6 +425,7 @@ public class MSAccessClienteDAO implements ClienteDAO {
                 cliente.setCfPiva(rs.getString("CF_PIVA"));
                 cliente.setNote(rs.getString("Note"));
                 cliente.setProfessionista(rs.getBoolean("Professionista"));
+                cliente.setCap(rs.getString("Cap"));
                 v.add(cliente);
             }
             pstmt.close();
@@ -456,6 +467,7 @@ public class MSAccessClienteDAO implements ClienteDAO {
                 cliente.setCfPiva(rs.getString("CF_PIVA"));
                 cliente.setNote(rs.getString("Note"));
                 cliente.setProfessionista(rs.getBoolean("Professionista"));
+                cliente.setCap(rs.getString("Cap"));
             }
             pstmt.close();
         } catch (BadFormatException ex) {
@@ -478,7 +490,6 @@ public class MSAccessClienteDAO implements ClienteDAO {
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
                 codiceReale = rs.getString("ID");
-                System.out.println("CodiceCliente: " + codiceReale);
             }
             if (!codiceReale.isEmpty()) {
                 return true;
@@ -506,4 +517,6 @@ public class MSAccessClienteDAO implements ClienteDAO {
                                                                      null, ex);
         }
     }
+
+    
 }

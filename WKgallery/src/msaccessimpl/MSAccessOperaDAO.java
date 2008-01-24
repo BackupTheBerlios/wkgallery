@@ -40,7 +40,7 @@ public class MSAccessOperaDAO implements OperaDAO {
     }
 
     public void insertOpera(Opera opera) throws RecordGiaPresenteException,
-                                                 ChiavePrimariaException {
+            ChiavePrimariaException {
         try {
             String codOpera = opera.getCodiceOpera();
             if (codOpera.isEmpty()) {
@@ -55,9 +55,6 @@ public class MSAccessOperaDAO implements OperaDAO {
             String dimensioni = opera.getDimensioni();
             String tipo = opera.getTipo();
             String foto = opera.getFoto();
-            Fattura fattura = opera.getFattura();
-            int numFatt = fattura.getNumeroFattura();
-            int annoFatt = fattura.getAnnoFattura();
             float prezzo = opera.getPrezzo();
 
             PreparedStatement pstmt =
@@ -69,17 +66,20 @@ public class MSAccessOperaDAO implements OperaDAO {
             pstmt.setString(5, tipo);
             pstmt.setBoolean(6, false);
             pstmt.setString(7, foto);
-            pstmt.setInt(8, numFatt);
-            pstmt.setInt(9, annoFatt);
+
+            pstmt.setInt(8, 0); //Campo relativo alla fattura - numero
+            pstmt.setInt(9, 0); //Campo relativo alla fattura - anno
+
             pstmt.setFloat(10, prezzo);
             pstmt.executeUpdate();
             pstmt.close();
             makePersistent();
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE,
-                                                                     null, ex);
+                    null, ex);
         }
     }
+
     /**
      * Permette la cancellazione dall'archivio di un'opera. Va preventivamente
      * verificato che l'opera non abbia fatture associate. In tal caso il metodo
@@ -87,23 +87,28 @@ public class MSAccessOperaDAO implements OperaDAO {
      * @param codiceOpera
      * @throws exceptions.RecordNonPresenteException
      */
-    public void deleteOpera(String codiceOpera) throws RecordNonPresenteException {
+    public void deleteOpera(String codiceOpera) throws RecordNonPresenteException, RecordCorrelatoException {
         if (!operaExists(codiceOpera)) {
-            throw new RecordNonPresenteException("CodiceOpera già presente in archivio");
+            throw new RecordNonPresenteException("CodiceOpera non presente in archivio");
         }
-        try {
-            PreparedStatement pstmt =
-                    connection.prepareStatement("DELETE FROM Opera WHERE CodiceOpera = ?");
-            pstmt.setString(1, codiceOpera);
-            int count = pstmt.executeUpdate();
-            pstmt.close();
-            // count contiene 1 se la cancellazione è avvenuta con successo
-            if (count > 0) {
-                makePersistent();
+        Opera operaToDelete = findOpera(codiceOpera);
+        if (operaToDelete.getFattura().getNumeroFattura() == 0) {
+            try {
+                PreparedStatement pstmt =
+                        connection.prepareStatement("DELETE FROM Opera WHERE CodiceOpera = ?");
+                pstmt.setString(1, codiceOpera);
+                int count = pstmt.executeUpdate();
+                pstmt.close();
+                // count contiene 1 se la cancellazione è avvenuta con successo
+                if (count > 0) {
+                    makePersistent();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(MSAccessOperaDAO.class.getName()).log(Level.SEVERE,
+                        null, ex);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(MSAccessOperaDAO.class.getName()).log(Level.SEVERE,
-                                                                   null, ex);
+        } else {
+            throw new RecordCorrelatoException("L'opera che si desidera cancellare è contenuta in una fattura.");
         }
     }
 
@@ -113,8 +118,8 @@ public class MSAccessOperaDAO implements OperaDAO {
         }
         Opera opera = new Opera();
         int codArt = -1;
-        int numFatt = -1;
-        int annoFatt = -1;
+        int numFatt = 0;
+        int annoFatt = 0;
         try {
             PreparedStatement pstmt =
                     connection.prepareStatement("SELECT * FROM Opera WHERE CodiceOpera = ?");
@@ -134,13 +139,13 @@ public class MSAccessOperaDAO implements OperaDAO {
             pstmt.close();
 
             opera.setArtista(MSAccessArtistaDAO.staticFindArtista(codArt,
-                                                                  connection));
+                    connection));
             opera.setFattura(MSAccessFatturaDAO.staticFindFattura(numFatt,
-                                                                  annoFatt,
-                                                                  connection));
+                    annoFatt,
+                    connection));
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessOperaDAO.class.getName()).log(Level.SEVERE,
-                                                                   null, ex);
+                    null, ex);
         }
         return opera;
     }
@@ -158,9 +163,10 @@ public class MSAccessOperaDAO implements OperaDAO {
             String dimensioni = opera.getDimensioni();
             String tipo = opera.getTipo();
             String foto = opera.getFoto();
+            float prezzo = opera.getPrezzo();
 
             PreparedStatement pstmt =
-                    connection.prepareStatement("UPDATE Opera SET Artista = ?, Tecnica = ?, Dimensioni = ?, Tipo = ?, Foto = ?, Venduto = ? WHERE CodiceOpera = ?");
+                    connection.prepareStatement("UPDATE Opera SET Artista = ?, Tecnica = ?, Dimensioni = ?, Tipo = ?, Foto = ?, Venduto = ?, Prezzo = ? WHERE CodiceOpera = ?");
             pstmt.setString(7, codOpera);
             pstmt.setInt(1, codArtista);
             pstmt.setString(2, tecnica);
@@ -168,13 +174,14 @@ public class MSAccessOperaDAO implements OperaDAO {
             pstmt.setString(4, tipo);
             pstmt.setString(5, foto);
             pstmt.setBoolean(6, venduto);
+            pstmt.setFloat(7, prezzo);
             pstmt.executeUpdate();
             pstmt.close();
             makePersistent();
 
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessOperaDAO.class.getName()).log(Level.SEVERE,
-                                                                   null, ex);
+                    null, ex);
         }
     }
 
@@ -200,7 +207,7 @@ public class MSAccessOperaDAO implements OperaDAO {
             }
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessOperaDAO.class.getName()).log(Level.SEVERE,
-                                                                   null, ex);
+                    null, ex);
         }
         return v;
     }
@@ -219,7 +226,7 @@ public class MSAccessOperaDAO implements OperaDAO {
                 opera.setTecnica(rs.getString("Tecnica"));
                 opera.setTipo(rs.getString("Tipo"));
                 opera.setArtista(MSAccessArtistaDAO.staticFindArtista(rs.getInt("Artista"),
-                                                                      connection));
+                        connection));
                 opera.setFoto(rs.getString("Foto"));
                 opera.setVenduto(rs.getBoolean("Venduto"));
                 int nFatt = rs.getInt("NumeroFattura");
@@ -229,13 +236,13 @@ public class MSAccessOperaDAO implements OperaDAO {
             }
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessOperaDAO.class.getName()).log(Level.SEVERE,
-                                                                   null, ex);
+                    null, ex);
         }
         return v;
     }
 
     public static Opera staticFindOpera(String codiceOpera,
-                                          Connection connection) {
+            Connection connection) {
         Opera opera = new Opera();
         int codArt = -1;
         int numFatt = -1;
@@ -259,39 +266,39 @@ public class MSAccessOperaDAO implements OperaDAO {
             pstmt.close();
 
             opera.setArtista(MSAccessArtistaDAO.staticFindArtista(codArt,
-                                                                  connection));
+                    connection));
             Fattura f = new Fattura();
             opera.setFattura(f);
 
         // Non serve recuperare la fattura: è proprio la fattura che setta se stessa all'interno dell'opera.
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessOperaDAO.class.getName()).log(Level.SEVERE,
-                                                                   null, ex);
+                    null, ex);
         }
         return opera;
     }
 
-    public static void staticUpdateOperaVenduta(Opera opera,
-                                                  Connection connection) {
+    public static void staticUpdateOperaVenduta(String codOpera,
+            Connection connection, int nFatt, int annoFatt) {
         try {
-            String codOpera = opera.getCodiceOpera();
-            boolean venduto = opera.isVenduto();
-            int numFatt = opera.getFattura().getNumeroFattura();
-            int annoFatt = opera.getFattura().getAnnoFattura();
-            float prezzo = opera.getPrezzo();
+            boolean venduto = true;
             PreparedStatement pstmt =
-                    connection.prepareStatement("UPDATE Opera SET Venduto = ?, NumeroFattura = ?, AnnoFattura = ?, Prezzo = ? WHERE CodiceOpera = ?");
-            pstmt.setString(5, codOpera);
+                    connection.prepareStatement("UPDATE Opera SET Venduto = ?, NumeroFattura = ?, AnnoFattura = ? WHERE CodiceOpera = ?");
+            pstmt.setString(4, codOpera);
             pstmt.setBoolean(1, venduto);
-            pstmt.setInt(2, numFatt);
+            pstmt.setInt(2, nFatt);
             pstmt.setInt(3, annoFatt);
-            pstmt.setFloat(4, prezzo);
             pstmt.executeUpdate();
             pstmt.close();
 
+            // metodo makePersistent "integrato"
+            PreparedStatement pstmtDummy =
+                    connection.prepareStatement("SELECT CodiceOpera FROM Opera");
+            pstmtDummy.executeQuery();
+            pstmtDummy.close();
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessOperaDAO.class.getName()).log(Level.SEVERE,
-                                                                   null, ex);
+                    null, ex);
         }
     }
 
@@ -329,7 +336,7 @@ public class MSAccessOperaDAO implements OperaDAO {
             pstmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessDAOFactory.class.getName()).log(Level.SEVERE,
-                                                                     null, ex);
+                    null, ex);
         }
     }
 }

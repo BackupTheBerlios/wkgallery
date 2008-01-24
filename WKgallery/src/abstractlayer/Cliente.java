@@ -21,6 +21,7 @@ public class Cliente {
     private String nomeRsoc2;
     private String indirizzo;
     private int nCiv;
+    private String cap;
     private String citta;
     private String provincia;
     private Regione regione;
@@ -41,6 +42,7 @@ public class Cliente {
         this.nomeRsoc2 = "";
         this.indirizzo = "";
         this.nCiv = -1;
+        this.cap = "";
         this.citta = "";
         this.provincia = "";
         this.regione = Regione.Estero;
@@ -57,7 +59,7 @@ public class Cliente {
     }
 
     public Cliente(String codiceCliente, String cognRsoc1, String nomeRsoc1,
-            String indirizzo, int nCiv, String citta, String provincia,
+            String indirizzo, int nCiv, String cap, String citta, String provincia,
             Regione regione, String stato, String tel1, String tel2,
             String cell1, String cell2, EMail mail1, EMail mail2,
             String cfPiva, String note, boolean professionista) {
@@ -66,6 +68,7 @@ public class Cliente {
         this.nomeRsoc2 = nomeRsoc1;
         this.indirizzo = indirizzo;
         this.nCiv = nCiv;
+        this.cap = cap;
         this.citta = citta;
         this.provincia = provincia;
         this.regione = regione;
@@ -223,5 +226,13 @@ public class Cliente {
 
     public void setProfessionista(boolean professionista) {
         this.professionista = professionista;
+    }
+
+    public String getCap() {
+        return cap;
+    }
+
+    public void setCap(String cap) {
+        this.cap = cap;
     }
 }

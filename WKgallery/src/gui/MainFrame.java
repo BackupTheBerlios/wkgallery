@@ -12,6 +12,7 @@ import abstractlayer.Opera;
 import abstractlayer.Regione;
 import daorules.ClienteDAO;
 import daorules.*;
+import javax.swing.JTable;
 import javax.swing.event.TableModelEvent;
 import temporarymain.*;
 import exceptions.ArchivioNonTrovatoException;
@@ -51,27 +52,26 @@ public class MainFrame extends javax.swing.JFrame {
     ClienteDAO clienteDAO;
     FatturaDAO fatturaDAO;
     OperaDAO operaDAO;
-    String ColumnsCli[] = {"ID", "Cognome / Rag.Soc", "Nome / Rag.Soc. 2", "Indirizzo", "N° Civico", "Città", "Provincia", "regione", "Stato", "Tel1", "Tel2", "Cell1", "Cell2", "Mail1", "Mail2", "CF / P.IVA", "Note"};
+    String columnsCli[] = {"ID", "Cognome / Rag.Soc", "Nome / Rag.Soc. 2", "Indirizzo", "N° Civico", "Città", "Provincia", "regione", "Stato", "Tel1", "Tel2", "Cell1", "Cell2", "Mail1", "Mail2", "CF / P.IVA", "Note"};
     DefaultTableModel modelCli;
 
     /** Creates new form MainFrame */
     public MainFrame() {
         initComponents();
-        DAOFactory factoryDAO =
+        DAOFactory msaccessFactory =
                 (MSAccessDAOFactory) DAOFactory.getDAOFactory(DAOFactory.MSACCESS);
         try {
-            connection = factoryDAO.getConnection();
+            connection = msaccessFactory.getConnection();
         } catch (ArchivioNonTrovatoException ante) {
             System.err.println(ante);
         }
         // Create DAOs
-        clienteDAO = factoryDAO.getClienteDAO();
-        artistaDAO = factoryDAO.getArtistaDAO();
-        fatturaDAO = factoryDAO.getFatturaDAO();
-        operaDAO = factoryDAO.getOperaDAO();
-        
+        clienteDAO = msaccessFactory.getClienteDAO();
+        artistaDAO = msaccessFactory.getArtistaDAO();
+        fatturaDAO = msaccessFactory.getFatturaDAO();
+        operaDAO = msaccessFactory.getOperaDAO();
         modelCli = new DefaultTableModel();
-        fillTab1();
+        fillTabCli();
     }
 
     /** This method is called from within the constructor to
@@ -90,15 +90,19 @@ public class MainFrame extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
+                /*
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null}
+                * */
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Cognome / Rag.Soc", "Nome / Rag.Soc. 2", "Indirizzo", "N° Civico", "Città", "Provincia", "regione", "Stato", "Tel1", "Tel2", "Cell1", "Cell2", "Mail1", "Mail2", "CF / P.IVA", "Note"
             }
         ));
+        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jScrollPane1.setViewportView(jTable1);
 
         jTabbedPane1.addTab("Clienti", jScrollPane1);
@@ -116,10 +120,12 @@ public class MainFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    /*funzione per popolare la tabella del tab clienti */
-    public void fillTab1() {
-        modelCli.addColumn(ColumnsCli);
+    /*funzione per popolare la tabella del tab clienti*/
+    public void fillTabCli() {
+       
+        for (int i = 0; i < columnsCli.length; i++) {
+            modelCli.addColumn(columnsCli[i]);
+        }
         Vector<Cliente> c = clienteDAO.findAllClienti();
         Iterator it = c.iterator();
         while (it.hasNext()) {
@@ -127,6 +133,7 @@ public class MainFrame extends javax.swing.JFrame {
             Object[] s = {r.getCodiceCliente(), r.getCognRsoc1(), r.getNomeRsoc2(), r.getIndirizzo(), r.getNCiv(), r.getCitta(), r.getProvincia(), r.getRegione(), r.getStato(), r.getTel1(), r.getTel2(), r.getCell1(), r.getCell2(), r.getMail1(), r.getMail2(), r.getCfPiva(), r.getNote()};
             modelCli.addRow(s);
         }
+        jTable1.setModel(modelCli);
     }
 
     /**
@@ -137,7 +144,7 @@ public class MainFrame extends javax.swing.JFrame {
 
             public void run() {
                 new MainFrame().setVisible(true);
-                
+
             }
         });
     }

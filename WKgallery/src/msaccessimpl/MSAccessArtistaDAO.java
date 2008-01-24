@@ -185,7 +185,6 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
                 codiceReale = rs.getInt("CodiceArtista");
-                System.out.println("CodiceArtista: " + codiceReale);
             }
             if (codiceReale != -1) {
                 return true;

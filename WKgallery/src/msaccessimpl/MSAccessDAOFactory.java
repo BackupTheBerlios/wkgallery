@@ -50,7 +50,6 @@ public class MSAccessDAOFactory extends DAOFactory {
             database += filename.trim(); // + ";DriverID=22;READONLY=false}"; // add on to the end
             // now we can get the connection from the DriverManager
             connection = DriverManager.getConnection(database, "", "");
-            System.out.println("conn: " + connection);
             return connection;
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessDAOFactory.class.getName()).

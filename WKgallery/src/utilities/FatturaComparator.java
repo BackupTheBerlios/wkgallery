@@ -14,8 +14,8 @@ import java.util.Comparator;
 public class FatturaComparator implements Comparator<Fattura> {
 
     public int compare(Fattura f1, Fattura f2) {
-        int anno1 = f1.getAnnoFattura();
-        int anno2 = f2.getAnnoFattura();
+        int anno1 = f1.getDataFattura().getAnno();
+        int anno2 = f2.getDataFattura().getAnno();
         int num1 = f1.getNumeroFattura();
         int num2 = f2.getNumeroFattura();      
         

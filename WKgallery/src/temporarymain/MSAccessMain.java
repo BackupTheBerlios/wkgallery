@@ -29,6 +29,8 @@ import msaccessimpl.MSAccessClienteDAO;
 import msaccessimpl.MSAccessDAOFactory;
 import msaccessimpl.MSAccessFatturaDAO;
 import msaccessimpl.MSAccessOperaDAO;
+import print.FatturaPdfCreator;
+import utilities.Data;
 import utilities.EMail;
 
 /**
@@ -38,38 +40,80 @@ import utilities.EMail;
 public class MSAccessMain {
 
     Connection connection;
-    private Cliente cliLett;
-    private Cliente cliLett2;
-    private Cliente cliLett3;
 
     /** Creates a new instance of TempMain */
     public MSAccessMain() {
 
 
-        MSAccessDAOFactory msaccessFactory =
+        DAOFactory msaccessFactory =
                 (MSAccessDAOFactory) DAOFactory.getDAOFactory(DAOFactory.MSACCESS);
         try {
-        connection = msaccessFactory.getConnection();
+            connection = msaccessFactory.getConnection();
         } catch (ArchivioNonTrovatoException ante) {
             System.err.println(ante);
         }
         // Create DAOs
         //ArtistaDAO art = msaccessFactory.getArtistaDAO();
-        MSAccessArtistaDAO artistaDAO = msaccessFactory.getArtistaDAO();
-        MSAccessClienteDAO clienteDAO = msaccessFactory.getClienteDAO();
-        MSAccessFatturaDAO fatturaDAO = msaccessFactory.getFatturaDAO();
-        MSAccessOperaDAO operaDAO = msaccessFactory.getOperaDAO();
-        Fattura f = null;
+        ArtistaDAO artistaDAO = msaccessFactory.getArtistaDAO();
+        ClienteDAO clienteDAO = msaccessFactory.getClienteDAO();
+        FatturaDAO fatturaDAO = msaccessFactory.getFatturaDAO();
+        OperaDAO operaDAO = msaccessFactory.getOperaDAO();
+
+
         try {
-            f = fatturaDAO.findFattura(1, 2007);
-            for (Opera o : f.getOpere()) {
-                System.out.println(o.getCodiceOpera());
-            }
-        } catch (RecordNonPresenteException e) {
-            System.out.println(e);
+            
+            Artista bettyspaghetti =
+                    new Artista(4, "Spaghetti", "Betty",
+                    "La più bravissima di tutti");
+            artistaDAO.insertArtista(bettyspaghetti);
+            
+            Cliente cli2 = new Cliente("ProfBM1", "Bertoldi snc", "",
+                    "Via dei dopati", 1, "20100", "Capriolo", "BS",
+                    Regione.Lombardia, "Italia", "030xxx", "030111",
+                    "3397624198", "",
+                    EMail.toEMail("mirko@ciao.it"),
+                    EMail.toEMail("bertoldi@ciao.it"), "BRTMRK84blabla", "0216452316",
+                    true);
+            clienteDAO.insertCliente(cli2);
+            
+            Fattura tempFatt = new Fattura();
+            //Artista bettyspaghetti = artistaDAO.findArtista(4);
+            Opera o1 =
+                    new Opera("1_1", bettyspaghetti, "mista", "100x100", "unica", "", false, tempFatt, 250.0f);
+            operaDAO.insertOpera(o1);
+
+            Vector<Opera> opere = new Vector<Opera>();
+            opere.add(o1);
+
+            Data oggi = new Data(23, 1, 2008);
+            //Cliente cli2 = clienteDAO.findCliente("ProfBM1");
+            Fattura f = new Fattura(1, oggi, cli2, opere, 0.1f, 0.0f);
+            fatturaDAO.insertFattura(f);
+
+            //operaDAO.deleteOpera("1_1");
+            FatturaPdfCreator pdf = new FatturaPdfCreator(f, false);
+                       
+            fatturaDAO.deleteFattura(1, 2008);
+            operaDAO.deleteOpera("1_1");
+            artistaDAO.deleteArtista(4);
+            clienteDAO.deleteCliente("ProfBM1");
+        } catch (Exception e) {
+            System.err.println(e);
         }
+        
+        
+
 
     /*
+    Fattura f = null;
+    try {
+    f = fatturaDAO.findFattura(1, 2007);
+    for (Opera o : f.getOpere()) {
+    System.out.println(o.getCodiceOpera());
+    }
+    } catch (RecordNonPresenteException e) {
+    System.out.println(e);
+    }
     Artista bettyspaghetti =
     new Artista (4, "Spaghetti", "Betty",
     "La più bravissima di tutti");

@@ -9,6 +9,7 @@
 package daorules;
 
 import abstractlayer.Cliente;
+import abstractlayer.Fattura;
 import abstractlayer.Regione;
 import exceptions.ChiavePrimariaException;
 import exceptions.RecordCorrelatoException;

@@ -10,6 +10,7 @@ package abstractlayer;
 
 import java.util.List;
 import java.util.Vector;
+import utilities.Data;
 
 /**
  * La fattura (o l'ordine) emessa per un cliente.
@@ -18,38 +19,44 @@ import java.util.Vector;
 public class Fattura {
 
     private int numeroFattura;
-    private int annoFattura;
+    private Data dataFattura;
     private Cliente cliente;
     private Vector<Opera> opere;
+    private float sconto;
+    private float totale;
 
     /**
      * 
      * @param numeroFattura Numero della fattura
-     * @param annoFattura Anno della fattura
+     * @param dataFattura Data della fattura
      * @param cliente Cliente intestatario della fattura (o dell'ordine)
      * @param listaOpere Lista di opere presenti nella fattura (o nell'ordine)
      */
-    public Fattura(int numeroFattura, int annoFattura, Cliente cliente,
-                    Vector<Opera> opere) {
+    public Fattura(int numeroFattura, Data dataFattura, Cliente cliente,
+            Vector<Opera> opere, float sconto, float totale) {
         this.numeroFattura = numeroFattura;
-        this.annoFattura = annoFattura;
+        this.dataFattura = dataFattura;
         this.cliente = cliente;
         this.opere = opere;
+        this.sconto = sconto;
+        this.totale = totale;
     }
 
     public Fattura() {
-        this.numeroFattura = -1;
-        this.annoFattura = -1;
+        this.numeroFattura = 0;
+        this.dataFattura = new Data(Data.OTHER);
         this.cliente = null;
         this.opere = null;
+        this.sconto = 0.0f;
+        this.totale = 0.0f;
     }
 
-    public int getAnnoFattura() {
-        return annoFattura;
+    public Data getDataFattura() {
+        return dataFattura;
     }
 
-    public void setAnnoFattura(int annoFattura) {
-        this.annoFattura = annoFattura;
+    public void setDataFattura(Data dataFattura) {
+        this.dataFattura = dataFattura;
     }
 
     public Cliente getCliente() {
@@ -74,5 +81,21 @@ public class Fattura {
 
     public void setNumeroFattura(int numeroFattura) {
         this.numeroFattura = numeroFattura;
+    }
+
+    public float getSconto() {
+        return sconto;
+    }
+
+    public void setSconto(float sconto) {
+        this.sconto = sconto;
+    }
+
+    public float getTotale() {
+        return totale;
+    }
+
+    public void setTotale(float totale) {
+        this.totale = totale;
     }
 }

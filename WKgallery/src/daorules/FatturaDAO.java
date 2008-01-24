@@ -24,8 +24,7 @@ public interface FatturaDAO {
 
     /**
      * Permette l'inserimento di una nuova fattura. Tale metodo modifica di conseguenza 
-     * i campi relativi all'entità Opera inclusi interessati dalla fattura, settando
-     * solo in questo momento il prezzo.
+     * i campi relativi all'entità Opera inclusi interessati dalla fattura.
      * @param fattura la nuova fattura
      * @throws exceptions.RecordGiaPresenteException se la nuova fattura è già presente in archivio
      * @throws exceptions.ChiavePrimariaException se la nuova fattura ha il campo Numero o Anno vuoti
