@@ -8,7 +8,6 @@
  */
 package abstractlayer;
 
-import java.util.List;
 import java.util.Vector;
 import utilities.Data;
 
@@ -33,18 +32,18 @@ public class Fattura {
      * @param listaOpere Lista di opere presenti nella fattura (o nell'ordine)
      */
     public Fattura(int numeroFattura, Data dataFattura, Cliente cliente,
-            Vector<Opera> opere, float sconto, float totale) {
+            Vector<Opera> opere, float sconto) {
         this.numeroFattura = numeroFattura;
         this.dataFattura = dataFattura;
         this.cliente = cliente;
         this.opere = opere;
         this.sconto = sconto;
-        this.totale = totale;
+        this.totale = 0.0f;
     }
 
     public Fattura() {
         this.numeroFattura = 0;
-        this.dataFattura = new Data(Data.OTHER);
+        this.dataFattura = new Data();
         this.cliente = null;
         this.opere = null;
         this.sconto = 0.0f;

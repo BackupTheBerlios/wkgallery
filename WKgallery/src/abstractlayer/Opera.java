@@ -17,15 +17,15 @@ public class Opera {
     // member variables
     private String codiceOpera;
     private Artista artista;
-    private Fattura fattura;
     private boolean venduto;
+    private String titolo;
     private String tecnica;
     private String dimensioni;
     private String tipo;
     private String foto;
     private float prezzo;
 
-    public Opera(String codiceOpera, Artista artista, String tecnica, String dimensioni, String tipo, String foto, boolean venduto, Fattura fattura, float prezzo) {
+    public Opera(String codiceOpera, Artista artista, String titolo, String tecnica, String dimensioni, String tipo, String foto, boolean venduto, float prezzo) {
         this.codiceOpera = codiceOpera;
         this.artista = artista;
         this.tecnica = tecnica;
@@ -33,34 +33,22 @@ public class Opera {
         this.tipo = tipo;
         this.foto = foto;
         this.venduto = venduto;
-        this.fattura = fattura;
         this.prezzo = prezzo;
+        this.titolo = titolo;
     }
 
     public Opera() {
         this.codiceOpera = "";
         this.artista = null;
+        this.titolo = "";
         this.tecnica = "";
         this.dimensioni = "";
         this.tipo = "";
         this.foto = "";
         this.venduto = false;
-        this.fattura = null;
         this.prezzo = -1.0f;
     }
     
-    /**
-     * Metodo <i>set</i> per <code>fattura</code> - la fattura o l'ordine in cui l'opera compare.
-     * @param fattura La fattura o l'ordine in cui l'opera compare.
-     */
-    public void setFattura(Fattura fattura) {
-        this.fattura = fattura;
-    }
-
-    public Fattura getFattura() {
-        return fattura;
-    }
-
     public Artista getArtista() {
         return artista;
     }
@@ -123,5 +111,13 @@ public class Opera {
 
     public void setPrezzo(float prezzo) {
         this.prezzo = prezzo;
+    }
+
+    public String getTitolo() {
+        return titolo;
+    }
+
+    public void setTitolo(String titolo) {
+        this.titolo = titolo;
     }
 }

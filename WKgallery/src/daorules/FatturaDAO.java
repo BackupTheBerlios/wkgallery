@@ -11,7 +11,9 @@ package daorules;
 import abstractlayer.Artista;
 import abstractlayer.Cliente;
 import abstractlayer.Fattura;
+import abstractlayer.Opera;
 import exceptions.ChiavePrimariaException;
+import exceptions.RecordCorrelatoException;
 import exceptions.RecordGiaPresenteException;
 import exceptions.RecordNonPresenteException;
 import java.util.Vector;
@@ -30,7 +32,7 @@ public interface FatturaDAO {
      * @throws exceptions.ChiavePrimariaException se la nuova fattura ha il campo Numero o Anno vuoti
      */
     public void insertFattura(Fattura fattura) throws RecordGiaPresenteException,
-                                                       ChiavePrimariaException;
+            ChiavePrimariaException, RecordCorrelatoException;
 
     /**
      * Permette la cancellazione di una fattura.
@@ -54,7 +56,7 @@ public interface FatturaDAO {
      * @return la lista di tutte le fatture
      */
     public Vector<Fattura> findAllFatture();
-    
+
     /**
      * Permette l'aggiornamento dell'istanza di fattura già presente in archivio: 
      * è possibile modificare il cliente correlato nonchè la lista delle opere
@@ -79,4 +81,16 @@ public interface FatturaDAO {
      * @return il vettore contenente le fatture richieste
      */
     public Vector<Fattura> selectFatturaPerArtista(Artista artista);
+
+    /**
+     * Permette di recuperare la fattura relativa ad un'opera.
+     * @param opera l'opera contenuta nella fattura da cercare
+     * @return la fattura trovata
+     */
+    public Fattura selectFatturaPerOpera(Opera opera) throws RecordNonPresenteException;
+    
+    /**
+     * Cancella tutti le fatture presenti.
+     */
+    public void deleteAllFatture();
 }

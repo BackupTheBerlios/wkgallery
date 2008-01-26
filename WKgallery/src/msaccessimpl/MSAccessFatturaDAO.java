@@ -14,6 +14,7 @@ import abstractlayer.Fattura;
 import abstractlayer.Opera;
 import daorules.FatturaDAO;
 import exceptions.ChiavePrimariaException;
+import exceptions.RecordCorrelatoException;
 import exceptions.RecordGiaPresenteException;
 import exceptions.RecordNonPresenteException;
 import java.sql.Connection;
@@ -43,12 +44,12 @@ public class MSAccessFatturaDAO implements FatturaDAO {
     }
 
     public void insertFattura(Fattura fattura) throws RecordGiaPresenteException,
-            ChiavePrimariaException {
+            ChiavePrimariaException, RecordCorrelatoException {
         try {
             int nFatt = fattura.getNumeroFattura();
             Data dataFatt = fattura.getDataFattura();
             float sconto = fattura.getSconto();
-            float totale = 0.0f;
+            float totale = fattura.getTotale();
 
             if (nFatt <= 0) {
                 throw new ChiavePrimariaException("Numero della fattura non valido.");
@@ -59,10 +60,16 @@ public class MSAccessFatturaDAO implements FatturaDAO {
             Cliente cliente = fattura.getCliente();
             String codCli = cliente.getCodiceCliente();
             Vector<Opera> opere = fattura.getOpere();
-            for (Opera opVenduta : opere) {
-                totale += opVenduta.getPrezzo();
+            if (totale == 0.0f) { //Se il totale non è 0, significa che si sta ripristinando un salvataggio
+                for (Opera opVenduta : opere) {
+                    if (opVenduta.isVenduto()) {
+                        throw new RecordCorrelatoException("Una delle opere inserite è già stata venduta");
+                    }
+                    totale += opVenduta.getPrezzo();
+                }
+                totale = (totale - (totale * sconto)) * 1.2f;
             }
-            totale = totale - (totale * sconto);
+            fattura.setTotale(totale);
             // Modifica del record di Fattura
             PreparedStatement pstmt =
                     connection.prepareStatement("INSERT INTO Fattura values (?,?,?,?,?,?)");
@@ -70,6 +77,7 @@ public class MSAccessFatturaDAO implements FatturaDAO {
             pstmt.setInt(2, dataFatt.getAnno());
             pstmt.setString(3, codCli);
             pstmt.setDate(4, dataFatt.getDate());
+
             pstmt.setFloat(5, sconto);
             pstmt.setFloat(6, totale);
             pstmt.executeUpdate();
@@ -77,7 +85,6 @@ public class MSAccessFatturaDAO implements FatturaDAO {
             makePersistent();
 
             // Modifica dei record di Opera
-
             for (Opera opVenduta : opere) {
                 MSAccessOperaDAO.staticUpdateOperaVenduta(opVenduta.getCodiceOpera(), connection, nFatt, dataFatt.getAnno());
             }
@@ -93,16 +100,6 @@ public class MSAccessFatturaDAO implements FatturaDAO {
             throw new RecordNonPresenteException("Fattura non presente in archivio");
         }
         try {
-            PreparedStatement pstmt =
-                    connection.prepareStatement("DELETE FROM Fattura WHERE Numero = ? AND Anno = ?");
-            pstmt.setInt(1, nFatt);
-            pstmt.setInt(2, annoFatt);
-            int count = pstmt.executeUpdate();
-            pstmt.close();
-            // count contiene 1 se la cancellazione è avvenuta con successo
-            if (count > 0) {
-                makePersistent();
-            }
             Vector<Opera> v = new Vector<Opera>();
             PreparedStatement pstmtO =
                     connection.prepareStatement("SELECT * FROM Opera WHERE NumeroFattura = ? AND AnnoFattura = ?");
@@ -120,13 +117,44 @@ public class MSAccessFatturaDAO implements FatturaDAO {
             pstmtO.close();
             for (Opera opera : v) {
                 PreparedStatement pstmtUpd =
-                        connection.prepareStatement("UPDATE Opera SET NumeroFattura = 0, AnnoFattura = 0 WHERE CodiceOpera = ?");
+                        connection.prepareStatement("UPDATE Opera SET NumeroFattura = null, AnnoFattura = null WHERE CodiceOpera = ?");
                 pstmtUpd.setString(1, opera.getCodiceOpera());
                 pstmtUpd.executeUpdate();
                 pstmtUpd.close();
                 makePersistent();
             }
 
+            PreparedStatement pstmt =
+                    connection.prepareStatement("DELETE FROM Fattura WHERE Numero = ? AND Anno = ?");
+            pstmt.setInt(1, nFatt);
+            pstmt.setInt(2, annoFatt);
+            int count = pstmt.executeUpdate();
+            pstmt.close();
+            // count contiene 1 se la cancellazione è avvenuta con successo
+            if (count > 0) {
+                makePersistent();
+            }
+
+
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MSAccessOperaDAO.class.getName()).log(Level.SEVERE,
+                    null, ex);
+        }
+    }
+
+    public void deleteAllFatture() {
+        try {
+            PreparedStatement pstmt =
+                    connection.prepareStatement("DELETE FROM Fattura");
+            pstmt.executeUpdate();
+            makePersistent();
+            pstmt.close();
+            PreparedStatement pstmtUpd =
+                    connection.prepareStatement("UPDATE Opera SET NumeroFattura = null, AnnoFattura = null");
+            pstmtUpd.executeUpdate();
+            makePersistent();
+            pstmtUpd.close();
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessOperaDAO.class.getName()).log(Level.SEVERE,
                     null, ex);
@@ -147,10 +175,15 @@ public class MSAccessFatturaDAO implements FatturaDAO {
             pstmtF.setInt(2, annoFatt);
             ResultSet rsF = pstmtF.executeQuery();
             if (rsF.next()) {
-                fattura.setNumeroFattura(annoFatt);
-                fattura.setNumeroFattura(annoFatt);
+                fattura.setNumeroFattura(nFatt);
                 fattura.setSconto(rsF.getFloat("Sconto"));
                 fattura.setTotale(rsF.getFloat("Totale"));
+
+                GregorianCalendar cal = new GregorianCalendar();
+                Date dataFatt = rsF.getDate("Data", cal);
+                cal.setTime(dataFatt);
+                Data data = new Data(new Date(cal.getTimeInMillis()).toString());
+                fattura.setDataFattura(data);
                 fattura.setCliente(MSAccessClienteDAO.staticFindCliente(rsF.getString("IDCliente"),
                         connection));
 
@@ -187,10 +220,14 @@ public class MSAccessFatturaDAO implements FatturaDAO {
             ResultSet rsF = pstmtF.executeQuery();
             while (rsF.next()) {
                 Fattura fattura = new Fattura();
-                int nFatt = rsF.getInt("NumeroFattura");
-                int annoFatt = rsF.getInt("AnnoFattura");
+                int nFatt = rsF.getInt("Numero");
+                int annoFatt = rsF.getInt("Anno");
                 fattura.setNumeroFattura(nFatt);
-                fattura.setNumeroFattura(annoFatt);
+                GregorianCalendar cal = new GregorianCalendar();
+                Date dataFatt = rsF.getDate("Data", cal);
+                cal.setTime(dataFatt);
+                Data data = new Data(new Date(cal.getTimeInMillis()).toString());
+                fattura.setDataFattura(data);
                 fattura.setSconto(rsF.getFloat("Sconto"));
                 fattura.setTotale(rsF.getFloat("Totale"));
                 fattura.setCliente(MSAccessClienteDAO.staticFindCliente(rsF.getString("IDCliente"),
@@ -297,9 +334,22 @@ public class MSAccessFatturaDAO implements FatturaDAO {
         }
     }
 
+    public Fattura selectFatturaPerOpera(Opera opera) throws RecordNonPresenteException {
+        Vector<Fattura> allFatture = findAllFatture();
+        String codOpera = opera.getCodiceOpera();
+        for (Fattura fatturaCandidata : allFatture) {
+            Vector<Opera> allOpere = fatturaCandidata.getOpere();
+            for (Opera o : allOpere) {
+                if (o.getCodiceOpera().compareTo(codOpera) == 0) {
+                    return fatturaCandidata;
+                }
+            }
+        }
+        throw new RecordNonPresenteException("L'opera non compare in alcuna fattura.");
+    }
+
     public Vector<Fattura> selectFatturaPerCliente(Cliente cliente) {
         Vector<Fattura> vF = new Vector<Fattura>();
-        Fattura fattura = new Fattura();
         String codiceCliente = cliente.getCodiceCliente();
 
         try {
@@ -308,16 +358,16 @@ public class MSAccessFatturaDAO implements FatturaDAO {
             pstmt.setString(1, codiceCliente);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
+                Fattura fattura = new Fattura();
                 Vector<Opera> v = new Vector<Opera>();
                 int nFatt = rs.getInt("Numero");
                 int annoFatt = rs.getInt("Anno");
                 float sconto = rs.getFloat("Sconto");
                 float totale = rs.getFloat("Totale");
-                Date dataFatt = rs.getDate("Data", new GregorianCalendar());
                 GregorianCalendar cal = new GregorianCalendar();
+                Date dataFatt = rs.getDate("Data", cal);
                 cal.setTime(dataFatt);
-                Data data = new Data(cal.DAY_OF_MONTH, cal.MONTH, cal.YEAR);
-
+                Data data = new Data(new Date(cal.getTimeInMillis()).toString());
                 fattura.setNumeroFattura(nFatt);
                 fattura.setDataFattura(data);
                 fattura.setCliente(cliente);
@@ -349,7 +399,6 @@ public class MSAccessFatturaDAO implements FatturaDAO {
     }
 
     public Vector<Fattura> selectFatturaPerArtista(Artista artista) {
-
         Vector<Fattura> vF = new Vector<Fattura>();
         int codiceArtista = artista.getCodiceArtista();
 
@@ -365,11 +414,10 @@ public class MSAccessFatturaDAO implements FatturaDAO {
                 int annoFatt = rsF.getInt("Fattura.Anno");
                 float sconto = rsF.getFloat("Sconto");
                 float totale = rsF.getFloat("Totale");
-                Date dataFatt = rsF.getDate("Fattura.Data", new GregorianCalendar());
                 GregorianCalendar cal = new GregorianCalendar();
+                Date dataFatt = rsF.getDate("Fattura.Data", cal);
                 cal.setTime(dataFatt);
-                Data data = new Data(cal.DAY_OF_MONTH, cal.MONTH, cal.YEAR);
-
+                Data data = new Data(new Date(cal.getTimeInMillis()).toString());
                 fattura.setNumeroFattura(nFatt);
                 fattura.setDataFattura(data);
                 fattura.setSconto(sconto);
@@ -413,10 +461,10 @@ public class MSAccessFatturaDAO implements FatturaDAO {
             pstmt.setInt(2, annoFattura);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
-                Date dataFatt = rs.getDate("Data", new GregorianCalendar());
                 GregorianCalendar cal = new GregorianCalendar();
+                Date dataFatt = rs.getDate("Data", cal);
                 cal.setTime(dataFatt);
-                Data data = new Data(cal.DAY_OF_MONTH, cal.MONTH, cal.YEAR);
+                Data data = new Data(new Date(cal.getTimeInMillis()).toString());
                 float sconto = rs.getFloat("Sconto");
                 float totale = rs.getFloat("Totale");
                 fattura.setNumeroFattura(rs.getInt("Numero"));

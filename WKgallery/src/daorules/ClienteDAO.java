@@ -97,4 +97,10 @@ public interface ClienteDAO {
      * @return il vettore con i clienti che soddisfano il criterio richiesto
      */
     public Vector<Cliente> selectClientiPerRegione(Vector<Regione> regioni);
+    
+    /**
+     * Cancella tutti i clienti presenti.
+     * @throws exceptions.RecordCorrelatoException se i clienti hanno record correlati
+     */
+    public void deleteAllClienti() throws RecordCorrelatoException;
 }

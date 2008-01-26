@@ -68,4 +68,10 @@ public interface OperaDAO {
      * @return l'elenco di tutte le opere dell'artista
      */
     public Vector<Opera> selectOperaPerArtista(Artista artista);
+    
+    /**
+     * Cancella tutti le opere presenti.
+     * @throws exceptions.RecordCorrelatoException se le opere hanno record correlati
+     */
+    public void deleteAllOpere() throws RecordCorrelatoException;
 }

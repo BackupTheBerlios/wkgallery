@@ -61,4 +61,10 @@ public interface ArtistaDAO {
      * @throws exceptions.RecordNonPresenteException se l'artista passato non aggiorna alcun record già esistente
      */
     public void updateArtista(Artista artista) throws RecordNonPresenteException;
+    
+    /**
+     * Cancella tutti gli artisti presenti.
+     * @throws exceptions.RecordCorrelatoException se gli artisti hanno record correlati
+     */
+    public void deleteAllArtisti() throws RecordCorrelatoException;
 }

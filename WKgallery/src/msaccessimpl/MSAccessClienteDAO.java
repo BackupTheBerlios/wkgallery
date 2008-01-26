@@ -117,9 +117,19 @@ public class MSAccessClienteDAO implements ClienteDAO {
             }
             makePersistent();
         } catch (SQLException ex) {
-            throw new RecordCorrelatoException("Si sta tentando di cancellare un Cliente cui sono correlate fatture");
+            throw new RecordCorrelatoException("Si sta tentando di cancellare un Cliente cui sono correlate Fatture");
         }
-
+    }
+    
+    public void deleteAllClienti() throws RecordCorrelatoException {
+        try {
+            PreparedStatement pstmt =
+                    connection.prepareStatement("DELETE FROM Cliente");
+            pstmt.executeUpdate();
+            makePersistent();
+        } catch (SQLException ex) {
+            throw new RecordCorrelatoException("Si sta tentando di cancellare un Cliente cui sono correlate Fatture");
+        }
     }
 
     public Cliente findCliente(String codiceCliente) throws RecordNonPresenteException {

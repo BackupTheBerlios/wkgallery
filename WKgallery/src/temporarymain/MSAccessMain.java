@@ -13,22 +13,14 @@ import abstractlayer.Cliente;
 import abstractlayer.Fattura;
 import abstractlayer.Opera;
 import abstractlayer.Regione;
+import backup.XMLImportExporter;
 import daorules.*;
 import exceptions.ArchivioNonTrovatoException;
-import exceptions.BadFormatException;
-import exceptions.ChiavePrimariaException;
-import exceptions.RecordCorrelatoException;
-import exceptions.RecordGiaPresenteException;
-import exceptions.RecordNonPresenteException;
+import exceptions.TitoloNonPresenteException;
+import java.io.File;
 import java.sql.Connection;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import msaccessimpl.MSAccessArtistaDAO;
-import msaccessimpl.MSAccessClienteDAO;
 import msaccessimpl.MSAccessDAOFactory;
-import msaccessimpl.MSAccessFatturaDAO;
-import msaccessimpl.MSAccessOperaDAO;
 import print.FatturaPdfCreator;
 import utilities.Data;
 import utilities.EMail;
@@ -59,14 +51,13 @@ public class MSAccessMain {
         FatturaDAO fatturaDAO = msaccessFactory.getFatturaDAO();
         OperaDAO operaDAO = msaccessFactory.getOperaDAO();
 
-
         try {
-            
+/*
             Artista bettyspaghetti =
                     new Artista(4, "Spaghetti", "Betty",
                     "La più bravissima di tutti");
             artistaDAO.insertArtista(bettyspaghetti);
-            
+
             Cliente cli2 = new Cliente("ProfBM1", "Bertoldi snc", "",
                     "Via dei dopati", 1, "20100", "Capriolo", "BS",
                     Regione.Lombardia, "Italia", "030xxx", "030111",
@@ -75,33 +66,57 @@ public class MSAccessMain {
                     EMail.toEMail("bertoldi@ciao.it"), "BRTMRK84blabla", "0216452316",
                     true);
             clienteDAO.insertCliente(cli2);
-            
-            Fattura tempFatt = new Fattura();
+
             //Artista bettyspaghetti = artistaDAO.findArtista(4);
             Opera o1 =
-                    new Opera("1_1", bettyspaghetti, "mista", "100x100", "unica", "", false, tempFatt, 250.0f);
+                    new Opera("1_1", bettyspaghetti, "Brillanti azzurrità", "olio su tela", "100x100", "unica", "", false, 250.0f);
             operaDAO.insertOpera(o1);
 
-            Vector<Opera> opere = new Vector<Opera>();
-            opere.add(o1);
+            Opera o2 =
+                    new Opera("1_2", bettyspaghetti, "Il testamento di Desdemona", "misto", "100x100", "unica", "", false, 250.0f);
+            operaDAO.insertOpera(o2);
 
-            Data oggi = new Data(23, 1, 2008);
+            Opera o3 =
+                    new Opera("1_3", bettyspaghetti, "Volto", "olio su tela", "150x120", "unica", "", false, 400.0f);
+            operaDAO.insertOpera(o3);
+
+            Vector<Opera> opereA = new Vector<Opera>();
+            opereA.add(o1);
+            opereA.add(o3);
+
+            Data oggi = new Data(26,1,2008);
+            System.out.println("oggi: " + oggi.toString());
             //Cliente cli2 = clienteDAO.findCliente("ProfBM1");
-            Fattura f = new Fattura(1, oggi, cli2, opere, 0.1f, 0.0f);
-            fatturaDAO.insertFattura(f);
+            Fattura f1 = new Fattura(1, oggi, cli2, opereA, 0.15f);
+            fatturaDAO.insertFattura(f1);
+
 
             //operaDAO.deleteOpera("1_1");
-            FatturaPdfCreator pdf = new FatturaPdfCreator(f, false);
-                       
-            fatturaDAO.deleteFattura(1, 2008);
-            operaDAO.deleteOpera("1_1");
-            artistaDAO.deleteArtista(4);
-            clienteDAO.deleteCliente("ProfBM1");
+            try {
+                new FatturaPdfCreator(f1, false, "R.D.");
+            } catch (TitoloNonPresenteException tnpe) {
+                System.err.println(tnpe);
+                tnpe.getOpera(); //gestione opera...
+            }
+
+*/
+            File fileBkp = new File("bkp.xml");
+            XMLImportExporter xml = new XMLImportExporter(fileBkp, artistaDAO, clienteDAO, operaDAO, fatturaDAO);
+            xml.restoreFromFile();
+            //xml.saveToFile();
+        /*
+        fatturaDAO.deleteFattura(1, 2008);
+        operaDAO.deleteOpera("1_1");
+        operaDAO.deleteOpera("1_2");
+        operaDAO.deleteOpera("1_3");
+        artistaDAO.deleteArtista(4);
+        clienteDAO.deleteCliente("ProfBM1");
+         */
+
         } catch (Exception e) {
             System.err.println(e);
         }
-        
-        
+
 
 
     /*

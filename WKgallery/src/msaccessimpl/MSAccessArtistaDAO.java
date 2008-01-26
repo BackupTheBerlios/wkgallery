@@ -84,6 +84,18 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
         }
     }
 
+    public void deleteAllArtisti() throws RecordCorrelatoException {
+        try {
+            PreparedStatement pstmt =
+                    connection.prepareStatement("DELETE FROM Artista");
+            pstmt.executeUpdate();
+            pstmt.close();
+            makePersistent();
+        } catch (SQLException ex) {
+            throw new RecordCorrelatoException("Si sta tentando di cancellare un Artista cui sono correlate Opere");
+        }
+    }
+    
     public Artista findArtista(int codiceArtista) throws RecordNonPresenteException {
         if (!artistaExists(codiceArtista)) {
             throw new RecordNonPresenteException("CodiceArtista non presente in archivio");
@@ -212,4 +224,6 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
                     null, ex);
         }
     }
+
+    
 }

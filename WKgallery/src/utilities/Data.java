@@ -17,26 +17,24 @@ public class Data {
     private int giorno;
     private int mese;
     private int anno;
-    public static final int TODAY = 0;
-    public static final int OTHER = 1;
 
-    public Data(int day) {
-        if (day == TODAY) {
-            Calendar cal = new GregorianCalendar();
-            giorno = cal.get(Calendar.DAY_OF_MONTH);
-            mese = cal.get(Calendar.MONTH);
-            anno = cal.get(Calendar.YEAR);
-        } else if (day == OTHER) {
-            giorno = -1;
-            mese = -1;
-            anno = -1;
-        }
+    public Data() {
+        this.giorno = -1;
+        this.mese = -1;
+        this.anno = -1;
     }
 
     public Data(int giorno, int mese, int anno) {
         this.giorno = giorno;
-        this.mese = mese - 1;
+        this.mese = mese;
         this.anno = anno;
+    }
+
+    public Data(String dataFormattata) {
+        String[] aaaammgg = dataFormattata.split("-");
+        this.anno = Integer.parseInt(aaaammgg[0]);
+        this.mese = Integer.parseInt(aaaammgg[1]);
+        this.giorno = Integer.parseInt(aaaammgg[2]);
     }
 
     public int getAnno() {
@@ -64,11 +62,17 @@ public class Data {
     }
 
     public Date getDate() {
-        Calendar cal = new GregorianCalendar(anno, mese, giorno);
+        GregorianCalendar cal = new GregorianCalendar();
+        cal.set(anno, mese-1, giorno);
         return new Date(cal.getTimeInMillis());
     }
-    
+
+    @Override
     public String toString() {
-        return giorno + "/" + mese + "/" + anno;
+        return anno + "-" + mese + "-" + giorno;
+    }
+    
+    public String toStringIta() {
+        return giorno + "-" + mese + "-" + anno;
     }
 }
