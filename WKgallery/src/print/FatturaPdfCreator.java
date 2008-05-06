@@ -32,54 +32,74 @@ import utilities.Data;
  */
 public class FatturaPdfCreator {
 
-    Fattura fattura;
-    Cliente cliente;
-    String pagamento;
-    Vector<Opera> opere;
-    File fatturaFile;
-    Document document;
-    DecimalFormat formatoEuro;
-    DecimalFormat formatoPerc;
+    private static FatturaPdfCreator pdfCreator = null;
+    private Fattura fattura;
+    private Data dataFatt;
+    private int numeroFatt;
+    private Cliente cliente;
+    private String pagamento;
+    private boolean proforma;
+    private Vector<Opera> opere;
+    private File destDir;
+    private Document document;
+    private DecimalFormat formatoEuro;
+    private DecimalFormat formatoPerc;
 
-    public FatturaPdfCreator(Fattura fattura, boolean proforma, String pagamento) throws TitoloNonPresenteException {
-        try {
-            this.pagamento = pagamento;
-            this.fattura = fattura;
-            this.cliente = fattura.getCliente();
-            Data dataFatt = fattura.getDataFattura();
-            int numeroFatt = fattura.getNumeroFattura();
-            opere = fattura.getOpere();
-            for (Opera o : opere) {
-                if (o.getTitolo().isEmpty()) {
-                    throw new TitoloNonPresenteException("L'opera " + o.getCodiceOpera() + " non ha titolo. Prima di emettere la fattura è necessario specificarne uno.", o);
-                }
+    /**
+     * Crea l'istanza con cui stampare il documento in formato pdf.
+     * @param fattura La fattura da stampare
+     * @param proforma true se la fattura è solo "proforma", e non definitiva
+     * @param pagamento Specifica il tipo di pagamento (e.g. "Rimessa diretta")
+     * @param destDir La cartella di destinazione del file generato
+     * @throws exceptions.TitoloNonPresenteException
+     */
+    public FatturaPdfCreator(Fattura fattura, boolean proforma, String pagamento, File destDir) throws TitoloNonPresenteException {
+        this.proforma = proforma;
+        this.destDir = destDir;
+        this.pagamento = pagamento;
+        this.fattura = fattura;
+        this.cliente = fattura.getCliente();
+        dataFatt = fattura.getDataFattura();
+        numeroFatt = fattura.getNumeroFattura();
+        opere = fattura.getOpere();
+        for (Opera o : opere) {
+            if (o.getTitolo().isEmpty()) {
+                throw new TitoloNonPresenteException("L'opera " + o.getCodiceOpera() + " non ha titolo. Prima di emettere la fattura è necessario specificarne uno.", o);
             }
-
-            formatoEuro = new DecimalFormat("#0.00 €");
-            formatoPerc = new DecimalFormat("#0 %");
-            String nomefile = dataFatt.getAnno() + "_" + numeroFatt + ".pdf";
-            document = new Document(PageSize.A4, 60.0f, 60.0f, 70.0f, 70.0f);
-            try {
-                PdfWriter.getInstance(document, new FileOutputStream(nomefile));
-            } catch (FileNotFoundException fnfe) {
-            }
-            document.addAuthor("Galleria d'arte Wunderkammer");
-            document.addSubject("Fattura numero" + numeroFatt + " del " + dataFatt.toString());
-            document.open();
-            writeHeader();
-            writeCliente();
-            if (!proforma) {
-                writeNumFatt();
-            }
-            writeTable();
-            writePagamento();
-            document.close();
-        } catch (DocumentException de) {
-            Logger.getLogger(FatturaPdfCreator.class.getName()).log(Level.SEVERE,
-                    null, de);
         }
+        formatoEuro = new DecimalFormat("#0.00 €");
+        formatoPerc = new DecimalFormat("#0 %");
+
     }
 
+    /**
+     * Crea il documento pdf.
+     * @throws com.lowagie.text.DocumentException In caso di errore nella generazione del documento
+     */
+    public void generateFattura() throws DocumentException {
+        String nomefile = dataFatt.getAnno() + "_" + numeroFatt + ".pdf";
+        document = new Document(PageSize.A4, 60.0f, 60.0f, 70.0f, 70.0f);
+        try {
+            PdfWriter.getInstance(document, new FileOutputStream(destDir + "\\" + nomefile));
+        } catch (FileNotFoundException fnfe) {
+        }
+        document.addAuthor("Galleria d'arte Wunderkammer");
+        document.addSubject("Fattura numero" + numeroFatt + " del " + dataFatt.toString());
+        document.open();
+        writeHeader();
+        writeCliente();
+        if (!proforma) {
+            writeNumFatt();
+        }
+        writeTable();
+        writePagamento();
+        document.close();
+    }
+
+    /**
+     * Scrive l'intestazione della fattura.
+     * @throws com.lowagie.text.DocumentException
+     */
     private void writeHeader() throws DocumentException {
         Paragraph lineNome = new Paragraph(15.0f, "Galleria d’arte Wunderkammer", new Font(Font.TIMES_ROMAN, 14, Font.BOLD));
         Paragraph lineDi = new Paragraph(15.0f, "di Maria Rita Cimiero", new Font(Font.TIMES_ROMAN, 14, Font.BOLD));
@@ -101,6 +121,10 @@ public class FatturaPdfCreator {
         document.add(lineMail2);
     }
 
+    /**
+     * Scrive il cliente della fattura.
+     * @throws com.lowagie.text.DocumentException
+     */
     private void writeCliente() throws DocumentException {
         Paragraph line1 = new Paragraph(15.0f, cliente.getNomeRsoc2() + " " + cliente.getCognRsoc1(), new Font(Font.TIMES_ROMAN, 14, Font.BOLD));
         line1.setSpacingBefore(5.0f);
@@ -117,12 +141,20 @@ public class FatturaPdfCreator {
         document.add(line4);
     }
 
+    /**
+     * Scrive il numero della fattura.
+     * @throws com.lowagie.text.DocumentException
+     */
     private void writeNumFatt() throws DocumentException {
         Paragraph line1 = new Paragraph(13.0f, "Fattura accompagnatoria numero " + fattura.getNumeroFattura() + " del " + fattura.getDataFattura().toStringIta() + ".", new Font(Font.TIMES_ROMAN, 14));
         line1.setSpacingBefore(70.0f);
         document.add(line1);
     }
 
+    /**
+     * Scrive la tabella con il riassunto dei pezzi acquistati.
+     * @throws com.lowagie.text.DocumentException
+     */
     private void writeTable() throws DocumentException {
         float totSenzaIva = 0.0f;
         Paragraph line0 = new Paragraph();
@@ -149,7 +181,6 @@ public class FatturaPdfCreator {
         /* Righe fattura */
         PdfPCell cellDescr;
         PdfPCell cellPrezzoUni;
-        int qta = 1;
         for (Opera o : opere) {
             cellDescr = new PdfPCell(new Paragraph(13.0f, o.getTitolo(), new Font(Font.TIMES_ROMAN, 13, Font.NORMAL)));
             cellPrezzoUni = new PdfPCell(new Paragraph(13.0f, "" + formatoEuro.format(o.getPrezzo()), new Font(Font.TIMES_ROMAN, 13, Font.NORMAL)));
@@ -195,6 +226,10 @@ public class FatturaPdfCreator {
         document.add(tableDown);
     }
 
+    /**
+     * Scrive il tipo di pagamento.
+     * @throws com.lowagie.text.DocumentException
+     */
     private void writePagamento() throws DocumentException {
         Paragraph line1 = new Paragraph(15.0f, "Pagamento: " + pagamento, new Font(Font.TIMES_ROMAN, 14, Font.NORMAL));
         line1.setSpacingBefore(30.0f);

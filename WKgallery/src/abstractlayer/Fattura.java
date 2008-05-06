@@ -23,6 +23,7 @@ public class Fattura {
     private Vector<Opera> opere;
     private float sconto;
     private float totale;
+    private boolean proforma;
 
     /**
      * 
@@ -32,22 +33,22 @@ public class Fattura {
      * @param listaOpere Lista di opere presenti nella fattura (o nell'ordine)
      */
     public Fattura(int numeroFattura, Data dataFattura, Cliente cliente,
-            Vector<Opera> opere, float sconto) {
+            Vector<Opera> opere, float sconto, boolean proforma) {
         this.numeroFattura = numeroFattura;
         this.dataFattura = dataFattura;
         this.cliente = cliente;
         this.opere = opere;
         this.sconto = sconto;
-        this.totale = 0.0f;
+        this.totale = 0.0f; // Il totale viene calcolato al momento dell'emissione della fattura
+        this.proforma = proforma;
     }
 
     public Fattura() {
-        this.numeroFattura = 0;
-        this.dataFattura = new Data();
         this.cliente = null;
         this.opere = null;
         this.sconto = 0.0f;
         this.totale = 0.0f;
+        this.proforma = true;
     }
 
     public Data getDataFattura() {
@@ -96,5 +97,13 @@ public class Fattura {
 
     public void setTotale(float totale) {
         this.totale = totale;
+    }
+
+    public boolean isProforma() {
+        return proforma;
+    }
+
+    public void setProforma(boolean proforma) {
+        this.proforma = proforma;
     }
 }

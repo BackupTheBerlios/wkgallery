@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package exceptions;
 
 import java.sql.SQLException;
@@ -18,7 +17,6 @@ public class RecordCorrelatoException extends SQLException {
      */
     public RecordCorrelatoException() {
     }
-
 
     /**
      * Constructs an instance of <code>RecordCorrelatoException</code> with the specified detail message.

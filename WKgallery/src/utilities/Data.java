@@ -4,8 +4,10 @@
  */
 package utilities;
 
-import java.util.Calendar;
+import exceptions.BadFormatException;
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
 /**
@@ -19,22 +21,24 @@ public class Data {
     private int anno;
 
     public Data() {
-        this.giorno = -1;
-        this.mese = -1;
-        this.anno = -1;
+        this.giorno = 1;
+        this.mese = 1;
+        this.anno = 1980;
     }
 
-    public Data(int giorno, int mese, int anno) {
+    public Data(int giorno, int mese, int anno) throws BadFormatException {
         this.giorno = giorno;
         this.mese = mese;
         this.anno = anno;
+        checkdata();
     }
 
-    public Data(String dataFormattata) {
+    public Data(String dataFormattata) throws BadFormatException {
         String[] aaaammgg = dataFormattata.split("-");
         this.anno = Integer.parseInt(aaaammgg[0]);
         this.mese = Integer.parseInt(aaaammgg[1]);
         this.giorno = Integer.parseInt(aaaammgg[2]);
+        checkdata();
     }
 
     public int getAnno() {
@@ -63,16 +67,39 @@ public class Data {
 
     public Date getDate() {
         GregorianCalendar cal = new GregorianCalendar();
-        cal.set(anno, mese-1, giorno);
+        cal.set(anno, mese - 1, giorno);
         return new Date(cal.getTimeInMillis());
     }
 
+    public String getDataOdierna() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        java.util.Date date = new java.util.Date();
+        System.out.println(dateFormat.format(date));
+        return dateFormat.format(date);
+    }
+    
     @Override
     public String toString() {
         return anno + "-" + mese + "-" + giorno;
     }
-    
+
     public String toStringIta() {
-        return giorno + "-" + mese + "-" + anno;
+        if (mese < 10) {
+            return giorno + "/0" + mese + "/" + anno;
+        } else {
+            return giorno + "/" + mese + "/" + anno;
+        }
+    }
+
+    private void checkdata() throws BadFormatException{
+        if (giorno < 1 || giorno > 31) {
+            throw new BadFormatException("Giorno non corretto");
+        }
+        if (mese < 1 || mese > 12) {
+            throw new BadFormatException("Mese non corretto");
+        }
+        if (anno < 1980 || anno > 2100) {
+            throw new BadFormatException("Anno non corretto");
+        }
     }
 }

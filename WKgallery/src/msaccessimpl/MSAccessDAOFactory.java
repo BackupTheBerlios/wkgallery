@@ -19,7 +19,8 @@ import java.util.logging.Logger;
  */
 public class MSAccessDAOFactory extends DAOFactory {
 
-    Connection connection;
+    protected static Connection connection;
+    
     private static MSAccessDAOFactory msAccessDAOFactory;
 
     /** Creates a new instance of MSAccessDAOFactory */
@@ -42,7 +43,7 @@ public class MSAccessDAOFactory extends DAOFactory {
 
             // TODO: set right filepath
             String filename =
-                    "D:\\Documents and Settings\\Marco Celesti.MarcoFisso\\Documenti\\Università\\Laurea specialistica\\I° Anno LS\\II° Semestre\\Progetto di Informatica III\\Progetto\\DB\\Copia di wunderkammer.mdb";
+                    "C:\\Documents and Settings\\Marco Celesti\\Documenti\\Università\\I° Anno LS\\II° Semestre\\Progetto di Informatica III\\Progetto\\DB\\wunderkammer.mdb";
             filename = filename.replace('\\', '/').trim();
 
             String database =
@@ -50,6 +51,7 @@ public class MSAccessDAOFactory extends DAOFactory {
             database += filename.trim(); // + ";DriverID=22;READONLY=false}"; // add on to the end
             // now we can get the connection from the DriverManager
             connection = DriverManager.getConnection(database, "", "");
+            connection.setAutoCommit(true);
             return connection;
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessDAOFactory.class.getName()).
@@ -68,24 +70,24 @@ public class MSAccessDAOFactory extends DAOFactory {
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessDAOFactory.class.getName()).log(Level.SEVERE,
-                                                                     null, ex);
+                    null, ex);
         }
         return false;
     }
 
     public MSAccessArtistaDAO getArtistaDAO() {
-        return new MSAccessArtistaDAO(connection);
+        return MSAccessArtistaDAO.getMSAccessArtistaDAO();
     }
 
     public MSAccessOperaDAO getOperaDAO() {
-        return new MSAccessOperaDAO(connection);
+        return MSAccessOperaDAO.getMSAccessArtistaDAO();
     }
-
+    
     public MSAccessClienteDAO getClienteDAO() {
-        return new MSAccessClienteDAO(connection);
+        return MSAccessClienteDAO.getMSAccessClienteDAO();
     }
 
     public MSAccessFatturaDAO getFatturaDAO() {
-        return new MSAccessFatturaDAO(connection);
+        return MSAccessFatturaDAO.getMSAccessArtistaDAO();
     }
 }

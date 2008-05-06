@@ -28,15 +28,33 @@ import java.util.logging.Logger;
  */
 public class MSAccessArtistaDAO implements ArtistaDAO {
 
-    private Connection connection;
+    private static Connection connection;
+    private static MSAccessArtistaDAO msAccessArtistaDao;
 
-    /** Crea una nuova istanza di MSAccessArtistaDAO
-     * @param connection l'oggetto Connection per l'esecuzione di query
+    /**
+     * Costruttore di MSAccessArtistaDAO.
      */
-    public MSAccessArtistaDAO(Connection connection) {
-        this.connection = connection;
+    public MSAccessArtistaDAO() {
+        MSAccessArtistaDAO.connection = MSAccessDAOFactory.connection;
     }
 
+    /**
+     * La classe implementa il pattern Singleton.
+     * @return l'istanza di tipo statico della classe
+     */
+    public static MSAccessArtistaDAO getMSAccessArtistaDAO() {
+        if (msAccessArtistaDao == null) {
+            msAccessArtistaDao = new MSAccessArtistaDAO();
+        }
+        return msAccessArtistaDao;
+    }
+    
+    /**
+     * Implementazione del metodo definito dall'interfaccia.
+     * @param artista l'artista da inserire
+     * @throws exceptions.RecordGiaPresenteException se l'artista è già presente nel DB
+     * @throws exceptions.ChiavePrimariaException se la chiave primaria non è valida
+     */
     public void insertArtista(Artista artista) throws RecordGiaPresenteException,
             ChiavePrimariaException {
         int codArt = artista.getCodiceArtista();
@@ -56,7 +74,6 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
             pstmt.setString(2, cognome);
             pstmt.setString(3, nome);
             pstmt.setString(4, noteBio);
-
             pstmt.executeUpdate();
             pstmt.close();
             makePersistent();
@@ -66,6 +83,12 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
         }
     }
 
+    /**
+     * Implementazione del metodo definito dall'interfaccia.
+     * @param codiceArtista il codice dell'artista da rimuovere dal DB
+     * @throws exceptions.RecordNonPresenteException se l'artista non è presente sul DB
+     * @throws exceptions.RecordCorrelatoException se l'artista ha Opere correlate
+     */
     public void deleteArtista(int codiceArtista) throws RecordNonPresenteException,
             RecordCorrelatoException {
         try {
@@ -84,6 +107,10 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
         }
     }
 
+    /**
+     * Implementazione del metodo definito dall'interfaccia.
+     * @throws exceptions.RecordCorrelatoException se un artista ha Opere correlate
+     */
     public void deleteAllArtisti() throws RecordCorrelatoException {
         try {
             PreparedStatement pstmt =
@@ -95,7 +122,13 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
             throw new RecordCorrelatoException("Si sta tentando di cancellare un Artista cui sono correlate Opere");
         }
     }
-    
+
+    /**
+     * Implementazione del metodo definito dall'interfaccia.
+     * @param codiceArtista l'artista da ricercare su DB
+     * @return l'artista trovato
+     * @throws exceptions.RecordNonPresenteException s la ricerca dà esito negativo.
+     */
     public Artista findArtista(int codiceArtista) throws RecordNonPresenteException {
         if (!artistaExists(codiceArtista)) {
             throw new RecordNonPresenteException("CodiceArtista non presente in archivio");
@@ -120,6 +153,11 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
         return artista;
     }
 
+    /**
+     * Implementazione del metodo definito dall'interfaccia.
+     * @param artista l'artista da aggiornare
+     * @throws exceptions.RecordNonPresenteException se l'artista non è presente in archivio
+     */
     public void updateArtista(Artista artista) throws RecordNonPresenteException {
         int codArt = artista.getCodiceArtista();
         if (!artistaExists(codArt)) {
@@ -138,34 +176,16 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
             pstmt.executeUpdate();
             pstmt.close();
             makePersistent();
-
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE,
                     null, ex);
         }
     }
 
-    public static Artista staticFindArtista(int codiceArtista, Connection conn) {
-        Artista artista = new Artista();
-        try {
-            PreparedStatement pstmt =
-                    conn.prepareStatement("SELECT * FROM Artista WHERE CodiceArtista = ?");
-            pstmt.setInt(1, codiceArtista);
-            ResultSet rs = pstmt.executeQuery();
-            if (rs.next()) {
-                artista.setCodiceArtista(rs.getInt("CodiceArtista"));
-                artista.setCognome(rs.getString("Cognome"));
-                artista.setNome(rs.getString("Nome"));
-                artista.setNoteBiografiche(rs.getString("NoteBiografiche"));
-            }
-            pstmt.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE,
-                    null, ex);
-        }
-        return artista;
-    }
-
+    /**
+     * Implementazione del metodo definito dall'interfaccia.
+     * @return il vettore contenente gli artisti presenti su DB
+     */
     public Vector<Artista> findAllArtisti() {
         Vector<Artista> v = new Vector<Artista>();
         try {
@@ -188,6 +208,12 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
         return v;
     }
 
+    /**
+     * Determina se un artista si trova su DB, dato il suo codice.
+     * @param codiceArtista il codice dell'artista da ricercare
+     * @return true se l'artista esiste
+     *         false altrimenti
+     */
     private boolean artistaExists(int codiceArtista) {
         int codiceReale = -1;
         try {
@@ -224,6 +250,4 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
                     null, ex);
         }
     }
-
-    
 }

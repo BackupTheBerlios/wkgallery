@@ -63,15 +63,28 @@ public interface OperaDAO {
     public void updateOpera(Opera opera) throws RecordNonPresenteException;
 
     /**
-     * Permette di recuperare le opere diun particolare artista.
+     * Permette di recuperare le opere di un particolare artista.
      * @param artista l'artista di cui si vogliono recuperare le opere
      * @return l'elenco di tutte le opere dell'artista
      */
     public Vector<Opera> selectOperaPerArtista(Artista artista);
-    
+
     /**
      * Cancella tutti le opere presenti.
      * @throws exceptions.RecordCorrelatoException se le opere hanno record correlati
      */
     public void deleteAllOpere() throws RecordCorrelatoException;
+    
+    /**
+     * Restituisce le opere opzionate nelle relative fatture, cioè quelle opere appartenenti
+     * a fatture proforma, non ancora emesse.
+     * @return il vettore di opere con le caratteristiche descritte
+     */
+    public Vector<Opera> findAllOpereOpzionate();
+    
+    /**
+     * Restituisce le opere vendibili, cioè le opere non appartenenti ad alcuna fattura.
+     * @return il vettore di opere con le caratteristiche descritte
+     */
+    public Vector<Opera> findAllOpereDisimpegnate();
 }

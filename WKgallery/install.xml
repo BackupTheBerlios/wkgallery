@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+
+<!-- 
+    To compile it :
+    - go in the bin directory where you installed IzPack
+    - call "compile ../sample/install.xml -b ../sample"
+-->
+
+<installation version="1.0">
+
+  <!-- 
+        The info section.
+        The meaning of the tags should be natural ...
+    -->
+  <info>
+    <appname>Wunderkammer Galleria d'arte</appname>
+    <appversion>1.0</appversion>
+    <authors>
+      <author name="Marco Celesti" email="marco.celesti@tele2.it"/>
+      <author name="Mirko Bertoldi" email="mirko.bertoldi@tele2.it"/>
+    </authors>
+  </info>
+
+  <!-- 
+        The gui preferences indication.
+        Sets the installer window to 640x480. It will not be able to change the size.
+    -->
+  <guiprefs width="640" height="480" resizable="no"/>
+
+  <!-- 
+        The locale section.
+    -->
+  <locale>
+    <langpack iso3="ita"/>
+  </locale>
+
+  <!-- 
+        The resources section.
+        The ids must be these ones if you want to use the LicencePanel and/or the InfoPanel.
+    -->
+  <resources>
+    <res id="LicencePanel.licence" src="Licenza.txt"/>
+  </resources>
+
+  <!-- 
+        The panels section.
+        We indicate here which panels we want to use. The order will be respected.
+    -->
+  <panels>
+    <panel classname="HelloPanel"/>
+    <panel classname="LicencePanel"/>
+    <panel classname="TargetPanel"/>
+    <panel classname="PacksPanel"/>
+    <panel classname="InstallPanel"/>
+    <panel classname="FinishPanel"/>
+  </panels>
+
+  <!-- 
+        The packs section.
+        We specify here our packs.
+    -->
+  <packs>
+    <pack name="Base" required="yes">
+      <description>File indispensabili</description>
+      <file src="Licenza.txt" targetdir="$INSTALL_PATH"/>
+      <file src="script.bat" targetdir="$INSTALL_PATH"/>
+      <parsable targetfile="$INSTALL_PATH/script.bat"/>
+      <!-- The file will be parsed -->
+    </pack>
+    <pack name="Docs" required="no">
+      <description>Documentazione</description>
+      <file src="doc" targetdir="$INSTALL_PATH"/>
+      <!-- Reccursive adding -->
+    </pack>
+    <pack name="Sorgenti" required="no">
+      <description>Sorgenti del progetto</description>
+      <file src="src" targetdir="$INSTALL_PATH"/>
+    </pack>
+    <pack name="DB" required="yes">
+      <description>Database</description>
+      <file src="db" targetdir="$INSTALL_PATH"/>
+      <file src="wunderkammer.mdb" targetdir="$INSTALL_PATH/db"/>
+    </pack>
+    <pack name="backup" required="yes">
+      <description>File necessari per il backup</description>
+      <file src="backup" targetdir="$INSTALL_PATH"/>
+      <file src="wkgallery.dtd" targetdir="$INSTALL_PATH/backup"/>
+    </pack>
+    <pack name="fatture" required="yes">
+      <description>File necessari per l'emissione di fatture</description>
+      <file src="fatture" targetdir="$INSTALL_PATH"/>
+    </pack>
+  </packs>
+
+</installation>

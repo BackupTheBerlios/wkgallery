@@ -9,7 +9,6 @@
 package daorules;
 
 import abstractlayer.Cliente;
-import abstractlayer.Fattura;
 import abstractlayer.Regione;
 import exceptions.ChiavePrimariaException;
 import exceptions.RecordCorrelatoException;
@@ -18,6 +17,8 @@ import exceptions.RecordNonPresenteException;
 import java.util.Vector;
 
 /**
+ * L'interfaccia di riferimento per l'implementazione delle classi che si occupano di 
+ * interagire direttamente con l'archivio dati dell'entità Cliente.
  *
  * @author Marco Celesti
  */
@@ -30,7 +31,7 @@ public interface ClienteDAO {
      * @throws exceptions.ChiavePrimariaException se il nuovo cliente ha il campo CodiceCliente vuoto
      */
     public void insertCliente(Cliente cliente) throws RecordGiaPresenteException,
-                                                       ChiavePrimariaException;
+            ChiavePrimariaException;
 
     /**
      * Permette la cancellazione di un cliente.
@@ -39,7 +40,7 @@ public interface ClienteDAO {
      * @throws exceptions.RecordCorrelatoException se il cliente ha record (fatture, in particolare) correlati
      */
     public void deleteCliente(String codiceCliente) throws RecordNonPresenteException,
-                                                            RecordCorrelatoException;
+            RecordCorrelatoException;
 
     /**
      * Permette di trovare un cliente dato il suo codice.
@@ -97,7 +98,7 @@ public interface ClienteDAO {
      * @return il vettore con i clienti che soddisfano il criterio richiesto
      */
     public Vector<Cliente> selectClientiPerRegione(Vector<Regione> regioni);
-    
+
     /**
      * Cancella tutti i clienti presenti.
      * @throws exceptions.RecordCorrelatoException se i clienti hanno record correlati

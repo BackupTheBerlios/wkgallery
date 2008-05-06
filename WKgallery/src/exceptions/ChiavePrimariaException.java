@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package exceptions;
 
 /**
@@ -16,7 +15,6 @@ public class ChiavePrimariaException extends Exception {
      */
     public ChiavePrimariaException() {
     }
-
 
     /**
      * Constructs an instance of <code>ChiavePrimariaException</code> with the specified detail message.

@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package exceptions;
 
 import java.sql.SQLException;
@@ -18,7 +17,6 @@ public class ArchivioNonTrovatoException extends SQLException {
      */
     public ArchivioNonTrovatoException() {
     }
-
 
     /**
      * Constructs an instance of <code>ArchivioNonTrovatoException</code> with the specified detail message.

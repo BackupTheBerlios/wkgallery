@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package exceptions;
 
 /**
@@ -16,7 +15,6 @@ public class RecordNonPresenteException extends Exception {
      */
     public RecordNonPresenteException() {
     }
-
 
     /**
      * Constructs an instance of <code>RecordNonPresente</code> with the specified detail message.

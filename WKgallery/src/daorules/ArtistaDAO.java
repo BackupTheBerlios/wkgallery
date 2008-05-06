@@ -48,7 +48,7 @@ public interface ArtistaDAO {
      * @throws exceptions.RecordNonPresenteException se il CodiceArtista non corrisponde ad alcun record
      */
     public Artista findArtista(int codiceArtista) throws RecordNonPresenteException;
-    
+
     /**
      * Restituisce il vettore contenente l'intera lista di artisti.
      * @return il vettore con gli artisti
@@ -61,7 +61,7 @@ public interface ArtistaDAO {
      * @throws exceptions.RecordNonPresenteException se l'artista passato non aggiorna alcun record già esistente
      */
     public void updateArtista(Artista artista) throws RecordNonPresenteException;
-    
+
     /**
      * Cancella tutti gli artisti presenti.
      * @throws exceptions.RecordCorrelatoException se gli artisti hanno record correlati

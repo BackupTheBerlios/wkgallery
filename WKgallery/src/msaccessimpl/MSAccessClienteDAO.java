@@ -8,7 +8,6 @@
  */
 package msaccessimpl;
 
-import abstractlayer.Fattura;
 import exceptions.BadFormatException;
 import utilities.ClienteComparator;
 import abstractlayer.Cliente;
@@ -34,17 +33,29 @@ import utilities.EMail;
  */
 public class MSAccessClienteDAO implements ClienteDAO {
 
-    private Connection connection;
+    private static Connection connection;
+    private static MSAccessClienteDAO msAccessClienteDao;
 
-    /** Creates a new instance of MSAccessClienteDAO
-     * @param connection 
+    /**
+     * Costruttore di MSAccessClienteDAO.
      */
-    public MSAccessClienteDAO(Connection connection) {
-        this.connection = connection;
+    public MSAccessClienteDAO() {
+        MSAccessClienteDAO.connection = MSAccessDAOFactory.connection;
+    }
+
+    /**
+     * La classe implementa il pattern Singleton.
+     * @return l'istanza di tipo statico della classe
+     */
+    public static MSAccessClienteDAO getMSAccessClienteDAO() {
+        if (msAccessClienteDao == null) {
+            msAccessClienteDao = new MSAccessClienteDAO();
+        }
+        return msAccessClienteDao;
     }
 
     public void insertCliente(Cliente cliente) throws RecordGiaPresenteException,
-                                                       ChiavePrimariaException {
+            ChiavePrimariaException {
         try {
             String codCliente = cliente.getCodiceCliente();
             if (codCliente.isEmpty()) {
@@ -98,13 +109,13 @@ public class MSAccessClienteDAO implements ClienteDAO {
             makePersistent();
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessClienteDAO.class.getName()).log(Level.SEVERE,
-                                                                     null, ex);
+                    null, ex);
         }
 
     }
 
     public void deleteCliente(String codiceCliente) throws RecordNonPresenteException,
-                                                            RecordCorrelatoException {
+            RecordCorrelatoException {
         try {
             PreparedStatement pstmt =
                     connection.prepareStatement("DELETE FROM Cliente WHERE ID = ?");
@@ -120,7 +131,7 @@ public class MSAccessClienteDAO implements ClienteDAO {
             throw new RecordCorrelatoException("Si sta tentando di cancellare un Cliente cui sono correlate Fatture");
         }
     }
-    
+
     public void deleteAllClienti() throws RecordCorrelatoException {
         try {
             PreparedStatement pstmt =
@@ -159,17 +170,17 @@ public class MSAccessClienteDAO implements ClienteDAO {
                 cliente.setMail1(EMail.toEMail(rs.getString("Mail1")));
                 cliente.setMail2(EMail.toEMail(rs.getString("Mail2")));
                 cliente.setCfPiva(rs.getString("CF_PIVA"));
-                cliente.setNote(rs.getString("Note"));
+                cliente.setNote(rs.getString("Annotazioni"));
                 cliente.setProfessionista(rs.getBoolean("Professionista"));
                 cliente.setCap(rs.getString("Cap"));
             }
             pstmt.close();
         } catch (BadFormatException ex) {
             Logger.getLogger(MSAccessClienteDAO.class.getName()).log(Level.WARNING,
-                                                                     null, ex);
+                    null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE,
-                                                                     null, ex);
+                    null, ex);
         }
         return cliente;
     }
@@ -200,8 +211,7 @@ public class MSAccessClienteDAO implements ClienteDAO {
             boolean professionista = cliente.isProfessionista();
 
             PreparedStatement pstmt =
-                    connection.prepareStatement("UPDATE Cliente SET Cognome_Rsoc1 = ?, Nome_Rsoc2 = ?, Dimensioni = ?, Indirizzo = ?, NCiv = ?, Citta = ?, Provincia = ?, Regione = ?, Stato = ?, Telefono1 = ?, Telefono2 = ?, Cellulare1 = ?, Cellulare2 = ?, Cellulare1 = ?, Mail1 = ?, Mail2 = ?, CF_PIVA = ?, Note = ?, Professionista = ?, Cap = ? WHERE ID = ?");
-            pstmt.setString(18, codCli);
+                    connection.prepareStatement("UPDATE Cliente SET Cognome_Rsoc1 = ?, Nome_Rsoc2 = ?, Indirizzo = ?, NCiv = ?, Citta = ?, Provincia = ?, Regione = ?, Stato = ?, Telefono1 = ?, Telefono2 = ?, Cellulare1 = ?, Cellulare2 = ?, Mail1 = ?, Mail2 = ?, CF_PIVA = ?, Annotazioni = ?, Professionista = ?, Cap = ? WHERE ID = ?");
             pstmt.setString(1, cognRsoc1);
             pstmt.setString(2, nomeRsoc2);
             pstmt.setString(3, indirizzo);
@@ -220,6 +230,7 @@ public class MSAccessClienteDAO implements ClienteDAO {
             pstmt.setString(16, note);
             pstmt.setBoolean(17, professionista);
             pstmt.setString(18, cap);
+            pstmt.setString(19, codCli);
             pstmt.executeUpdate();
             pstmt.close();
             makePersistent();
@@ -257,7 +268,7 @@ public class MSAccessClienteDAO implements ClienteDAO {
                 cliente.setMail1(EMail.toEMail(rs.getString("Mail1")));
                 cliente.setMail2(EMail.toEMail(rs.getString("Mail2")));
                 cliente.setCfPiva(rs.getString("CF_PIVA"));
-                cliente.setNote(rs.getString("Note"));
+                cliente.setNote(rs.getString("Annotazioni"));
                 cliente.setProfessionista(rs.getBoolean("Professionista"));
                 cliente.setCap(rs.getString("Cap"));
                 v.add(cliente);
@@ -265,10 +276,10 @@ public class MSAccessClienteDAO implements ClienteDAO {
             pstmt.close();
         } catch (BadFormatException ex) {
             Logger.getLogger(MSAccessClienteDAO.class.getName()).log(Level.WARNING,
-                                                                     null, ex);
+                    null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE,
-                                                                     null, ex);
+                    null, ex);
         }
         Collections.sort(v, new ClienteComparator());
         return v;
@@ -303,7 +314,7 @@ public class MSAccessClienteDAO implements ClienteDAO {
                     cliente.setMail1(EMail.toEMail(rs.getString("Mail1")));
                     cliente.setMail2(EMail.toEMail(rs.getString("Mail2")));
                     cliente.setCfPiva(rs.getString("CF_PIVA"));
-                    cliente.setNote(rs.getString("Note"));
+                    cliente.setNote(rs.getString("Annotazioni"));
                     cliente.setProfessionista(rs.getBoolean("Professionista"));
                     cliente.setCap(rs.getString("Cap"));
                     tempV.add(cliente);
@@ -311,12 +322,12 @@ public class MSAccessClienteDAO implements ClienteDAO {
                 pstmt.close();
             } catch (BadFormatException ex) {
                 Logger.getLogger(MSAccessClienteDAO.class.getName()).log(Level.WARNING,
-                                                                         null,
-                                                                         ex);
+                        null,
+                        ex);
             } catch (SQLException ex) {
                 Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE,
-                                                                         null,
-                                                                         ex);
+                        null,
+                        ex);
             }
             Collections.sort(tempV, new ClienteComparator());
             v.addAll(tempV);
@@ -349,7 +360,7 @@ public class MSAccessClienteDAO implements ClienteDAO {
                 cliente.setMail1(EMail.toEMail(rs.getString("Mail1")));
                 cliente.setMail2(EMail.toEMail(rs.getString("Mail2")));
                 cliente.setCfPiva(rs.getString("CF_PIVA"));
-                cliente.setNote(rs.getString("Note"));
+                cliente.setNote(rs.getString("Annotazioni"));
                 cliente.setProfessionista(rs.getBoolean("Professionista"));
                 cliente.setCap(rs.getString("Cap"));
                 v.add(cliente);
@@ -357,10 +368,10 @@ public class MSAccessClienteDAO implements ClienteDAO {
             pstmt.close();
         } catch (BadFormatException ex) {
             Logger.getLogger(MSAccessClienteDAO.class.getName()).log(Level.WARNING,
-                                                                     null, ex);
+                    null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE,
-                                                                     null, ex);
+                    null, ex);
         }
         Collections.sort(v, new ClienteComparator());
         return v;
@@ -399,15 +410,15 @@ public class MSAccessClienteDAO implements ClienteDAO {
             pstmt.close();
         } catch (BadFormatException ex) {
             Logger.getLogger(MSAccessClienteDAO.class.getName()).log(Level.WARNING,
-                                                                     null, ex);
+                    null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE,
-                                                                     null, ex);
+                    null, ex);
         }
         Collections.sort(v, new ClienteComparator());
         return v;
     }
-    
+
     public Vector<Cliente> findAllClienti() {
         Cliente cliente;
         Vector<Cliente> v = new Vector<Cliente>();
@@ -433,7 +444,7 @@ public class MSAccessClienteDAO implements ClienteDAO {
                 cliente.setMail1(EMail.toEMail(rs.getString("Mail1")));
                 cliente.setMail2(EMail.toEMail(rs.getString("Mail2")));
                 cliente.setCfPiva(rs.getString("CF_PIVA"));
-                cliente.setNote(rs.getString("Note"));
+                cliente.setNote(rs.getString("Annotazioni"));
                 cliente.setProfessionista(rs.getBoolean("Professionista"));
                 cliente.setCap(rs.getString("Cap"));
                 v.add(cliente);
@@ -441,54 +452,13 @@ public class MSAccessClienteDAO implements ClienteDAO {
             pstmt.close();
         } catch (BadFormatException ex) {
             Logger.getLogger(MSAccessClienteDAO.class.getName()).log(Level.WARNING,
-                                                                     null, ex);
+                    null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE,
-                                                                     null, ex);
+                    null, ex);
         }
         Collections.sort(v, new ClienteComparator());
         return v;
-    }
-
-    public static Cliente staticFindCliente(String codiceCliente,
-                                              Connection conn) {
-        Cliente cliente = new Cliente();
-        try {
-            PreparedStatement pstmt =
-                    conn.prepareStatement("SELECT * FROM Cliente WHERE ID = ?");
-            pstmt.setString(1, codiceCliente);
-            ResultSet rs = pstmt.executeQuery();
-            if (rs.next()) {
-                cliente.setCodiceCliente(rs.getString("ID"));
-                cliente.setCognRsoc1(rs.getString("Cognome_Rsoc1"));
-                cliente.setNomeRsoc2(rs.getString("Nome_Rsoc2"));
-                cliente.setIndirizzo(rs.getString("Indirizzo"));
-                cliente.setNCiv(rs.getInt("NCiv"));
-                cliente.setCitta(rs.getString("Citta"));
-                cliente.setProvincia(rs.getString("Provincia"));
-                cliente.setRegione(Regione.getRegione(rs.getString("Regione")));
-                cliente.setStato(rs.getString("Stato"));
-                cliente.setTel1(rs.getString("Telefono1"));
-                cliente.setTel2(rs.getString("Telefono2"));
-                cliente.setCell1(rs.getString("Cellulare1"));
-                cliente.setCell2(rs.getString("Cellulare2"));
-                cliente.setMail1(EMail.toEMail(rs.getString("Mail1")));
-                cliente.setMail2(EMail.toEMail(rs.getString("Mail2")));
-                cliente.setCfPiva(rs.getString("CF_PIVA"));
-                cliente.setNote(rs.getString("Note"));
-                cliente.setProfessionista(rs.getBoolean("Professionista"));
-                cliente.setCap(rs.getString("Cap"));
-            }
-            pstmt.close();
-        } catch (BadFormatException ex) {
-            Logger.getLogger(MSAccessClienteDAO.class.getName()).log(Level.WARNING,
-                                                                     null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE,
-                                                                     null, ex);
-        }
-        return cliente;
-
     }
 
     private boolean clienteExists(String codiceCliente) {
@@ -524,9 +494,7 @@ public class MSAccessClienteDAO implements ClienteDAO {
             pstmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessDAOFactory.class.getName()).log(Level.SEVERE,
-                                                                     null, ex);
+                    null, ex);
         }
     }
-
-    
 }

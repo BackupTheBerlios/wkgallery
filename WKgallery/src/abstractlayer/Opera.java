@@ -17,7 +17,6 @@ public class Opera {
     // member variables
     private String codiceOpera;
     private Artista artista;
-    private boolean venduto;
     private String titolo;
     private String tecnica;
     private String dimensioni;
@@ -25,14 +24,13 @@ public class Opera {
     private String foto;
     private float prezzo;
 
-    public Opera(String codiceOpera, Artista artista, String titolo, String tecnica, String dimensioni, String tipo, String foto, boolean venduto, float prezzo) {
+    public Opera(String codiceOpera, Artista artista, String titolo, String tecnica, String dimensioni, String tipo, String foto, float prezzo) {
         this.codiceOpera = codiceOpera;
         this.artista = artista;
         this.tecnica = tecnica;
         this.dimensioni = dimensioni;
         this.tipo = tipo;
         this.foto = foto;
-        this.venduto = venduto;
         this.prezzo = prezzo;
         this.titolo = titolo;
     }
@@ -45,24 +43,15 @@ public class Opera {
         this.dimensioni = "";
         this.tipo = "";
         this.foto = "";
-        this.venduto = false;
         this.prezzo = -1.0f;
     }
-    
+
     public Artista getArtista() {
         return artista;
     }
 
     public void setArtista(Artista artista) {
         this.artista = artista;
-    }
-
-    public boolean isVenduto() {
-        return venduto;
-    }
-
-    public void setVenduto(boolean venduto) {
-        this.venduto = venduto;
     }
 
     public String getTecnica() {

@@ -17,13 +17,18 @@ public class FatturaComparator implements Comparator<Fattura> {
         int anno1 = f1.getDataFattura().getAnno();
         int anno2 = f2.getDataFattura().getAnno();
         int num1 = f1.getNumeroFattura();
-        int num2 = f2.getNumeroFattura();      
-        
-        if (anno1 < anno2) return -1;
-        else if (anno1 > anno2) return 1;
-        else {
-            if (num1 < num2) return -1;
-            else return 1;
-        } 
+        int num2 = f2.getNumeroFattura();
+
+        if (anno1 < anno2) {
+            return -1;
+        } else if (anno1 > anno2) {
+            return 1;
+        } else {
+            if (num1 < num2) {
+                return -1;
+            } else {
+                return 1;
+            }
+        }
     }
 }

@@ -33,28 +33,33 @@ public class EMail {
             return new EMail();
         }
         if (mailNotFormatted.length() != 0) {
-            String actualUser = "";
-            String actualDominio = "";
-            String acualSuffisso = "";
+            String user = "";
+            String dominio = "";
+            String suffisso = "";
 
             String[] user_dominio = mailNotFormatted.split("@");
-            if (user_dominio[0].isEmpty() || user_dominio[1].isEmpty()) {
+            try {
+                user = user_dominio[0];
+                dominio = user_dominio[1];
+            } catch (ArrayIndexOutOfBoundsException aioobe) {
                 throw new BadFormatException("Formato mail non corretto");
             }
-            actualUser = user_dominio[0];
-            String dominio_suffisso[] = user_dominio[1].split("\\.");
+            if (user.isEmpty() || dominio.isEmpty()) {
+                throw new BadFormatException("Formato mail non corretto");
+            }
+            String dominio_suffisso[] = dominio.split("\\.");
             int len = dominio_suffisso.length;
             if (dominio_suffisso[len - 2].isEmpty() ||
                     dominio_suffisso[len - 1].isEmpty()) {
                 throw new BadFormatException("Formato mail non corretto");
             }
-            acualSuffisso = dominio_suffisso[len - 1];
-            actualDominio = dominio_suffisso[0];
+            suffisso = dominio_suffisso[len - 1];
+            dominio = dominio_suffisso[0];
             for (int i = 1; i < len - 1; i++) {
-                actualDominio = actualDominio.concat(".");
-                actualDominio = actualDominio.concat("" + dominio_suffisso[i]);
+                dominio = dominio.concat(".");
+                dominio = dominio.concat("" + dominio_suffisso[i]);
             }
-            EMail email = new EMail(actualUser, actualDominio, acualSuffisso);
+            EMail email = new EMail(user, dominio, suffisso);
             return email;
         } else {
             return new EMail();

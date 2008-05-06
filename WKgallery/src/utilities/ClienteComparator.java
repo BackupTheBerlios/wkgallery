@@ -18,5 +18,4 @@ public class ClienteComparator implements Comparator<Cliente> {
         String cognRagSoc2 = cli2.getCognRsoc1();
         return cognRagSoc1.compareToIgnoreCase(cognRagSoc2);
     }
-
 }
