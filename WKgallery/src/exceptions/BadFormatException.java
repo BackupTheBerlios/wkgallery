@@ -5,20 +5,25 @@
 package exceptions;
 
 /**
- *
+ * Eccezione per campi dati malformattati.
  * @author Marco Celesti
  */
 public class BadFormatException extends Exception {
 
     /**
-     * Creates a new instance of <code>BadFormatException</code> without detail message.
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
+     * Crea una nuova istanza di <code>BadFormatException</code> senza messaggi di dettaglio.
      */
     public BadFormatException() {
     }
 
     /**
-     * Constructs an instance of <code>BadFormatException</code> with the specified detail message.
-     * @param msg the detail message.
+     * Crea una nuova istanza di <code>BadFormatException</code> con il messaggio di dettaglio specificato.
+     * @param msg il messaggio di dettaglio
      */
     public BadFormatException(String msg) {
         super(msg);

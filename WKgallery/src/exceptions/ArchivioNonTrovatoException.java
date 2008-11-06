@@ -4,23 +4,26 @@
  */
 package exceptions;
 
-import java.sql.SQLException;
-
 /**
- *
+ * Eccezione in caso di archivio dati non trovato.
  * @author Marco Celesti
  */
-public class ArchivioNonTrovatoException extends SQLException {
+public class ArchivioNonTrovatoException extends Exception {
 
     /**
-     * Creates a new instance of <code>ArchivioNonTrovatoException</code> without detail message.
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * Crea una nuova istanza di <code>ArchivioNonTrovatoException</code> senza messaggi di dettaglio.
      */
     public ArchivioNonTrovatoException() {
     }
 
     /**
-     * Constructs an instance of <code>ArchivioNonTrovatoException</code> with the specified detail message.
-     * @param msg the detail message.
+     * Crea una nuova istanza di <code>ArchivioNonTrovatoException</code> con il messaggio di dettaglio specificato.
+     * @param msg il messaggio di dettaglio
      */
     public ArchivioNonTrovatoException(String msg) {
         super(msg);

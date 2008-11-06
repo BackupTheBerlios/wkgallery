@@ -5,20 +5,25 @@
 package exceptions;
 
 /**
- *
+ * Eccezione per violazioni di chiave primaria.
  * @author Marco Celesti
  */
 public class ChiavePrimariaException extends Exception {
 
     /**
-     * Creates a new instance of <code>ChiavePrimariaException</code> without detail message.
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
+     * Crea una nuova istanza di <code>ChiavePrimariaException</code> senza messaggi di dettaglio.
      */
     public ChiavePrimariaException() {
     }
 
     /**
-     * Constructs an instance of <code>ChiavePrimariaException</code> with the specified detail message.
-     * @param msg the detail message.
+     * Crea una nuova istanza di <code>ChiavePrimariaException</code> con il messaggio di dettaglio specificato.
+     * @param msg il messaggio di dettaglio
      */
     public ChiavePrimariaException(String msg) {
         super(msg);

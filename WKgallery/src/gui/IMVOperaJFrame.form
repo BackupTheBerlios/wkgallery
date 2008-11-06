@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.5" maxVersion="1.6" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
+    <Property name="resizable" type="boolean" value="false"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="salvajButton" min="-2" pref="88" max="-2" attributes="0"/>
+                      <EmptySpace pref="190" max="32767" attributes="0"/>
+                      <Component id="cancellajButton" min="-2" pref="88" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="codiceOperajLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="artistajLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="titolojLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="tecnicajLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="dimensionijLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="tipojLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="prezzojLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="scegliImmaginejLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="tipojTextField" alignment="0" pref="182" max="32767" attributes="1"/>
+                              <Component id="dimensionijTextField" alignment="0" pref="182" max="32767" attributes="1"/>
+                              <Component id="tecnicajTextField" alignment="0" pref="182" max="32767" attributes="1"/>
+                              <Component id="titolojTextField" alignment="0" pref="182" max="32767" attributes="1"/>
+                              <Component id="artistajComboBox" alignment="0" min="-2" pref="182" max="-2" attributes="1"/>
+                              <Component id="codiceOperajTextField" alignment="0" pref="182" max="32767" attributes="1"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="eurojLabel" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="prezzojTextField" pref="166" max="32767" attributes="1"/>
+                              </Group>
+                          </Group>
+                          <Component id="scegliImmaginejButton" alignment="1" min="-2" pref="88" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="immaginejTextField" pref="260" max="32767" attributes="1"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="visualizzaImmaginejButton" pref="88" max="32767" attributes="0"/>
+                  </Group>
+                  <Component id="campiObbligatorijLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="codiceOperajLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="codiceOperajTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="artistajLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="artistajComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="titolojLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="titolojTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="tecnicajLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tecnicajTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="dimensionijLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="dimensionijTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="tipojLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tipojTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="prezzojLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="eurojLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="prezzojTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="scegliImmaginejLabel" min="-2" max="-2" attributes="0"/>
+                  <Component id="scegliImmaginejButton" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="visualizzaImmaginejButton" min="-2" max="-2" attributes="0"/>
+                  <Component id="immaginejTextField" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="campiObbligatorijLabel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="27" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="salvajButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cancellajButton" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JLabel" name="codiceOperajLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Codice Opera*:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="artistajLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Artista*:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="titolojLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Titolo*:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="tecnicajLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Tecnica:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="codiceOperajTextField">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="titolojTextField">
+    </Component>
+    <Component class="javax.swing.JComboBox" name="artistajComboBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="new javax.swing.DefaultComboBoxModel(artisti)" type="code"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="tecnicajTextField">
+    </Component>
+    <Component class="javax.swing.JLabel" name="dimensionijLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Dimensioni (larghezza x altezza):"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="tipojLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Tipo:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="prezzojLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Prezzo:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="scegliImmaginejLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Scegli immagine:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="dimensionijTextField">
+    </Component>
+    <Component class="javax.swing.JTextField" name="tipojTextField">
+    </Component>
+    <Component class="javax.swing.JTextField" name="prezzojTextField">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="prezzojTextFieldKeyTyped"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="salvajButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Salva"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="salvajButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="cancellajButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cancella"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancellajButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="immaginejTextField">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="scegliImmaginejButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Scegli:"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="scegliImmaginejButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="eurojLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#x20ac;"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="visualizzaImmaginejButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Visualizza"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="visualizzaImmaginejButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="campiObbligatorijLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="* Campi obbligatori"/>
+      </Properties>
+    </Component>
+  </SubComponents>
+</Form>

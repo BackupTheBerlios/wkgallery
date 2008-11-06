@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.5" maxVersion="1.6" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
+    <Property name="resizable" type="boolean" value="false"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="salvajButton" min="-2" pref="88" max="-2" attributes="0"/>
+                      <EmptySpace pref="438" max="32767" attributes="0"/>
+                      <Component id="cancellajButton" min="-2" pref="88" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="codiceClientejLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="cognomejLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="nomejLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="indirizzojLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="ncivjLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="cittajLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="provinciajLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="regionejLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="statojLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="capjLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="pivacfjLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="professionistajLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="professionistajCheckBox" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="378" max="32767" attributes="0"/>
+                              <Component id="campiObbligatorijLabel" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="regionejComboBox" pref="214" max="32767" attributes="0"/>
+                                  <Component id="pivacfjTextField" pref="214" max="32767" attributes="0"/>
+                                  <Component id="cognomejTextField" alignment="0" pref="214" max="32767" attributes="0"/>
+                                  <Component id="codiceClientejTextField" alignment="0" pref="214" max="32767" attributes="0"/>
+                                  <Component id="nomejTextField" alignment="0" pref="214" max="32767" attributes="0"/>
+                                  <Component id="indirizzojTextField" alignment="0" pref="214" max="32767" attributes="0"/>
+                                  <Component id="ncivjTextField" alignment="0" pref="214" max="32767" attributes="0"/>
+                                  <Component id="cittajTextField" alignment="0" pref="214" max="32767" attributes="0"/>
+                                  <Component id="provinciajTextField" alignment="0" pref="214" max="32767" attributes="0"/>
+                                  <Component id="statojTextField" alignment="0" pref="214" max="32767" attributes="0"/>
+                                  <Component id="capjTextField" alignment="0" pref="214" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="tel1jLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="tel2jLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cell1jLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cell2jLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="mail1jLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="mail2jLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="notejLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jScrollPane" pref="185" max="32767" attributes="0"/>
+                                  <Component id="mail2jTextField" alignment="0" pref="185" max="32767" attributes="0"/>
+                                  <Component id="mail1jTextField" alignment="0" pref="185" max="32767" attributes="0"/>
+                                  <Component id="cell2jTextField" alignment="0" pref="185" max="32767" attributes="0"/>
+                                  <Component id="cell1jTextField" alignment="0" pref="185" max="32767" attributes="0"/>
+                                  <Component id="tel2jTextField" alignment="0" pref="185" max="32767" attributes="0"/>
+                                  <Component id="tel1jTextField" alignment="0" pref="185" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                  </Group>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="codiceClientejLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="codiceClientejTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="cognomejLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cognomejTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="nomejLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="nomejTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tel1jLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tel1jTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="indirizzojLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="indirizzojTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tel2jLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tel2jTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="ncivjLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="ncivjTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cell1jLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cell1jTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="cittajLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cittajTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cell2jLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cell2jTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="provinciajLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="provinciajTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="mail1jLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="mail1jTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="regionejLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="regionejComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="mail2jLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="mail2jTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="statojLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="statojTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="notejLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="capjLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="capjTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="pivacfjLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="pivacfjTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="professionistajLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="professionistajCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                      <Component id="jScrollPane" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="campiObbligatorijLabel" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace pref="30" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="salvajButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cancellajButton" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JLabel" name="codiceClientejLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Codice cliente*:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="codiceClientejTextField">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="cognomejLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cognome / Rag. soc. 1*:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="cognomejTextField">
+    </Component>
+    <Component class="javax.swing.JLabel" name="nomejLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Nome / Rag. soc. 2:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="indirizzojLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Indirizzo:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="ncivjLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Numero civico:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="cittajLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Citt&#xe0;:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="provinciajLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Provincia:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="regionejLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Regione:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="statojLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Stato:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="capjLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="C.A.P."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="pivacfjLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="P.IVA / C.F."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="nomejTextField">
+    </Component>
+    <Component class="javax.swing.JTextField" name="indirizzojTextField">
+    </Component>
+    <Component class="javax.swing.JTextField" name="ncivjTextField">
+    </Component>
+    <Component class="javax.swing.JTextField" name="cittajTextField">
+    </Component>
+    <Component class="javax.swing.JTextField" name="provinciajTextField">
+    </Component>
+    <Component class="javax.swing.JTextField" name="statojTextField">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Italia"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="capjTextField">
+    </Component>
+    <Component class="javax.swing.JTextField" name="pivacfjTextField">
+    </Component>
+    <Component class="javax.swing.JComboBox" name="regionejComboBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="new javax.swing.DefaultComboBoxModel(abstractlayer.Regione.values())" type="code"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="regionejComboBoxItemStateChanged"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="tel1jLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Telefono 1:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="tel2jLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Telefono 2:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="cell1jLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cellulare 1:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="cell2jLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cellulare 2:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="mail1jLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Email 1:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="mail2jLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Email 2:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="notejLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Note:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="tel1jTextField">
+    </Component>
+    <Component class="javax.swing.JTextField" name="tel2jTextField">
+    </Component>
+    <Component class="javax.swing.JTextField" name="cell1jTextField">
+    </Component>
+    <Component class="javax.swing.JTextField" name="cell2jTextField">
+    </Component>
+    <Component class="javax.swing.JTextField" name="mail1jTextField">
+    </Component>
+    <Component class="javax.swing.JTextField" name="mail2jTextField">
+    </Component>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTextArea" name="notejTextArea">
+          <Properties>
+            <Property name="columns" type="int" value="20"/>
+            <Property name="rows" type="int" value="5"/>
+            <Property name="disabledTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="0" type="rgb"/>
+            </Property>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JButton" name="salvajButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Salva"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="salvajButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="cancellajButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cancella"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancellajButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="professionistajLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Professionista?"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="professionistajCheckBox">
+    </Component>
+    <Component class="javax.swing.JLabel" name="campiObbligatorijLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="* Campi obbligatori"/>
+      </Properties>
+    </Component>
+  </SubComponents>
+</Form>

@@ -1,15 +1,7 @@
-/*
- * MSAccessArtistaDAO.java
- *
- * Created on 14 ottobre 2007, 18.22
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
 package msaccessimpl;
 
 import abstractlayer.Artista;
-import daorules.ArtistaDAO;
+import daoabstract.ArtistaDAO;
 import exceptions.ChiavePrimariaException;
 import exceptions.RecordCorrelatoException;
 import exceptions.RecordGiaPresenteException;
@@ -18,23 +10,26 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import utilities.DefaultComparator;
 
 /**
- *
+ * Implementazione dell'interfaccia ArtistaDAO per MS Access.
  * @author Marco Celesti
  */
 public class MSAccessArtistaDAO implements ArtistaDAO {
 
     private static Connection connection;
     private static MSAccessArtistaDAO msAccessArtistaDao;
+    private DefaultComparator<Artista> defaultComparator = new DefaultComparator<Artista>();
 
     /**
-     * Costruttore di MSAccessArtistaDAO.
+     * Costruttore privato di MSAccessArtistaDAO.
      */
-    public MSAccessArtistaDAO() {
+    private MSAccessArtistaDAO() {
         MSAccessArtistaDAO.connection = MSAccessDAOFactory.connection;
     }
 
@@ -55,25 +50,32 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
      * @throws exceptions.RecordGiaPresenteException se l'artista è già presente nel DB
      * @throws exceptions.ChiavePrimariaException se la chiave primaria non è valida
      */
+    @Override
     public void insertArtista(Artista artista) throws RecordGiaPresenteException,
             ChiavePrimariaException {
-        int codArt = artista.getCodiceArtista();
-        if (codArt <= 0) {
-            throw new ChiavePrimariaException("CodiceArtista deve essere positivo non nullo.");
-        }
-        if (artistaExists(codArt)) {
-            throw new RecordGiaPresenteException("CodiceArtista già presente in archivio");
+        int codiceArtista = artista.getCodiceArtista();
+        if (artistaExists(codiceArtista)) {
+            throw new RecordGiaPresenteException("Codice artista " + codiceArtista + " già presente in archivio");
         }
         String cognome = artista.getCognome();
         String nome = artista.getNome();
         String noteBio = artista.getNoteBiografiche();
         try {
-            PreparedStatement pstmt =
-                    connection.prepareStatement("INSERT INTO Artista values (?,?,?,?)");
-            pstmt.setInt(1, codArt);
-            pstmt.setString(2, cognome);
-            pstmt.setString(3, nome);
-            pstmt.setString(4, noteBio);
+            PreparedStatement pstmt;
+            if (codiceArtista == -1) {
+                pstmt =
+                        connection.prepareStatement("INSERT INTO Artista (Cognome, Nome, NoteBiografiche) values (?,?,?)");
+                pstmt.setString(1, cognome);
+                pstmt.setString(2, nome);
+                pstmt.setString(3, noteBio);
+            } else {
+                pstmt =
+                        connection.prepareStatement("INSERT INTO Artista (CodiceArtista, Cognome, Nome, NoteBiografiche) values (?,?,?,?)");
+                pstmt.setInt(1, codiceArtista);
+                pstmt.setString(2, cognome);
+                pstmt.setString(3, nome);
+                pstmt.setString(4, noteBio);
+            }
             pstmt.executeUpdate();
             pstmt.close();
             makePersistent();
@@ -89,6 +91,7 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
      * @throws exceptions.RecordNonPresenteException se l'artista non è presente sul DB
      * @throws exceptions.RecordCorrelatoException se l'artista ha Opere correlate
      */
+    @Override
     public void deleteArtista(int codiceArtista) throws RecordNonPresenteException,
             RecordCorrelatoException {
         try {
@@ -99,7 +102,7 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
             pstmt.close();
             // count contiene 1 se la cancellazione è avvenuta con successo
             if (count == 0) {
-                throw new RecordNonPresenteException("CodiceArtista non presente in archivio");
+                throw new RecordNonPresenteException("Codice artista " + codiceArtista + " non presente in archivio");
             }
             makePersistent();
         } catch (SQLException ex) {
@@ -111,6 +114,7 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
      * Implementazione del metodo definito dall'interfaccia.
      * @throws exceptions.RecordCorrelatoException se un artista ha Opere correlate
      */
+    @Override
     public void deleteAllArtisti() throws RecordCorrelatoException {
         try {
             PreparedStatement pstmt =
@@ -129,9 +133,10 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
      * @return l'artista trovato
      * @throws exceptions.RecordNonPresenteException s la ricerca dà esito negativo.
      */
+    @Override
     public Artista findArtista(int codiceArtista) throws RecordNonPresenteException {
         if (!artistaExists(codiceArtista)) {
-            throw new RecordNonPresenteException("CodiceArtista non presente in archivio");
+            throw new RecordNonPresenteException("Codice artista " + codiceArtista + " non presente in archivio");
         }
         Artista artista = new Artista();
         try {
@@ -145,6 +150,7 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
                 artista.setNome(rs.getString("Nome"));
                 artista.setNoteBiografiche(rs.getString("NoteBiografiche"));
             }
+            rs.close();
             pstmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE,
@@ -158,10 +164,11 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
      * @param artista l'artista da aggiornare
      * @throws exceptions.RecordNonPresenteException se l'artista non è presente in archivio
      */
+    @Override
     public void updateArtista(Artista artista) throws RecordNonPresenteException {
-        int codArt = artista.getCodiceArtista();
-        if (!artistaExists(codArt)) {
-            throw new RecordNonPresenteException("CodiceArtista non presente in archivio");
+        int codiceArtista = artista.getCodiceArtista();
+        if (!artistaExists(codiceArtista)) {
+            throw new RecordNonPresenteException("Codice artista " + codiceArtista + " non presente in archivio");
         }
         String cognome = artista.getCognome();
         String nome = artista.getNome();
@@ -169,7 +176,7 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
         try {
             PreparedStatement pstmt =
                     connection.prepareStatement("UPDATE Artista SET Cognome = ?, Nome = ?, NoteBiografiche = ? WHERE CodiceArtista = ?");
-            pstmt.setInt(4, codArt);
+            pstmt.setInt(4, codiceArtista);
             pstmt.setString(1, cognome);
             pstmt.setString(2, nome);
             pstmt.setString(3, noteBio);
@@ -186,6 +193,7 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
      * Implementazione del metodo definito dall'interfaccia.
      * @return il vettore contenente gli artisti presenti su DB
      */
+    @Override
     public Vector<Artista> findAllArtisti() {
         Vector<Artista> v = new Vector<Artista>();
         try {
@@ -200,11 +208,13 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
                 artista.setNoteBiografiche(rs.getString("NoteBiografiche"));
                 v.add(artista);
             }
+            rs.close();
             pstmt.close();
         } catch (SQLException ex) {
             Logger.getLogger(MSAccessArtistaDAO.class.getName()).log(Level.SEVERE,
                     null, ex);
         }
+        Collections.sort(v, defaultComparator);
         return v;
     }
 
@@ -212,7 +222,6 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
      * Determina se un artista si trova su DB, dato il suo codice.
      * @param codiceArtista il codice dell'artista da ricercare
      * @return true se l'artista esiste
-     *         false altrimenti
      */
     private boolean artistaExists(int codiceArtista) {
         int codiceReale = -1;
@@ -224,6 +233,8 @@ public class MSAccessArtistaDAO implements ArtistaDAO {
             if (rs.next()) {
                 codiceReale = rs.getInt("CodiceArtista");
             }
+            rs.close();
+            pstmt.close();
             if (codiceReale != -1) {
                 return true;
             } else {

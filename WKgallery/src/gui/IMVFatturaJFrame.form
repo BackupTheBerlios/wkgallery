@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.6" maxVersion="1.6" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
+    <Property name="resizable" type="boolean" value="false"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="proformajLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="clientejLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="opereInseritejLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="ivajLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                              <Component id="opereInFatturajScrollPane" alignment="1" min="-2" pref="377" max="-2" attributes="1"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="numeroFatturajLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="dataFatturajLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="proformajCheckBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="numeroFatturajTextField" alignment="0" max="32767" attributes="1"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="giornojTextField" min="-2" pref="50" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="slash1jLabel" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="mesejTextField" min="-2" pref="50" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="slash2jLabel" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="annojTextField" min="-2" pref="100" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="clientejComboBox" alignment="0" max="32767" attributes="1"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <Component id="totalejLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="imponibilejLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="scontojLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="ivajTextField" alignment="1" pref="233" max="32767" attributes="1"/>
+                                  <Component id="imponibilejTextField" alignment="0" max="32767" attributes="1"/>
+                                  <Component id="totalejTextField" alignment="1" pref="233" max="32767" attributes="1"/>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="scontojTextField" pref="188" max="32767" attributes="1"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="applicaScontojButton" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="aggiungiOperajButton" min="-2" pref="49" max="-2" attributes="0"/>
+                          <Component id="rimuoviOperajButton" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="1">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="opereDisponibilijLabel" min="-2" max="-2" attributes="0"/>
+                                  <Component id="ricercajLabel" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="artistajComboBox" min="-2" pref="149" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="ricercajButton" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="resetjButton" alignment="1" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Component id="opereDisponibilijScrollPane" alignment="0" pref="391" max="32767" attributes="1"/>
+                      </Group>
+                  </Group>
+                  <Component id="salvajButton" alignment="0" min="-2" pref="105" max="-2" attributes="1"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="salvaStampajButton" min="-2" pref="105" max="-2" attributes="1"/>
+                      <EmptySpace pref="643" max="32767" attributes="0"/>
+                      <Component id="cancellajButton" min="-2" pref="105" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="numeroFatturajLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="numeroFatturajTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="ricercajLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="artistajComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="ricercajButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="dataFatturajLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="giornojTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="slash1jLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="mesejTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="slash2jLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="annojTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="opereDisponibilijLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="resetjButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="proformajLabel" min="-2" max="-2" attributes="0"/>
+                                  <Component id="proformajCheckBox" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="clientejLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="clientejComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="opereInseritejLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="opereInFatturajScrollPane" min="-2" pref="127" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="imponibilejLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="imponibilejTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="scontojLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="applicaScontojButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="scontojTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="ivajLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="ivajTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="totalejLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="totalejTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                              <Component id="salvajButton" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="opereDisponibilijScrollPane" min="-2" pref="374" max="-2" attributes="1"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="salvaStampajButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cancellajButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="222" max="-2" attributes="0"/>
+                      <Component id="aggiungiOperajButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="rimuoviOperajButton" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JLabel" name="numeroFatturajLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Numero fattura*:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="dataFatturajLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Data fattura*:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="clientejLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cliente*:"/>
+      </Properties>
+    </Component>
+    <Container class="javax.swing.JScrollPane" name="opereDisponibilijScrollPane">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTable" name="opereDisponibilijTable">
+          <Properties>
+            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor" postCode="opereDisponibilijTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);&#xa;&#xa;col = opereDisponibilijTable.getColumnModel().getColumn(0);&#xa;col.setPreferredWidth(40);&#xa;&#xa;col = opereDisponibilijTable.getColumnModel().getColumn(1);&#xa;col.setPreferredWidth(130);&#xa;&#xa;col = opereDisponibilijTable.getColumnModel().getColumn(2);&#xa;col.setPreferredWidth(130);&#xa;&#xa;col = opereDisponibilijTable.getColumnModel().getColumn(3);&#xa;col.setPreferredWidth(70);">
+              <Connection code="opereDisponibiliModel" type="code"/>
+            </Property>
+            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+              <TableColumnModel selectionModel="0"/>
+            </Property>
+            <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
+              <JTableSelectionModel selectionMode="0"/>
+            </Property>
+            <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+              <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="opereDisponibilijTableMouseReleased"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="opereDisponibiliModel.addColumn(&quot;ID&quot;);&#xa;opereDisponibiliModel.addColumn(&quot;Titolo&quot;);&#xa;opereDisponibiliModel.addColumn(&quot;Artista&quot;);&#xa;opereDisponibiliModel.addColumn(&quot;Prezzo&quot;);"/>
+          </AuxValues>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JTextField" name="numeroFatturajTextField">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="annojTextField">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="slash2jLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="/"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="mesejTextField">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="slash1jLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="/"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="giornojTextField">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="clientejComboBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="new javax.swing.DefaultComboBoxModel(clienti)" type="code"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="imponibilejLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Imponibile (&#x20ac;):"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="imponibilejTextField">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="scontojLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Sconto (%):"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="scontojTextField">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="scontojTextFieldKeyTyped"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="ivajLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="IVA 20% (&#x20ac;)"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="ivajTextField">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="totalejLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="TOTALE (&#x20ac;):"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="totalejTextField">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="proformajLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Fattura proforma:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="proformajCheckBox">
+    </Component>
+    <Component class="javax.swing.JLabel" name="opereInseritejLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Opere inserite in fattura:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="opereDisponibilijLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Opere disponibili in galleria:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="ricercajLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Ricerca opere per Artista:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="artistajComboBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="new javax.swing.DefaultComboBoxModel(artisti)" type="code"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="resetjButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Reset ricerca per Artista"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="resetjButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="salvaStampajButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Salva e stampa"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="salvaStampajButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="salvajButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Salva"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="salvajButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="cancellajButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cancella"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancellajButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="ricercajButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Ricerca"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ricercajButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="rimuoviOperajButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&gt;&gt;"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rimuoviOperajButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="aggiungiOperajButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&lt;&lt;"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="aggiungiOperajButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Container class="javax.swing.JScrollPane" name="opereInFatturajScrollPane">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTable" name="opereInFatturajTable">
+          <Properties>
+            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor" postCode="opereInFatturajTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);&#xa;&#xa;col = opereInFatturajTable.getColumnModel().getColumn(0);&#xa;col.setPreferredWidth(40);&#xa;&#xa;col = opereInFatturajTable.getColumnModel().getColumn(1);&#xa;col.setPreferredWidth(120);&#xa;&#xa;col = opereInFatturajTable.getColumnModel().getColumn(2);&#xa;col.setPreferredWidth(130);&#xa;&#xa;col = opereInFatturajTable.getColumnModel().getColumn(3);&#xa;col.setPreferredWidth(65);">
+              <Connection code="opereInFatturaModel" type="code"/>
+            </Property>
+            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+              <TableColumnModel selectionModel="0"/>
+            </Property>
+            <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
+              <JTableSelectionModel selectionMode="0"/>
+            </Property>
+            <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+              <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="opereInFatturajTableMouseReleased"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="opereInFatturaModel.addColumn(&quot;ID&quot;);&#xa;opereInFatturaModel.addColumn(&quot;Titolo&quot;);&#xa;opereInFatturaModel.addColumn(&quot;Artista&quot;);&#xa;opereInFatturaModel.addColumn(&quot;Prezzo&quot;);"/>
+          </AuxValues>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JButton" name="applicaScontojButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Applica"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="applicaScontojButtonActionPerformed"/>
+      </Events>
+    </Component>
+  </SubComponents>
+</Form>

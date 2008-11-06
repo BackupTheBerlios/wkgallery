@@ -21,10 +21,10 @@ public class Artista {
 
     /** 
      * Crea una nuova istanza di Artista inizializzandola ai parametri passati.
-     * @param codArt Codice dell'artista
-     * @param cognome Cognome
-     * @param nome Nome
-     * @param noteBio Note biografiche
+     * @param codArt codice dell'artista
+     * @param cognome ognome dell'artista
+     * @param nome nome dell'artista
+     * @param noteBio note biografiche dell'artista
      */
     public Artista(int codArt, String cognome, String nome, String noteBio) {
         this.codiceArtista = codArt; //Nel caso non fosse stato deciso esplicitamente, va gestito altrove
@@ -44,8 +44,8 @@ public class Artista {
     }
 
     /** 
-     * Metodo <i>get</i> per <code>codArt</code>. 
-     * @return Codice dell'artista
+     * Metodo <i>get</i> per <code>codiceArtista</code>. 
+     * @return il codice dell'artista
      */
     public int getCodiceArtista() {
         return codiceArtista;
@@ -53,7 +53,7 @@ public class Artista {
 
     /**
      * Metodo <i>set</i> per <code>codiceArtista</code>.
-     * @param codiceArtista Codice dell'artista
+     * @param codiceArtista il codice dell'artista
      */
     public void setCodiceArtista(int codiceArtista) {
         this.codiceArtista = codiceArtista;
@@ -61,7 +61,7 @@ public class Artista {
 
     /**
      * Metodo <i>get</i> per <code>cognome</code>.
-     * @return Cognome
+     * @return il cognome dell'artista
      */
     public String getCognome() {
         return cognome;
@@ -69,7 +69,7 @@ public class Artista {
 
     /**
      * Metodo <i>set</i> per <code>cognome</code>.
-     * @param cognome Cognome
+     * @param cognome il cognome dell'artista
      */
     public void setCognome(String cognome) {
         this.cognome = cognome;
@@ -77,7 +77,7 @@ public class Artista {
 
     /**
      * Metodo <i>get</i> per <code>nome</code>.
-     * @return Nome
+     * @return il nome dell'artista
      */
     public String getNome() {
         return nome;
@@ -85,7 +85,7 @@ public class Artista {
 
     /**
      * Metodo <i>set</i> per <code>nome</code>.
-     * @param nome Nome
+     * @param nome il nome dell'artista
      */
     public void setNome(String nome) {
         this.nome = nome;
@@ -93,7 +93,7 @@ public class Artista {
 
     /**
      * Metodo <i>get</i> per <code>noteBio</code>.
-     * @return Note biografiche dell'artista
+     * @return le note biografiche dell'artista
      */
     public String getNoteBiografiche() {
         return noteBiografiche;
@@ -101,9 +101,25 @@ public class Artista {
 
     /**
      * Metodo <i>set</i> per <code>noteBio</code>.
-     * @param noteBiografiche Note biografiche dell'artista
+     * @param noteBiografiche le note biografiche dell'artista
      */
     public void setNoteBiografiche(String noteBiografiche) {
         this.noteBiografiche = noteBiografiche;
+    }
+    
+    @Override
+    public String toString() {
+        return this.cognome + " " + this.nome;
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Artista) {
+            Artista a = (Artista) o;
+            if (a.getCodiceArtista() == this.codiceArtista) {
+                return true;
+            }
+        }
+        return false;
     }
 }

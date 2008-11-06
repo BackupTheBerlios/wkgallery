@@ -7,20 +7,25 @@ package exceptions;
 import java.sql.SQLException;
 
 /**
- *
+ * Eccezione per violazioni di integrità referenziali.
  * @author Marco Celesti
  */
 public class RecordCorrelatoException extends SQLException {
 
     /**
-     * Creates a new instance of <code>RecordCorrelatoException</code> without detail message.
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
+     * Crea una nuova istanza di <code>RecordCorrelatoException</code> senza messaggi di dettaglio.
      */
     public RecordCorrelatoException() {
     }
 
     /**
-     * Constructs an instance of <code>RecordCorrelatoException</code> with the specified detail message.
-     * @param msg the detail message.
+     * Crea una nuova istanza di <code>RecordCorrelatoException</code> con il messaggio di dettaglio specificato.
+     * @param msg il messaggio di dettaglio
      */
     public RecordCorrelatoException(String msg) {
         super(msg);
